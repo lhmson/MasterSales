@@ -1,0 +1,401 @@
+﻿<Page x:Class="MasterSalesDemo.View.QuanLyNhanSu_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MasterSalesDemo.View"
+      mc:Ignorable="d" 
+      
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      
+      d:DesignHeight="450" d:DesignWidth="800"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="18"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        DataContext="{StaticResource QuanLyNhanSuVM}"
+      
+      Name="QuanLyNhanSu"
+      Title="QuanLyNhanSu_Page">
+
+    <Grid>
+        <materialDesign:DialogHost IsOpen="{Binding DialogOpen}" BorderBrush="{DynamicResource MaterialDesignDivider}">
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Vertical" Margin="15">
+                        <materialDesign:PackIcon Kind="CheckCircleOutline" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="18" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Center"/>
+                        <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <materialDesign:Card Margin="5"
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8">
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20">QUẢN LÝ NHÂN SỰ</TextBlock>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="35"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <materialDesign:Card Height="35"
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="5">
+                                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" Text="Thông tin"></TextBlock>
+                            </materialDesign:Card>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <ComboBox x:Name="cbbChooseList" SelectedIndex="{Binding SelectedIndexCbb}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding CbbSelectionChangedCommand}"
+                                                   CommandParameter="{Binding ElementName=cbbChooseList}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate >
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                                <ComboBoxItem>Danh sách người dùng</ComboBoxItem>
+                                <ComboBoxItem>Danh sách phân quyền</ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <materialDesign:PopupBox Visibility="{Binding Visibility_1}"  HorizontalAlignment="Right" PopupContent="{Binding Error1}" >
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Foreground="Red" Kind="Error" />
+                                    </materialDesign:PopupBox.ToggleContent>
+                                </materialDesign:PopupBox>
+                            </Grid>
+                            <Grid Grid.Column="0">
+                                <TextBox x:Name="txtTenDangNhap"   materialDesign:HintAssist.Hint="Tên đăng nhập"
+                         Visibility="{Binding VisibilityOfAdd}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         Foreground="{StaticResource SecondaryAccentBrush}" 
+                         VerticalAlignment="Center"
+                         Text="{Binding TenDangNhap, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                         ToolTip="Error"/>
+                                <TextBox materialDesign:HintAssist.Hint="Mật khẩu" 
+                         Visibility="{Binding VisibilityOfEdit}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         Foreground="{StaticResource SecondaryAccentBrush}" 
+                         VerticalAlignment="Center"
+                         Text="{Binding MatKhau, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox materialDesign:HintAssist.Hint="Tên nhóm quyền"
+                         Visibility="{Binding VisibilityOfTenNhomQuyen}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         Foreground="{StaticResource SecondaryAccentBrush}" 
+                         VerticalAlignment="Center"
+                         Text="{Binding txtTenNhomQuyen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding 
+                                                    Key="Enter" 
+                                                    Command="{Binding ConfirmCommand}" 
+                                                    CommandParameter="{Binding Path=Text, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}" />
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <materialDesign:PopupBox Visibility="{Binding Visibility_2}"  HorizontalAlignment="Right" PopupContent="{Binding Error2}" >
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Foreground="Red" Kind="Error" />
+                                    </materialDesign:PopupBox.ToggleContent>
+                                </materialDesign:PopupBox>
+                            </Grid>
+                            <Grid Grid.Column="0">
+                                <TextBox materialDesign:HintAssist.Hint="Mật khẩu"
+                         Visibility="{Binding VisibilityOfAdd}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         Foreground="{StaticResource SecondaryAccentBrush}" 
+                         VerticalAlignment="Center"
+                         Text="{Binding MatKhau, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox materialDesign:HintAssist.Hint="Họ tên"
+                         Visibility="{Binding VisibilityOfEdit}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         Foreground="{StaticResource SecondaryAccentBrush}" 
+                         VerticalAlignment="Center"
+                         Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <materialDesign:PopupBox Visibility="{Binding Visibility_3}"  HorizontalAlignment="Right" PopupContent="{Binding Error3}" >
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Foreground="Red" Kind="Error" />
+                                    </materialDesign:PopupBox.ToggleContent>
+                                </materialDesign:PopupBox>
+                            </Grid>
+                            <Grid Grid.Column="0">
+                                <TextBox materialDesign:HintAssist.Hint="Họ tên"
+                         Visibility="{Binding VisibilityOfAdd}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         Foreground="{StaticResource SecondaryAccentBrush}" 
+                         VerticalAlignment="Center"
+                         Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                <ComboBox materialDesign:HintAssist.Hint="Chức vụ (tên nhóm quyền)" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          Visibility="{Binding VisibilityOfEdit}"
+                          ItemsSource="{Binding CbxTenNhom, Mode= TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Text ="{Binding TextTenNhom}" SelectedItem="{Binding SelectedTenNhom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Grid.ColumnSpan="2" Margin="0,12,0,11" >
+                                </ComboBox>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <materialDesign:PopupBox Visibility="{Binding Visibility_4}"  HorizontalAlignment="Right" PopupContent="{Binding Error4}" >
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Foreground="Red" Kind="Error" />
+                                    </materialDesign:PopupBox.ToggleContent>
+                                </materialDesign:PopupBox>
+                            </Grid>
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="27*"/>
+                                    <ColumnDefinition Width="293*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox materialDesign:HintAssist.Hint="Chức vụ (tên nhóm quyền)" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          Visibility="{Binding VisibilityOfAdd}"
+                          ItemsSource="{Binding CbxTenNhom, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"
+                          Text ="{Binding TextTenNhom}" SelectedItem="{Binding SelectedTenNhom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"
+                          Grid.ColumnSpan="2" Margin="0,12,0,11" >
+                                </ComboBox>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="6">
+
+                        </Grid>
+                        <Grid Grid.Row="7">
+
+                        </Grid>
+                        <Grid Grid.Row="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Margin="5,0,5,0" Content="Xác nhận"
+                            Width="150" Height="35" Command="{Binding ConfirmCommand}"/>
+                            </Grid>
+                            <Grid Grid.Column="0">
+                                <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                            Margin="5,0,5,0" Content="Hủy"
+                            Width="150" Height="35" Command="{Binding CancelCommand}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="2" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35" ></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="35"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <materialDesign:Card Height="35"
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="5" Margin="8,0,0,0">
+                            <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" Text="{Binding TenDanhSachNhom}"></TextBlock>
+                        </materialDesign:Card>
+                        <Grid Grid.Row="1" Margin="5">
+                            <materialDesign:Card Margin="0,0,0,8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="{Binding VisibilityOfListNguoiDung}" >
+                                <ListView x:Name="listViewNguoiDung" ItemsSource="{Binding ListNhanVien}"
+                          HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectedItem="{Binding SelectedItemNguoiDung, Mode=TwoWay}" FontSize="18" SelectionMode="Single" Margin="9,0,8,0">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Width="150" Header="Tên đăng nhập" DisplayMemberBinding="{Binding TenDangNhap}" />
+                                            <GridViewColumn Width="150" Header="Mật khẩu" DisplayMemberBinding="{Binding MatKhau}"/>
+                                            <GridViewColumn Width="260" Header="Họ tên" DisplayMemberBinding="{Binding HoTen}"/>
+                                            <GridViewColumn Header="Chức vụ (nhóm quyền)" DisplayMemberBinding="{Binding TenNhom}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </materialDesign:Card>
+                            <materialDesign:Card Margin="5,5,5,8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="{Binding VisibilityOfListPhanQuyen}" >
+                                <ListView x:Name="listViewPhanQuyen" ItemsSource="{Binding ListPhanQuyen, Mode= TwoWay}"
+                          HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedPhanQuyen, Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="18" SelectionMode="Single" Margin="8,0">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="FontSize" Value="18" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Nhóm quyền" DisplayMemberBinding="{Binding TenNhomQuyen}" Width="200" />
+
+                                            <GridViewColumn Header="Nhập hàng" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox HorizontalAlignment="Center" IsChecked ="{Binding chkNhapHang}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Header="Kiểm duyệt nhập hàng" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox HorizontalAlignment="Center" IsChecked ="{Binding chkKiemDuyetNhapHang}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Header="Bán hàng" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkBanHang}" IsEnabled="{Binding EnabledCheckBox}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Header="Kiểm duyệt xuất hàng"  >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkKiemDuyetXuatHang}" IsEnabled="{Binding EnabledCheckBox}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            
+                                            <GridViewColumn Header="Tra cứu kho" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkTraCuu}"  IsEnabled="{Binding EnabledCheckBox}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Header="Báo cáo doanh số" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkBCDS}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Header="Báo cáo tồn kho" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkBCTK}" IsEnabled="{Binding EnabledCheckBox}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Header="Quản lí nhân sự" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkQLNS}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </materialDesign:Card>
+                        </Grid>
+                        <Grid Grid.Row="2" HorizontalAlignment="Right">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="2" HorizontalAlignment="Right">
+                                <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Margin="5,0,5,0" Content="Thêm" HorizontalAlignment="Center"
+                            Width="150" Height="35"
+                            Command="{Binding AddNguoiDungCommand}"/>
+                            </Grid>
+                            <Grid Grid.Column="1" HorizontalAlignment="Right">
+                                <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Margin="5,0,5,0" Content="Sửa" HorizontalAlignment="Center"
+                            Width="150" Height="35"
+                            Command="{Binding EditNguoiDungCommand}"/>
+                            </Grid>
+                            <Grid Grid.Column="0" HorizontalAlignment="Right">
+                                <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Margin="5,0,5,0" Content="Xóa" HorizontalAlignment="Center"
+                            Width="150" Height="35"
+                            Command="{Binding DeleteNguoiDungKCommand}" Background="#FFD32F2F" BorderBrush="#FFD32F2F"/>
+                            </Grid>
+                        </Grid>
+
+                        <!--<TextBlock VerticalAlignment="Top"
+                       Text="abc"
+                       TextAlignment="Center"
+                       FontSize="30"
+                       TextWrapping="WrapWithOverflow"/>-->
+                    </Grid>
+                </Grid>
+            </Grid>
+        </materialDesign:DialogHost>
+    </Grid>
+</Page>

@@ -1,0 +1,89 @@
+﻿<Page x:Class="MasterSalesDemo.View.CaiDatKhac_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MasterSalesDemo.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="18"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        DataContext="{StaticResource CaiDatKhacVM}"
+      
+      Name="this_"
+      Title="Cai Dat Khac">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <materialDesign:Card Margin="5"
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8">
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20">THÔNG TIN PHẦN MỀM</TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Row="1" Margin="5">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Cám ơn bạn vì đã lựa chọn sản phẩm" HorizontalAlignment="Center" LineHeight="26" FontSize="36" Foreground="{StaticResource PrimaryHueDarkBrush}" FontWeight="Bold"></TextBlock>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2" Margin="5">
+            <StackPanel Orientation="Vertical" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto">
+                <materialDesign:Card
+  Background="{DynamicResource MaterialDesignBackground}">
+                    <StackPanel>
+                        <Expander HorizontalAlignment="Stretch" Header="Tên sản phẩm" FontSize="18">
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock TextWrapping="Wrap" LineHeight="30" Text="Phần mềm quản lý kinh doanh Master Sales - Master Sales Management System" FontSize="18" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card
+  Background="{DynamicResource MaterialDesignBackground}">
+                    <StackPanel>
+                        <Expander HorizontalAlignment="Stretch" Header="Tổng quan sản phẩm" FontSize="18">
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock TextWrapping="Wrap" LineHeight="30" Text="Phần mềm sử dụng trong hệ thống công ty vừa và nhỏ để quản lí nhân viên cũng như kinh doanh một cách tự động với các nghiệp vụ được phân chia rõ ràng, đảm bảo tính đúng đắn, tiện dụng, an toàn, hiệu quả, đồng thời có thể thay đổi linh hoạt nâng cấp theo ý muốn của quản trị viên. Chúng tôi luôn mong muốn đưa đến sản phẩm tốt nhất cho bạn" FontSize="18" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card
+  Background="{DynamicResource MaterialDesignBackground}">
+                    <StackPanel>
+                        <Expander HorizontalAlignment="Stretch" Header="Liên hệ nhóm tác giả" FontSize="18">
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock TextWrapping="Wrap" LineHeight="30" Text="Phần mềm được xây dựng bởi nhóm thành viên gồm:" FontSize="18" HorizontalAlignment="Left"/>
+                                    <TextBlock TextWrapping="Wrap" LineHeight="30" Text="+ Lê Hoàng Minh Sơn" FontSize="18" HorizontalAlignment="Left"/>
+                                    <TextBlock TextWrapping="Wrap" LineHeight="30" Text="+ Phạm Liên Sanh" FontSize="18" HorizontalAlignment="Left"/>
+                                    <TextBlock TextWrapping="Wrap" LineHeight="30" Text="+ Ngô Công Hậu" FontSize="18" HorizontalAlignment="Left"/>
+                                    <TextBlock TextWrapping="Wrap" LineHeight="30" Text="+ Huỳnh Thị Kim Thảo" FontSize="18" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </materialDesign:Card>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

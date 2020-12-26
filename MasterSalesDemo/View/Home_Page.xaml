@@ -1,0 +1,120 @@
+﻿<Page x:Class="MasterSalesDemo.View.Home_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:local="clr-namespace:MasterSalesDemo.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="628" d:DesignWidth="1372"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="20"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        DataContext="{StaticResource HomeVM}"
+      
+      Name="Home"
+      Title="Home Page">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="8" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13">
+            <materialDesign:Card
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8">
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">TRANG CHỦ</TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Margin="12,0" Grid.Row="3" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="3">
+            <materialDesign:Card>
+                <TextBlock Text="{Binding SL_PhieuNhap}" FontSize="128" FontWeight="ExtraBlack" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DD000000"></TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Margin="8,8,8,0" Grid.Row="2" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="3" >
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5">
+                <materialDesign:Card.Background>
+                    <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+                        <GradientStop Color="{StaticResource Primary300}" Offset="0"/>
+                        <GradientStop Color="{StaticResource Primary900}" Offset="1"/>
+                    </LinearGradientBrush>
+                </materialDesign:Card.Background>
+
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF" FontSize="24" Margin="100,0">
+                            Số phiếu mua hàng chưa duyệt
+                </TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Margin="12,0" Grid.Row="3" Grid.RowSpan="4" Grid.Column="5" Grid.ColumnSpan="3">
+            <materialDesign:Card>
+                <TextBlock Text="{Binding SL_PhieuDN}" FontSize="128" FontWeight="ExtraBlack" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DD000000"></TextBlock>
+            </materialDesign:Card>
+        </Grid>
+
+        <Grid Margin="8,8,8,0" Grid.Row="2" Grid.RowSpan="1" Grid.Column="5" Grid.ColumnSpan="3" >
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5">
+                <materialDesign:Card.Background>
+                    <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+                        <GradientStop Color="{StaticResource Primary300}" Offset="0"/>
+                        <GradientStop Color="{StaticResource Primary900}" Offset="1"/>
+                    </LinearGradientBrush>
+                </materialDesign:Card.Background>
+                
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF" FontSize="24" Margin="64,0">
+                            Số phiếu đề nghị xuất hàng chưa duyệt
+                </TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Margin="12,0" Grid.Row="3" Grid.RowSpan="4" Grid.Column="9" Grid.ColumnSpan="3">
+            <materialDesign:Card>
+                <TextBlock Text="{Binding SL_HD}" FontSize="128" FontWeight="ExtraBlack" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DD000000"></TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Margin="8,8,8,0" Grid.Row="2" Grid.RowSpan="1" Grid.Column="9" Grid.ColumnSpan="3" >
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5">
+                <materialDesign:Card.Background>
+                    <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+                        <GradientStop Color="{StaticResource Primary300}" Offset="0"/>
+                        <GradientStop Color="{StaticResource Primary900}" Offset="1"/>
+                    </LinearGradientBrush>
+                </materialDesign:Card.Background>
+
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF" FontSize="24" Margin="150,0">
+                            Số hóa đơn trong ngày
+                </TextBlock>
+
+            </materialDesign:Card>
+        </Grid>
+
+    </Grid>
+</Page>

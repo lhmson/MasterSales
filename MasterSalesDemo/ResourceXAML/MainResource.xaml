@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewmodel="clr-namespace:MasterSalesDemo.ViewModel"
+                    xmlns:local="clr-namespace:MasterSalesDemo.ResourceXAML;assembly=">
+    <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
+    <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
+    <viewmodel:QLTuyenDung_ViewModel x:Key="QLTuyenDungVM"></viewmodel:QLTuyenDung_ViewModel>
+    <viewmodel:QLLuongThuong_ViewModel x:Key="QLLuongThuongVM"></viewmodel:QLLuongThuong_ViewModel>
+    <viewmodel:QLLichSu_ViewModel x:Key="QLLichSuVM"></viewmodel:QLLichSu_ViewModel>
+    <viewmodel:QLKiNang_ViewModel x:Key="QLKiNangVM"></viewmodel:QLKiNang_ViewModel>
+    <viewmodel:BanHang_ViewModel x:Key="BanHangVM"></viewmodel:BanHang_ViewModel>
+    <viewmodel:TraCuu_ViewModel x:Key="TraCuuVM"></viewmodel:TraCuu_ViewModel>
+    <viewmodel:QLKhachHang_ViewModel x:Key="QLKhachHangVM"></viewmodel:QLKhachHang_ViewModel>
+    <viewmodel:BaoCaoDoanhSo_ViewModel x:Key="BaoCaoDoanhSoVM"></viewmodel:BaoCaoDoanhSo_ViewModel>
+    <viewmodel:ThayDoiQuyDinh_ViewModel x:Key="ThayDoiQuyDinhVM"></viewmodel:ThayDoiQuyDinh_ViewModel>
+    <viewmodel:QuanLyNhanSu_ViewModel x:Key="QuanLyNhanSuVM"></viewmodel:QuanLyNhanSu_ViewModel>
+    <viewmodel:Home_PageViewModel x:Key="HomeVM"></viewmodel:Home_PageViewModel>
+    <viewmodel:ControlBarViewModel x:Key="SelfControlVM"></viewmodel:ControlBarViewModel>
+    <viewmodel:CaiDatKhac_ViewModel x:Key="CaiDatKhacVM"></viewmodel:CaiDatKhac_ViewModel>
+</ResourceDictionary>
