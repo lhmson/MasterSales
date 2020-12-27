@@ -60,8 +60,8 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.25*"/>
                     <RowDefinition Height="0.5*"/>
-                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -76,7 +76,132 @@
                         <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">QUẢN LÝ LỊCH SỬ LÀM VIỆC</TextBlock>
                     </materialDesign:Card>
                 </Grid>
+
+                <Grid Margin="30,8,30,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="7">
+                    <materialDesign:Card 
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8">
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Danh sách nhân viên</TextBlock>
+                    </materialDesign:Card>
+                </Grid>
+
+                <Grid Margin="30,8,30,0" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="7">
+                    <materialDesign:Card 
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8">
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Quá trình làm việc</TextBlock>
+                    </materialDesign:Card>
+                </Grid>
+
+                <Grid Margin="30,8,30,20" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="6">
+                    <materialDesign:Card></materialDesign:Card>
+                </Grid>
+
+                <Grid Margin="30,8,30,20" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="7" Grid.RowSpan="6">
+                    <materialDesign:Card></materialDesign:Card>
+                </Grid>
+
+                <Grid Margin="50,8,20,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <ComboBox x:Name="cbbQuyDinh" materialDesign:HintAssist.Hint="Phòng ban"
+                          Visibility="{Binding VisibilityOfAdd}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding ListQuyDinh}"
+                          SelectedItem="{Binding SelectedQuyDinh}">
+                    </ComboBox>
+                </Grid>
+
+                <Grid Margin="0,8,100,8" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3">
+                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Tên nhân viên"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
+                                 Text="{Binding txtTenMH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="24,0,0,0" />
+                </Grid>
+
+                <Grid Margin="90,8,30,8" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="3">
+                    <Button Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=ThemHangWindow}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True"
+                         Content="Tra cứu" Height="48" FontSize="20" Margin="0,0,24,0" >
+                    </Button>
+                </Grid>
+
+                <Grid Margin="50,0,40,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="3">
+                    <ListView x:Name="listViewReport" ItemsSource="{Binding ListTK, Mode=TwoWay}" SelectionMode="Single"
+                              HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              HorizontalContentAlignment="Stretch" Margin="8,0" SelectedItem="{Binding SelectedTheKho, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="80" Header="STT" DisplayMemberBinding="{Binding STT}"/>
+                                <GridViewColumn Width="120" Header="Mã số" DisplayMemberBinding="{Binding MaThe}"/>
+                                <GridViewColumn Width="250" Header="Tên nhân viên" DisplayMemberBinding="{Binding MaMH}"/>
+                                <GridViewColumn Width="250" Header="Phòng ban" DisplayMemberBinding="{Binding TenMH}"/>
+                                <GridViewColumn Width="180" Header="Chức vụ" DisplayMemberBinding="{Binding NguoiLap}"/>
+                            </GridView>
+                        </ListView.View>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
+                                                   CommandParameter="{Binding ElementName=listDateDisplayed}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ListView>
+                </Grid>
+
+                <Grid Margin="50,8,40,20" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="1" Panel.ZIndex="1">
+                    <Image Source="..\Images\Staff.jpg" Margin="10"/>
+                </Grid>
                 
+                <Grid Margin="80,-10,30,20" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="3">
+                    <Button Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=ThemHangWindow}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True"
+                         Content="Chuyển chức vụ" Height="48" FontSize="20" Margin="0,0,24,0" >
+                    </Button>
+                </Grid>
+
+                <Grid Margin="80,-10,30,20" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3">
+                    <Button Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=ThemHangWindow}"
+                        Style="{StaticResource MaterialDesignFlatAccentBgButton}" IsDefault="True"
+                         Content="Thôi việc" Height="48" FontSize="20" Margin="0,0,24,0" >
+                    </Button>
+                </Grid>
+
+                <Grid Margin="80,-10,30,20" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3">
+                    <Button Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=ThemHangWindow}"
+                        Style="{StaticResource MaterialDesignFlatAccentBgButton}" IsDefault="True"
+                         Content="Thôi việc" Height="48" FontSize="20" Margin="0,0,24,0" >
+                    </Button>
+                </Grid>
+
+                <Grid Margin="-20,10,30,20" Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="4" Grid.RowSpan="1">
+                    <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock />
+                        <TextBlock Text="PHẠM LIÊN SANH" FontSize="25" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Nhân viên bán hàng - Phòng bán hàng" FontSize="22" FontWeight="Medium" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Hạn hợp đồng: 28/12/2021" FontSize="20" FontWeight="Thin" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="70,10,40,20" Grid.Row="4" Grid.Column="7" Grid.ColumnSpan="6" Grid.RowSpan="3">
+                    <ListView x:Name="listViewReport1" ItemsSource="{Binding ListTK, Mode=TwoWay}" SelectionMode="Single"
+                              HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              HorizontalContentAlignment="Stretch" Margin="8,0" SelectedItem="{Binding SelectedTheKho, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="60" Header="STT" DisplayMemberBinding="{Binding STT}"/>
+                                <GridViewColumn Width="100" Header="Chức vụ" DisplayMemberBinding="{Binding MaThe}"/>
+                                <GridViewColumn Width="130" Header="Ngày bắt đầu" DisplayMemberBinding="{Binding TenMH}"/>
+                                <GridViewColumn Width="130" Header="Phòng ban" DisplayMemberBinding="{Binding MaMH}"/>
+                                <GridViewColumn Width="130" Header="Ngày bắt đầu" DisplayMemberBinding="{Binding TenMH}"/>
+                                <GridViewColumn Width="130" Header="Ngày kết thúc" DisplayMemberBinding="{Binding NguoiLap}"/>
+                            </GridView>
+                        </ListView.View>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
+                                                   CommandParameter="{Binding ElementName=listDateDisplayed}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ListView>
+                </Grid>
             </Grid>
         </materialDesign:DialogHost>
     </Grid>

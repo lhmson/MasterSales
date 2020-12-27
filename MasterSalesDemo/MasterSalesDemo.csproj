@@ -505,6 +505,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\logo_mastersales.png" />
+    <Resource Include="Images\Staff.jpg" />
     <Resource Include="Images\tinylogo.png" />
   </ItemGroup>
   <ItemGroup>
