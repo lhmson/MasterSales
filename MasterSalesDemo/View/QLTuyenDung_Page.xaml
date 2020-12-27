@@ -55,11 +55,12 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.2*"/>
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -68,7 +69,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="0.75*"/>
                 </Grid.RowDefinitions>
-                <Grid Margin="8,8,8,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13">
+                <Grid Margin="8,8,8,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="12">
                     <materialDesign:Card 
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
@@ -76,7 +77,162 @@
                         <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">QUẢN LÝ TUYỂN DỤNG</TextBlock>
                     </materialDesign:Card>
                 </Grid>
-                
+
+                <!--Danh sách nhân viên-->
+
+                <Grid Margin="30,8,30,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6">
+                    <materialDesign:Card 
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8">
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Danh sách nhân viên</TextBlock>
+                    </materialDesign:Card>
+                </Grid>
+
+                <Grid Margin="30,8,30,20" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="5">
+                    <materialDesign:Card></materialDesign:Card>
+                </Grid>
+
+                <Grid Margin="30,8,30,20" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="7" Grid.RowSpan="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="104*"/>
+                        <ColumnDefinition Width="88*"/>
+                        <ColumnDefinition Width="433*"/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:Card Grid.ColumnSpan="3" Margin="0,0,0.6,0"></materialDesign:Card>
+                </Grid>
+
+                <Grid Margin="50,8,20,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <ComboBox x:Name="cbbPhongBan" materialDesign:HintAssist.Hint="Phòng ban"
+                          Visibility="{Binding VisibilityOfAdd}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding ListPhongBan}"
+                          SelectedItem="{Binding SelectedPhongBan}">
+                    </ComboBox>
+                </Grid>
+
+                <Grid Margin="0,8,10,8" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
+                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Tên nhân viên"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
+                                 Text="{Binding txtTenNV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="24,0,0,0" />
+                </Grid>
+
+                <Grid Margin="10,8,30,8" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2">
+                    <Button Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=ThemHangWindow}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True"
+                         Content="Tra cứu" Height="48" FontSize="20" Margin="0,0,24,0" >
+                    </Button>
+                </Grid>
+
+                <Grid Margin="50,0,40,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="3">
+                    <ListView x:Name="listViewNhanVien" ItemsSource="{Binding ListNV, Mode=TwoWay}" SelectionMode="Single"
+                              HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              HorizontalContentAlignment="Stretch" Margin="8,0" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="80" Header="STT" DisplayMemberBinding="{Binding STT}"/>
+                                <GridViewColumn Width="180" Header="Tên" DisplayMemberBinding="{Binding TenNV}"/>
+                                <GridViewColumn Width="120" Header="Ngày sinh" DisplayMemberBinding="{Binding Ngaysinh}"/>
+                                <GridViewColumn Width="120" Header="Giới tính" DisplayMemberBinding="{Binding Gioitinh}"/>
+                                <GridViewColumn Width="180" Header="Trình độ" DisplayMemberBinding="{Binding Trinhdo}"/>
+                            </GridView>
+                        </ListView.View>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
+                                                   CommandParameter="{Binding ElementName=listDateDisplayed}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ListView>
+                </Grid>
+
+                <Grid Margin="80,-10,30,20" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Button Command="{Binding Themhopdong}" CommandParameter="{Binding ElementName=ThemHopDongWindow}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True"
+                         Content="Thên hợp đồng" Height="48" FontSize="20" Margin="0,0,24,0" >
+                    </Button>
+                </Grid>
+
+                <Grid Margin="80,-10,30,20" Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3">
+                    <Button Command="{Binding Loaihopdong}" CommandParameter="{Binding ElementName=LoaiHopDongWindow}"
+                        Style="{StaticResource MaterialDesignFlatAccentBgButton}" IsDefault="True"
+                         Content="Loại hợp đồng" Height="48" FontSize="20" Margin="0,0,24,0" >
+                    </Button>
+                </Grid>
+
+                <!--Thông tin cá nhân-->
+
+                <Grid Margin="30,8,30,0" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="6">
+                    <materialDesign:Card 
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8">
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Thông tin cá nhân</TextBlock>
+                    </materialDesign:Card>
+                </Grid>
+
+                <Grid Margin="30,20,30,0" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="5" >
+                    <TextBox Text="{Binding TenNV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên nhân viên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,15"/>
+                </Grid>
+
+                <Grid Margin="30,20,0,0" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="4" HorizontalAlignment="Left">
+                    <StackPanel Visibility="{Binding VisibilityTuNgayDenNgay}" Orientation="Horizontal" Margin="20,0,0,0">
+                        <DatePicker x:Name="Ngaysinh" Width="200" materialDesign:HintAssist.Hint="Ngày sinh"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
+                            SelectedDateFormat="Short" Margin="0,0,30,0" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedDateChanged">
+                                    <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
+                                               CommandParameter="{Binding ElementName=startDate}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </DatePicker>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="30,20,90,0"  Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="3" >
+                    <ComboBox materialDesign:HintAssist.Hint="Giới tính"
+                          Visibility="{Binding VisibilityOfAdd}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding ListQuyDinh}"
+                          SelectedItem="{Binding SelectedQuyDinh}">
+                    </ComboBox>
+                </Grid>
+
+                <Grid Margin="30,20,30,0" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="5" >
+                    <TextBox Text="{Binding TenTD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên trình độ" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,15"/>
+                </Grid>
+
+                <Grid Margin="30,20,0,0" Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="4" HorizontalAlignment="Left">
+                    <StackPanel Visibility="{Binding VisibilityNgayketthuc}" Orientation="Horizontal" Margin="20,0,0,0">
+                        <DatePicker Width="200" materialDesign:HintAssist.Hint="Ngày kết thúc"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
+                            SelectedDateFormat="Short" Margin="0,0,30,0" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedDateChanged">
+                                    <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
+                                               CommandParameter="{Binding ElementName=startDate}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </DatePicker>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="80,-10,30,20" Grid.Row="8" Grid.Column="6" Grid.ColumnSpan="3">
+                    <Button Command="{Binding Themnhanvien}" CommandParameter="{Binding ElementName=ThemNhanVienWindow}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True"
+                         Content="Thêm nhân viên" Height="48" FontSize="20" Margin="0,0,24,0" >
+                    </Button>
+                </Grid>
+
+                <Grid Margin="80,-10,30,20" Grid.Row="7" Grid.Column="9" Grid.ColumnSpan="3">
+                    <Button Command="{Binding Luuthaydoi}" CommandParameter="{Binding ElementName=Window}"
+                        Style="{StaticResource MaterialDesignFlatAccentBgButton}" IsDefault="True"
+                         Content="Lưu thay đổi" Height="48" FontSize="20" Margin="0,0,24,0" >
+                    </Button>
+                </Grid>
             </Grid>
         </materialDesign:DialogHost>
     </Grid>
