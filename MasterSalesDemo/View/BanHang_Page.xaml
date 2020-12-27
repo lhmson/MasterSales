@@ -72,7 +72,119 @@
                         <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">THỰC HIỆN BÁN HÀNG</TextBlock>
                     </materialDesign:Card>
                 </Grid>
-                
+                <Grid Margin="8,8,8,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+                    <materialDesign:Card
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8">
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" Text="Hóa đơn" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Margin="8,8,8,0" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="9">
+                    <materialDesign:Card 
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="6">
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" Text= "Giỏ hàng" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="6">
+                    <materialDesign:Card>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Margin="8,8,8,16" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="9" Grid.RowSpan="6">
+                    <materialDesign:Card>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Margin="32,8,8,8" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                    <TextBox x:Name="MaSoTietKiemTB" KeyboardNavigation.TabIndex="0"
+                                 FontSize="20" materialDesign:HintAssist.Hint="Mã Hóa Đơn"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
+                                 Text="{Binding MaHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True" IsEnabled="True">
+                        <TextBox.InputBindings>
+                            <KeyBinding
+                                        Key="Enter"
+                                        Command="{Binding STKEnterKeyDown_Command}"
+                                        CommandParameter="{Binding Path=Text, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding MSTK_TextChangedCommand}"
+                                                               CommandParameter="{Binding MaSoTietKiemTB}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                </Grid>
+                <Grid Margin="8" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="1">
+                    <Button Width="56" Content="{materialDesign:PackIcon ClipboardArrowDown}" ToolTip="Lấy thông tin tự động"
+                                        Command="{Binding GetMaHDCommand}" Margin="0,19,0,0"/>
+                </Grid>
+                <Grid Margin="32,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4">
+                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Ngày Lập Hóa Đơn" IsEnabled="True"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center" IsReadOnly="True"
+                                 Text="{Binding NgayLapHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                </Grid>
+                <Grid Margin="32,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
+                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Nhân viên"
+							 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
+							 Text="{Binding TenNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True"
+							 IsReadOnly="True"/>
+                </Grid>
+                <Grid Margin="32,8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4">
+                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Tổng Tiền" IsEnabled="True"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
+                            Text="{Binding TongTien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True"/>
+                </Grid>
+                <Grid Margin="32,8" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4">
+                    <CheckBox IsChecked="{Binding CreateReport, Mode=TwoWay}"  Style="{StaticResource MaterialDesignCheckBox}" Content="Xuất phiếu" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Margin="8,8,32,32" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3">
+                    <Button Command="{Binding XacNhanCommand}" Style="{StaticResource MaterialDesignRaisedButton}"  Content="Xác nhận" FontSize="20" Height="48" />
+                </Grid>
+                <Grid Margin="32,8,8,32" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="1">
+                    <Button Command="{Binding HuyCommand}" Style="{StaticResource MaterialDesignRaisedButton}"
+                            Content="{materialDesign:PackIcon Kind=RotateLeft, Size=32}" FontSize="20" Height="48" />
+                </Grid>
+                <Grid Margin="8,8,-30,30" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="6" Grid.RowSpan="6">
+                    <ListView x:Name="listViewReport" ItemsSource="{Binding ListMatHang, Mode=TwoWay}" SelectionMode="Single"
+                              HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedMatHang, Mode=TwoWay}" Margin="8,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="70" Header="STT" DisplayMemberBinding="{Binding STT}"/>
+                                <GridViewColumn Width="120" Header="Mặt hàng" DisplayMemberBinding="{Binding MatHang}"/>
+                                <GridViewColumn Width="120" Header="Đơn vị" DisplayMemberBinding="{Binding DonVi}"/>
+                                <GridViewColumn Width="120" Header="Đơn giá" DisplayMemberBinding="{Binding DonGia}"/>
+                                <GridViewColumn Width="120" Header="Số lượng" DisplayMemberBinding="{Binding SoLuong}"/>
+                                <GridViewColumn Width="200" Header="Thành tiền" DisplayMemberBinding="{Binding ThanhTien}"/>
+                            </GridView>
+                        </ListView.View>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
+                                                   CommandParameter="{Binding ElementName=listDateDisplayed}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ListView>
+                </Grid>
+
+                <Grid Margin="40,10,30,25" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3">
+                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Đặt online" Height="60" FontSize="20" BorderBrush="#228B22" Background="#228B22"/>
+                </Grid>
+                <Grid Margin="40,10,30,10" Grid.Row="5" Grid.Column="10" Grid.ColumnSpan="3">
+                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Thêm hàng" Height="60" FontSize="20" BorderBrush="#FFA500" Background="#FFA500"/>
+                </Grid>
+                <Grid Margin="40,-2,30,2" Grid.Row="6" Grid.Column="10" Grid.ColumnSpan="3">
+                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Xóa hàng" Height="60" FontSize="20" BorderBrush="#FFD32F2F" Background="#FFD32F2F"/>
+                </Grid>
+                <Grid Margin="8" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="{materialDesign:PackIcon ArrowLeftBold, Size=64}" Foreground="#FF00967C" />
+                </Grid>
+
+                <Grid Margin="40,10,30,25" Grid.Row="2" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="3">
+                    <Image Source="..\Images\Shoppingcart.jpg" Margin="10"/>
+                </Grid>
             </Grid>
         </materialDesign:DialogHost>
     </Grid>

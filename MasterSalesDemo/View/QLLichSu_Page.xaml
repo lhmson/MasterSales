@@ -191,7 +191,7 @@
                                 <GridViewColumn Width="130" Header="Ngày bắt đầu" DisplayMemberBinding="{Binding TenMH}"/>
                                 <GridViewColumn Width="130" Header="Phòng ban" DisplayMemberBinding="{Binding MaMH}"/>
                                 <GridViewColumn Width="130" Header="Ngày bắt đầu" DisplayMemberBinding="{Binding TenMH}"/>
-                                <GridViewColumn Width="130" Header="Ngày kết thúc" DisplayMemberBinding="{Binding NguoiLap}"/>
+                                <GridViewColumn Width="10" Header="Ngày kết thúc" DisplayMemberBinding="{Binding NguoiLap}"/>
                             </GridView>
                         </ListView.View>
                         <i:Interaction.Triggers>
