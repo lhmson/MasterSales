@@ -50,7 +50,6 @@ namespace MasterSalesDemo.ViewModel
                 var exit = p as Window;
                 exit.Close();
             });
-        }
-        
+        }    
     }
 }

@@ -174,7 +174,7 @@
                     </materialDesign:Card>
                 </Grid>
 
-                <Grid Margin="30,20,30,0" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="5" >
+                <Grid Margin="30,20,30,0" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="6" >
                     <TextBox Text="{Binding TenNV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên nhân viên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,8"/>
                 </Grid>
 
@@ -203,7 +203,7 @@
                     </ComboBox>
                 </Grid>
 
-                <Grid Margin="30,20,30,0" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="5" >
+                <Grid Margin="30,20,30,0" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="6" >
                     <TextBox Text="{Binding TenTD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên trình độ" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,8"/>
                 </Grid>
 

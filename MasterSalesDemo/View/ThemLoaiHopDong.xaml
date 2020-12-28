@@ -85,20 +85,11 @@
         </Grid>
 
         <Grid Margin="8,8,0,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" >
-            <StackPanel Visibility="{Binding VisibilityTuNgayDenNgay}" Orientation="Horizontal" Margin="20,0,0,0">
-                <DatePicker x:Name="Ngaybatdau" Width="350" materialDesign:HintAssist.Hint="Ngày bắt đầu"
-                            HorizontalAlignment="Right"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                            SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,2,30,2.4" >
-                    <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectedDateChanged">
-                            <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
-                                               CommandParameter="{Binding ElementName=startDate}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
-                </DatePicker>
-            </StackPanel>
+            <ComboBox x:Name="cbbNhanVien" materialDesign:HintAssist.Hint="Thời hạn" Margin="16,0"
+                          Visibility="{Binding VisibilityOfAdd}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding ListPhongBan}"
+                          SelectedItem="{Binding SelectedPhongban}">
+            </ComboBox>
         </Grid>
 
         <Grid Margin="8,8,0,0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" >
@@ -113,21 +104,20 @@
                     Mode=TwoWay}" FontSize="16">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Mã nhà cung cấp" DisplayMemberBinding="{Binding MaNCC}"></GridViewColumn>
-                            <GridViewColumn Header="Tên nhà cung cấp" DisplayMemberBinding="{Binding TenNCC }"></GridViewColumn>
-                            <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
-                            <GridViewColumn Header="SDT" DisplayMemberBinding="{Binding SDT }"></GridViewColumn>
-                            <GridViewColumn Header="Fax" DisplayMemberBinding="{Binding Fax }"></GridViewColumn>
+                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding MaNCC}"></GridViewColumn>
+                            <GridViewColumn Header="Tên diện hợp đồng" DisplayMemberBinding="{Binding TenNCC }"></GridViewColumn>
+                            <GridViewColumn Header="Thời hạn" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
+                            <GridViewColumn Header="Lương cơ bản" DisplayMemberBinding="{Binding SDT }"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
         </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="9" Grid.ColumnSpan="2">
-            <Button  Command="{Binding AddNCCCommand}" Content="Thêm" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
+        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="10" Grid.ColumnSpan="2">
+            <Button Command="{Binding AddNCCCommand}" Content="Thêm" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
         </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="6" Grid.ColumnSpan="3">
-            <Button  Command="{Binding EditNCCCommand}" Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
+        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="8" Grid.ColumnSpan="2">
+            <Button  Command="{Binding EditNCCCommand}" Content="Sửa" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
 
         </Grid>
 

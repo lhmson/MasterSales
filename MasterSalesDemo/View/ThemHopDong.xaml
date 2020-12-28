@@ -69,7 +69,7 @@
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                   Padding="8">
-                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" Text="Thông tin hợp đồng" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="17" Text="Thông tin hợp đồng" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </materialDesign:Card>
         </Grid>
 
@@ -78,7 +78,7 @@
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                   Padding="8">
-                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" Text="Danh sách hợp đồng" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="17" Text="Danh sách hợp đồng" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </materialDesign:Card>
         </Grid>
 
@@ -150,7 +150,7 @@
 
         <Grid Margin="8,4,0,8" Grid.Row="2" Grid.Column="5">
             <Button Padding="0"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
-                            Command="{Binding ThemNhaSanXuatCommand}" IsEnabled="True"
+                            Command="{Binding OpenLoaiHopDongCommand}" IsEnabled="True"
                              CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Margin="0,0,16,0"     >
                 <materialDesign:PackIcon Kind="Add"/>
             </Button>
@@ -173,10 +173,10 @@
                 </ListView>
             </ScrollViewer>
         </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="10" Grid.ColumnSpan="2">
-            <Button  Command="{Binding AddNCCCommand}" Content="Thêm" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
+        <Grid Margin="25,8,8,0" Grid.Row="10" Grid.Column="9" Grid.ColumnSpan="3">
+            <Button  Command="{Binding AddNCCCommand}" Content="Thêm hợp đồng" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
         </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="7" Grid.ColumnSpan="3">
+        <Grid Margin="25,8,8,0" Grid.Row="10" Grid.Column="6" Grid.ColumnSpan="3">
             <Button  Command="{Binding EditNCCCommand}" Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
 
         </Grid>

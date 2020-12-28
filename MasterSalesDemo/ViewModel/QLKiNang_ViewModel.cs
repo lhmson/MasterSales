@@ -20,6 +20,34 @@ namespace MasterSalesDemo.ViewModel
 {
     public class QLKiNang_ViewModel : BaseViewModel
     {
+        public ICommand CloseWindowCommand { get; set; }
+        public ICommand OpenKyNangCommand { get; set; }
+        public ICommand OpenTrinhDoCommand { get; set; }
 
+        public QLKiNang_ViewModel()
+        {
+            OpenKyNangCommand = new AppCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                KyNang window = new KyNang();
+                window.ShowDialog();
+            });
+
+            OpenTrinhDoCommand = new AppCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                TrinhDo window = new TrinhDo();
+                window.ShowDialog();
+            });
+
+            CloseWindowCommand = new RelayCommand<object>((p) => { return p == null ? false : true; }, (p) => {
+                var exit = p as Window;
+                exit.Close();
+            });
+        }
     }
 }
