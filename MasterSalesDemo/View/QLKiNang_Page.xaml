@@ -73,7 +73,7 @@
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                   Padding="8">
-                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">QUẢN LÝ ĐÀO TẠO KĨ NĂNG</TextBlock>
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">QUẢN LÝ ĐÀO TẠO KỸ NĂNG</TextBlock>
                     </materialDesign:Card>
                 </Grid>
 
@@ -138,10 +138,9 @@
                 <Grid Margin="20,-10,20,20" Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="2">
                     <Button Command="{Binding Themkynang}" CommandParameter="{Binding ElementName=Window}"
                         Style="{StaticResource MaterialDesignFlatAccentBgButton}" IsDefault="True"
-                         Content="Không biết" Height="48" FontSize="20" Margin="0,0,24,0" >
+                         Content="Kỹ năng" Height="48" FontSize="20" Margin="0,0,24,0" >
                     </Button>
                 </Grid>
-
 
                 <!--Danh sách kỹ năng-->
 
@@ -187,7 +186,7 @@
                 <Grid Margin="20,-10,20,20" Grid.Row="7" Grid.Column="8" Grid.ColumnSpan="2">
                     <Button Command="{Binding Themkynang}" CommandParameter="{Binding ElementName=Window}"
                         Style="{StaticResource MaterialDesignFlatAccentBgButton}" IsDefault="True"
-                         Content="Thêm kỹ năng" Height="48" FontSize="20" Margin="0,0,24,0" >
+                         Content="Thêm" Height="48" FontSize="20" Margin="0,0,24,0" >
                     </Button>
                 </Grid>
 
@@ -198,7 +197,7 @@
                     </Button>
                 </Grid>
 
-                <Grid Margin="30,10,30,0" Grid.Row="8" Grid.Column="6" Grid.ColumnSpan="4" >
+                <Grid Margin="30,10,30,5" Grid.Row="8" Grid.Column="6" Grid.ColumnSpan="4" >
                     <TextBox Text="{Binding Tentrinhdo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Trình độ" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,0"/>
                 </Grid>
 

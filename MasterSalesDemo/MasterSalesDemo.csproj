@@ -283,6 +283,9 @@
     <Compile Include="View\ThemHopDong.xaml.cs">
       <DependentUpon>ThemHopDong.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ThemLoaiHopDong.xaml.cs">
+      <DependentUpon>ThemLoaiHopDong.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XuatHang_PrintPreview.xaml.cs">
       <DependentUpon>XuatHang_PrintPreview.xaml</DependentUpon>
     </Compile>
@@ -377,6 +380,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ThemHopDong.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ThemLoaiHopDong.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MasterSalesDemo.View"
         mc:Ignorable="d"
         Title="ThemHopDong" Height="450" Width="800"
-
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -14,9 +14,14 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}" 
-     
+        DataContext="{StaticResource QLTuyenDungVM}"
       FontFamily="{DynamicResource MaterialDesignFont}" WindowStyle="None" WindowStartupLocation="CenterScreen">
 
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding LostFocusPageCommand}" CommandParameter="{Binding ElementName=TuyenDung}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -51,34 +56,34 @@
                 <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">THÊM HỢP ĐỒNG</TextBlock>
             </materialDesign:Card>
         </Grid>
+
         <Grid Margin="8" Grid.Column="13" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button  HorizontalAlignment="Center" Padding="0"  VerticalAlignment="Center"
+            <Button HorizontalAlignment="Center" Padding="0"  VerticalAlignment="Center"
                             Command="{Binding CloseWindowCommand}" IsEnabled="True" Content="{materialDesign:PackIcon Kind=Close, Size=32}" Style="{StaticResource MaterialDesignFlatAccentButton}"
                              CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Foreground="White" Margin="0,0,0,4"     >
             </Button>
         </Grid>
+
         <Grid Margin="8,4,0,8" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6">
             <materialDesign:Card
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                   Padding="8">
-                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" Text="Thông tin nhà cung cấp" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" Text="Thông tin hợp đồng" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </materialDesign:Card>
         </Grid>
+
         <Grid Margin="8,4,8,8" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="6">
             <materialDesign:Card
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                   Padding="8">
-                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" Text="Danh sách nhà cung cấp" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" Text="Danh sách hợp đồng" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </materialDesign:Card>
         </Grid>
+
         <Grid Margin="8,4,0,8" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="6">
             <materialDesign:Card></materialDesign:Card>
-        </Grid>
-        <Grid Margin="8,8,0,8" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" >
-            <TextBox  Text="{Binding TenNCC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                     materialDesign:HintAssist.Hint="Tên nhà cung cấp" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,0"/>
         </Grid>
 
         <Grid Margin="8,8,0,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" >
@@ -89,41 +94,41 @@
             </ComboBox>
         </Grid>
 
-        <Grid Margin="10,20,10,0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-            <StackPanel Visibility="{Binding VisibilityTuNgayDenNgay}" Orientation="Horizontal" Margin="20,0,0,0">
-                <DatePicker x:Name="Ngaybatdau" Width="200" materialDesign:HintAssist.Hint="Ngày bắt đầu"
+        <Grid Margin="10,10,10,0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left">
+            <StackPanel Visibility="{Binding VisibilityNgayketthuc}" Orientation="Horizontal" Margin="15,0,0,0">
+                <DatePicker Width="158" materialDesign:HintAssist.Hint="Ngày kết thúc"
                             HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,0,30,0" >
-                    <!--<i:Interaction.Triggers>
+                            SelectedDateFormat="Short" Margin="0,0,30,0.2" >
+                    <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectedDateChanged">
                             <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
                                                CommandParameter="{Binding ElementName=startDate}"/>
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
+                    </i:Interaction.Triggers>
                 </DatePicker>
             </StackPanel>
         </Grid>
 
-        <Grid Margin="10,20,10,0" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-            <StackPanel Visibility="{Binding VisibilityTuNgayDenNgay}" Orientation="Horizontal" Margin="20,0,0,0">
-                <DatePicker x:Name="Ngayketthuc" Width="200" materialDesign:HintAssist.Hint="Ngày kết thúc"
+        <Grid Margin="10,10,10,0" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left">
+            <StackPanel Visibility="{Binding VisibilityTuNgayDenNgay}" Orientation="Horizontal" Margin="20,0,10,0">
+                <DatePicker x:Name="Ngayketthuc" Width="148" materialDesign:HintAssist.Hint="Ngày kết thúc"
                             HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,0,30,0" >
-                    <!--<i:Interaction.Triggers>
+                            SelectedDateFormat="Short" Margin="0,4,30,3.6" >
+                    <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectedDateChanged">
                             <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
                                                CommandParameter="{Binding ElementName=startDate}"/>
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
+                    </i:Interaction.Triggers>
                 </DatePicker>
             </StackPanel>
         </Grid>
 
-        <Grid Margin="8,4,0,8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5">
+        <Grid Margin="8,4,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5">
             <ComboBox Foreground="Black" Height="Auto" ItemsSource="{Binding NSX}" DisplayMemberPath="TenNSX"
                       FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
                       materialDesign:HintAssist.Hint="Loại hợp đồng" Margin="16,0,0,0">
@@ -138,12 +143,12 @@
             </ComboBox>
         </Grid>
 
-        <Grid Margin="8,8,0,8" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="6" >
-        <TextBox  Text="{Binding TenNCC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        <Grid Margin="8,8,0,0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" >
+            <TextBox  Text="{Binding TenNCC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      materialDesign:HintAssist.Hint="Lương cơ bản" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,0"/>
-    </Grid>
+        </Grid>
 
-    <Grid Margin="8,4,0,8" Grid.Row="5" Grid.Column="5">
+        <Grid Margin="8,4,0,8" Grid.Row="2" Grid.Column="5">
             <Button Padding="0"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
                             Command="{Binding ThemNhaSanXuatCommand}" IsEnabled="True"
                              CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Margin="0,0,16,0"     >
@@ -158,27 +163,23 @@
                     Mode=TwoWay}" FontSize="16">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Mã nhà cung cấp" DisplayMemberBinding="{Binding MaNCC}"></GridViewColumn>
-                            <GridViewColumn Header="Tên nhà cung cấp" DisplayMemberBinding="{Binding TenNCC }"></GridViewColumn>
-                            <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
-                            <GridViewColumn Header="SDT" DisplayMemberBinding="{Binding SDT }"></GridViewColumn>
-                            <GridViewColumn Header="Fax" DisplayMemberBinding="{Binding Fax }"></GridViewColumn>
+                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding MaNCC}"></GridViewColumn>
+                            <GridViewColumn Header="Tên hợp đồng" DisplayMemberBinding="{Binding TenNCC }"></GridViewColumn>
+                            <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
+                            <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding SDT }"></GridViewColumn>
+                            <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding Fax }"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
         </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="12" Grid.ColumnSpan="2">
+        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="10" Grid.ColumnSpan="2">
             <Button  Command="{Binding AddNCCCommand}" Content="Thêm" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
         </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="10" Grid.ColumnSpan="2">
+        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="7" Grid.ColumnSpan="3">
             <Button  Command="{Binding EditNCCCommand}" Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
 
         </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="7" Grid.Column="8" Grid.ColumnSpan="2"/>
-        <Grid Margin="8,8,8,0" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="3">
-            <Button  Command="{Binding AddNCCFromFileCommand}" Content="Thêm từ file" FontSize="16" Height="40" Margin="16,0"></Button>
 
-        </Grid>
     </Grid>
 </Window>

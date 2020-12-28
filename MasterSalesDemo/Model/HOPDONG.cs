@@ -16,7 +16,6 @@ namespace MasterSalesDemo.Model
     {
         public string id { get; set; }
         public string MaNV { get; set; }
-        public System.DateTime TenHD { get; set; }
         public System.DateTime NgayHD { get; set; }
         public System.DateTime NgayKT { get; set; }
         public string MaLoaiHD { get; set; }
