@@ -170,13 +170,13 @@
                 </Grid>
 
                 <Grid Margin="40,10,30,25" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3">
-                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Đặt online" Height="60" FontSize="20" BorderBrush="#228B22" Background="#228B22"/>
+                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Xem đặt online" Height="60" FontSize="20" BorderBrush="#228B22" Background="#228B22"/>
                 </Grid>
                 <Grid Margin="40,10,30,10" Grid.Row="5" Grid.Column="10" Grid.ColumnSpan="3">
-                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Thêm hàng" Height="60" FontSize="20" BorderBrush="#FFA500" Background="#FFA500"/>
+                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Thêm vào giỏ hàng" Height="60" FontSize="20" BorderBrush="#FFA500" Background="#FFA500"/>
                 </Grid>
                 <Grid Margin="40,-2,30,2" Grid.Row="6" Grid.Column="10" Grid.ColumnSpan="3">
-                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Xóa hàng" Height="60" FontSize="20" BorderBrush="#FFD32F2F" Background="#FFD32F2F"/>
+                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Bỏ ra giỏ hàng" Height="60" FontSize="20" BorderBrush="#FFD32F2F" Background="#FFD32F2F"/>
                 </Grid>
                 <Grid Margin="8" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label Content="{materialDesign:PackIcon ArrowLeftBold, Size=64}" Foreground="#FF00967C" />

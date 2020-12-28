@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QLKinhDoanhModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QLKinhDoanhModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BANGLAMTHEM">
           <Key>
             <PropertyRef Name="id" />
@@ -147,7 +147,6 @@
           </Key>
           <Property Name="id" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="MaNV" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="TenHD" Type="smalldatetime" Nullable="false" />
           <Property Name="NgayHD" Type="smalldatetime" Nullable="false" />
           <Property Name="NgayKT" Type="smalldatetime" Nullable="false" />
           <Property Name="MaLoaiHD" Type="varchar" MaxLength="20" Nullable="false" />
@@ -676,7 +675,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PHANQUYEN__MaChu__29221CFB">
+        <Association Name="FK__PHANQUYEN__MaChu__1F98B2C1">
           <End Role="CHUCNANG" Type="Self.CHUCNANG" Multiplicity="1" />
           <End Role="PHANQUYEN" Type="Self.PHANQUYEN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -688,7 +687,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PHANQUYEN__MaChu__2A164134">
+        <Association Name="FK__PHANQUYEN__MaChu__208CD6FA">
           <End Role="CHUCVU" Type="Self.CHUCVU" Multiplicity="1" />
           <End Role="PHANQUYEN" Type="Self.PHANQUYEN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -910,11 +909,11 @@
             <End Role="TRINHDO" EntitySet="TRINHDO" />
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
           </AssociationSet>
-          <AssociationSet Name="FK__PHANQUYEN__MaChu__29221CFB" Association="Self.FK__PHANQUYEN__MaChu__29221CFB">
+          <AssociationSet Name="FK__PHANQUYEN__MaChu__1F98B2C1" Association="Self.FK__PHANQUYEN__MaChu__1F98B2C1">
             <End Role="CHUCNANG" EntitySet="CHUCNANG" />
             <End Role="PHANQUYEN" EntitySet="PHANQUYEN" />
           </AssociationSet>
-          <AssociationSet Name="FK__PHANQUYEN__MaChu__2A164134" Association="Self.FK__PHANQUYEN__MaChu__2A164134">
+          <AssociationSet Name="FK__PHANQUYEN__MaChu__208CD6FA" Association="Self.FK__PHANQUYEN__MaChu__208CD6FA">
             <End Role="CHUCVU" EntitySet="CHUCVU" />
             <End Role="PHANQUYEN" EntitySet="PHANQUYEN" />
           </AssociationSet>
@@ -939,8 +938,7 @@
             <End Role="TuVanKH" EntitySet="TuVanKH" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QLKinhDoanhModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1117,7 +1115,6 @@
           </Key>
           <Property Name="id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaNV" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TenHD" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="NgayHD" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="NgayKT" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MaLoaiHD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
@@ -2111,7 +2108,6 @@
               <MappingFragment StoreEntitySet="HOPDONG">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-                <ScalarProperty Name="TenHD" ColumnName="TenHD" />
                 <ScalarProperty Name="NgayHD" ColumnName="NgayHD" />
                 <ScalarProperty Name="NgayKT" ColumnName="NgayKT" />
                 <ScalarProperty Name="MaLoaiHD" ColumnName="MaLoaiHD" />
