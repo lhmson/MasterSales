@@ -17,4 +17,5 @@
     <viewmodel:Home_PageViewModel x:Key="HomeVM"></viewmodel:Home_PageViewModel>
     <viewmodel:ControlBarViewModel x:Key="SelfControlVM"></viewmodel:ControlBarViewModel>
     <viewmodel:CaiDatKhac_ViewModel x:Key="CaiDatKhacVM"></viewmodel:CaiDatKhac_ViewModel>
+    <viewmodel:ChuyenChucVu_ViewModel x:Key="ChuyenChucVuVM"></viewmodel:ChuyenChucVu_ViewModel>
 </ResourceDictionary>

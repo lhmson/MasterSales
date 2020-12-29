@@ -19,10 +19,8 @@ namespace MasterSalesDemo.Model
         public string MatKhau { get; set; }
         public string Avatar { get; set; }
         public string MaNV { get; set; }
-        public string MaChucVu { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
-        public virtual CHUCVU CHUCVU { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
     }
 }

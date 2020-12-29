@@ -27,7 +27,7 @@ namespace MasterSalesDemo.Model
         public string HinhAnh { get; set; }
         public string MaNCC { get; set; }
         public string MaNhomMH { get; set; }
-        public decimal DonGia { get; set; }
+        public Nullable<decimal> DonGia { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

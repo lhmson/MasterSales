@@ -17,9 +17,9 @@ namespace MasterSalesDemo.Model
         public string id { get; set; }
         public string MaHD { get; set; }
         public string MaMH { get; set; }
-        public int SLMua { get; set; }
-        public decimal DonGia { get; set; }
-        public decimal TongTien { get; set; }
+        public Nullable<int> SLMua { get; set; }
+        public Nullable<decimal> DonGia { get; set; }
+        public Nullable<decimal> TongTien { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         public virtual HOADON HOADON { get; set; }

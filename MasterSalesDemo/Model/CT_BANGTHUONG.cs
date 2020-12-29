@@ -18,7 +18,7 @@ namespace MasterSalesDemo.Model
         public string MaThuong { get; set; }
         public string MaNV { get; set; }
         public string MaMucThuong { get; set; }
-        public decimal TienThuong { get; set; }
+        public Nullable<decimal> TienThuong { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         public virtual BANGTHUONG BANGTHUONG { get; set; }

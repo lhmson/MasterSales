@@ -17,9 +17,9 @@ namespace MasterSalesDemo.Model
         public string id { get; set; }
         public string MaPhieuDH { get; set; }
         public string MaMH { get; set; }
-        public int SLDat { get; set; }
-        public decimal DonGia { get; set; }
-        public decimal TongTien { get; set; }
+        public Nullable<int> SLDat { get; set; }
+        public Nullable<decimal> DonGia { get; set; }
+        public Nullable<decimal> TongTien { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         public virtual PHIEUDATHANG PHIEUDATHANG { get; set; }

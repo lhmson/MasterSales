@@ -38,6 +38,7 @@ namespace MasterSalesDemo.Model
         public string NoiSinh { get; set; }
         public string MaTrinhDo { get; set; }
         public Nullable<System.DateTime> NgayKetThuc { get; set; }
+        public string MaChucVu { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -46,6 +47,7 @@ namespace MasterSalesDemo.Model
         public virtual ICollection<BANGLUONGTL> BANGLUONGTLs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BANGTHUONG> BANGTHUONGs { get; set; }
+        public virtual CHUCVU CHUCVU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_BANGLAMTHEM> CT_BANGLAMTHEM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

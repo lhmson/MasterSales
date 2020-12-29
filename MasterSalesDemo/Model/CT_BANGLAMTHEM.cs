@@ -17,8 +17,8 @@ namespace MasterSalesDemo.Model
         public string id { get; set; }
         public string MaLamThem { get; set; }
         public string MaNV { get; set; }
-        public int SoBuoi { get; set; }
-        public decimal TienLamThem { get; set; }
+        public Nullable<int> SoBuoi { get; set; }
+        public Nullable<decimal> TienLamThem { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         public virtual BANGLAMTHEM BANGLAMTHEM { get; set; }

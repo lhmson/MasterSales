@@ -1,0 +1,117 @@
+﻿<Window x:Class="MasterSalesDemo.ChuyenChucVu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MasterSalesDemo"
+        mc:Ignorable="d"
+        
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="18"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        ResizeMode="NoResize"
+        WindowStyle="ThreeDBorderWindow"
+        WindowStartupLocation="CenterScreen"
+        Icon="./Images/PhiHanhGia.jpg"
+        
+        DataContext="{StaticResource ChuyenChucVuVM}"
+        
+        Name="ChuyenChucVuWindow"
+        Height="400" Width="800">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="411*"/>
+            <ColumnDefinition Width="119*"/>
+            <ColumnDefinition Width="64*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <Button Background="{StaticResource PrimaryHueDarkBrush}" Name="titleBtn" Content="Chuyển chức vụ"></Button>
+
+            <!--<UC:ControlBarUC Tag="{Binding Title, ElementName=loginWindow}"></UC:ControlBarUC>-->
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <materialDesign:Card Grid.Row="1" Width="500" Height="350" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                    <Grid >
+                        <Grid.Resources>
+                            <Style TargetType="Grid">
+                                <Setter Property="Margin" Value="15 5"></Setter>
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBox materialDesign:HintAssist.Hint="Tên nhân viên"
+                             Text="{Binding TenNhanVien}"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" IsEnabled="False"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <TextBox materialDesign:HintAssist.Hint="Chức vụ hiện tại"
+                             Text="{Binding ChucVu}"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" IsEnabled="False"/>
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="1" Command="{Binding XacNhanCommand}" CommandParameter="{Binding ElementName=ChuyenChucVuWindow}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True"
+                        Width="120" Content="XÁC NHẬN" Margin="4,0,0,0">
+                            </Button>
+                            <Button Grid.Column="0" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ChuyenChucVuWindow}"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                        Width="120" Content="THOÁT" Margin="0,0,4,0">
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="2" >
+                            <ComboBox x:Name="cbbQuyDin1" materialDesign:HintAssist.Hint="Chọn phòng ban"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding ListPhongBan}"
+                          SelectedItem="{Binding SelectedPhongBan}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectionChangePBCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Grid.Row="3" >
+                            <ComboBox x:Name="cbbQuyDinh" materialDesign:HintAssist.Hint="Chọn chức vụ"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding ListChucVu}"
+                          SelectedItem="{Binding SelectedChucVu}">
+                            </ComboBox>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Image Source="/Images/logo_mastersales.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="250"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
