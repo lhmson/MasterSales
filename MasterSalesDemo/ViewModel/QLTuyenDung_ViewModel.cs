@@ -15,7 +15,6 @@ using MasterSalesDemo.View;
 using System.Windows.Input;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
-
 using MasterSalesDemo.Helper;
 
 namespace MasterSalesDemo.ViewModel
@@ -26,6 +25,8 @@ namespace MasterSalesDemo.ViewModel
         public ICommand OpenLoaiHopDongCommand { get; set; }
         public ICommand OpenThemHopDongCommand { get; set; }
         public ICommand ThemNhanVienCommand { get; set; }
+        public ICommand ThemLoaiHopDongCommand { get; set; }
+        public ICommand ThemHopDongCommand { get; set; }
         //public ICommand ThayDoiTrinhDo { get; set; }
 
         #region tạo mã nhân viên
@@ -58,15 +59,8 @@ namespace MasterSalesDemo.ViewModel
         private string _HoTen;
         public string HoTen { get => _HoTen; set { _HoTen = value; OnPropertyChanged(); } }
 
-        //private DateTime _NgaySinh;
-        //public DateTime NgaySinh { get => _NgaySinh; set { _NgaySinh = value; OnPropertyChanged(); } }
-
-        private string _NgaySinh;
-        public string NgaySinh
-        {
-            get { return _NgaySinh; }
-            set { _NgaySinh = value; OnPropertyChanged(); }
-        }
+        private DateTime _NgaySinh;
+        public DateTime NgaySinh { get => _NgaySinh; set { _NgaySinh = value; OnPropertyChanged(); } }
 
         private string _MaNhanVien;
         public string MaNhanVien { get => _MaNhanVien; set { _MaNhanVien = value; OnPropertyChanged(); } }
@@ -94,7 +88,6 @@ namespace MasterSalesDemo.ViewModel
             }
         }
 
-
         private NHANVIEN _SelectedItemNhanVien;
         public NHANVIEN SelectedItemNhanVien
         {
@@ -111,6 +104,8 @@ namespace MasterSalesDemo.ViewModel
                     GioiTinh = SelectedItemNhanVien.GioiTinh;
                     NoiSinh = SelectedItemNhanVien.NoiSinh;
                     SelectedTrinhDo = SelectedItemNhanVien.TRINHDO;
+                    NgaySinh = SelectedItemNhanVien.NgaySinh.Value;
+                   // TenTrinhDo = SelectedItemNhanVien.TenTrinhDo;
                 }
             }
         }
@@ -152,22 +147,35 @@ namespace MasterSalesDemo.ViewModel
                 if (SelectedItemTrinhDo != null)
                 {
                     TenTrinhDo = SelectedItemTrinhDo.TenTrinhDo;
+                    
                 }
             }
         }
+
+        private TRINHDO _SelectedTenTrinhDo;
+        public TRINHDO SelectedTenTrinhDo
+        {
+            get => _SelectedTenTrinhDo;
+            set
+            {
+                _SelectedTenTrinhDo = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         #endregion
 
         #region giới tính
 
-        private List<string> _SelectedItemGioiTinh;
-        public List<string> SelectedItemGioiTinh
+        private List<string> _ListGioiTinh;
+        public List<string> ListGioiTinh
         {
-            get { return _SelectedItemGioiTinh; }
+            get { return _ListGioiTinh; }
             set
             {
-                _SelectedItemGioiTinh = value;
-                OnPropertyChanged(nameof(SelectedItemGioiTinh));
+                _ListGioiTinh = value;
+                OnPropertyChanged(nameof(ListGioiTinh));
             }
         }
 
@@ -203,15 +211,69 @@ namespace MasterSalesDemo.ViewModel
 
         #endregion
 
+        #region Loại hợp đồng
+
+        private ObservableCollection<LOAIHOPDONG> _ListLoaiHopDong;
+        public ObservableCollection<LOAIHOPDONG> ListLoaiHopDong { get => _ListLoaiHopDong; set { _ListLoaiHopDong = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<LOAIHOPDONG> _LoaiHopDong;
+        public ObservableCollection<LOAIHOPDONG> LoaiHopDong { get => _LoaiHopDong; set { _LoaiHopDong = value; OnPropertyChanged(); } }
+
+        private string _TenLoaiHD;
+        public string TenLoaiHD { get => _TenLoaiHD; set { _TenLoaiHD = value; OnPropertyChanged(); } }
+
+        private int _ThoiHan;
+        public int ThoiHan { get => _ThoiHan; set { _ThoiHan = value; OnPropertyChanged(); } }
+
+        private decimal? _Luong;
+        public decimal? Luong { get => _Luong; set { _Luong = value; OnPropertyChanged(); } }
+
+        private LOAIHOPDONG _SelectedItemLoaiHopDong;
+        public LOAIHOPDONG SelectedItemLoaiHopDong
+        {
+            get => _SelectedItemLoaiHopDong;
+            set
+            {
+                _SelectedItemLoaiHopDong = value;
+                OnPropertyChanged();
+                // NCC_NotNull = _SelectedItemTrinhDo != null;
+
+                if (SelectedItemLoaiHopDong != null)
+                {
+                    TenLoaiHD = SelectedItemLoaiHopDong.TenLoaiHD;
+                    ThoiHan = SelectedItemLoaiHopDong.ThoiHan;
+                    Luong = SelectedItemLoaiHopDong.Luong;
+                }
+            }
+        }
+
+        #endregion
+
+        #region tạo mã loại hợp đồng
+
+        private string GetCodeLoaiHopDong()
+        {
+            ObservableCollection<LOAIHOPDONG> ListLoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
+            int tmp = ListLoaiHopDong.Count();
+            return "LHD" + format((tmp + 1).ToString());
+        }
+
+        #endregion
+
         public QLTuyenDung_ViewModel()
         {
             TrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
             ListTrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
-            SelectedItemGioiTinh = new List<string>() { "Nam", "Nữ" };
+
+            ListGioiTinh = new List<string>() { "Nam", "Nữ" };
+
             ListChucVu = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
+
+            NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
             ListNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
 
-            ListNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+            LoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
+            ListLoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
 
             OpenLoaiHopDongCommand = new AppCommand<object>((p) =>
             {
@@ -237,9 +299,10 @@ namespace MasterSalesDemo.ViewModel
             });
 
             #region thêm nhân viên
+
             ThemNhanVienCommand = new AppCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(HoTen) || string.IsNullOrEmpty(GioiTinh) )
+                if (string.IsNullOrEmpty(HoTen))
                     return false;
 
                 var tennhanvien = DataProvider.Ins.DB.NHANVIENs.Where(x => x.HoTen.ToLower() == HoTen.ToLower());
@@ -255,9 +318,10 @@ namespace MasterSalesDemo.ViewModel
                 {
                     id = manhanvien,
                     HoTen = HoTen,
-                   // NgaySinh = NgaySinh,
+                    NgaySinh = NgaySinh,
                     GioiTinh = GioiTinh,
-                    
+                    MaTrinhDo = SelectedTrinhDo.id,
+                    NoiSinh = NoiSinh,
                 };
 
                 DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
@@ -268,8 +332,80 @@ namespace MasterSalesDemo.ViewModel
         
                 MessageBox.Show("Thêm thành công");
             });
+
             #endregion
 
+            #region thêm loại hợp đồng
+
+            ThemLoaiHopDongCommand = new AppCommand<object>((p) =>
+            {
+                if (string.IsNullOrEmpty(TenLoaiHD))
+                    return false;
+
+                var tenloaihopdong = DataProvider.Ins.DB.LOAIHOPDONGs.Where(x => x.TenLoaiHD.ToLower() == TenLoaiHD.ToLower());
+                if (tenloaihopdong == null || tenloaihopdong.Count() != 0)
+                    return false;
+
+                return true;
+
+            }, (p) =>
+            {
+                string maloaihopdong = GetCodeLoaiHopDong();
+                var loaihopdong = new LOAIHOPDONG()
+                {
+                    id = maloaihopdong,
+                    TenLoaiHD = TenLoaiHD,
+                    ThoiHan = ThoiHan,
+                    Luong = Luong,
+                };
+
+                DataProvider.Ins.DB.LOAIHOPDONGs.Add(loaihopdong);
+                DataProvider.Ins.DB.SaveChanges();
+                LoaiHopDong.Add(loaihopdong);
+                LoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
+                ListLoaiHopDong.Add(loaihopdong);
+
+                MessageBox.Show("Thêm thành công");
+            });
+
+            #endregion
+
+            #region thêm hợp đồng
+
+            //ThemHopDongCommand = new AppCommand<object>((p) =>
+            //{
+            //    if (string.IsNullOrEmpty(TenLoaiHD))
+            //        return false;
+
+            //    var tennhanvien = DataProvider.Ins.DB.NHANVIENs.Where(x => x.HoTen.ToLower() == HoTen.ToLower());
+            //    if (tennhanvien == null || tennhanvien.Count() != 0)
+            //        return false;
+
+            //    return true;
+
+            //}, (p) =>
+            //{
+            //    string manhanvien = GetCodeNhanVien();
+            //    var nhanvien = new HOPDONG()
+            //    {
+            //        id = manhanvien,
+            //        HoTen = HoTen,
+            //        NgaySinh = NgaySinh,
+            //        GioiTinh = GioiTinh,
+            //        MaTrinhDo = SelectedTrinhDo.id,
+            //        NoiSinh = NoiSinh,
+            //    };
+
+            //    DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
+            //    DataProvider.Ins.DB.SaveChanges();
+            //    NhanVien.Add(nhanvien);
+            //    NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+            //    ListNhanVien.Add(nhanvien);
+
+            //    MessageBox.Show("Thêm thành công");
+            //});
+
+            #endregion
         }
     }
 }

@@ -5,35 +5,35 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f45d3b06313f42c49614a43af6ca235a" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="QLKinhDoanhModel.BANGLAMTHEM" Width="1.5" PointX="7.5" PointY="28.25" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.BANGLUONGTL" Width="1.5" PointX="10.5" PointY="28.375" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.BANGTHUONG" Width="1.5" PointX="7.5" PointY="32.375" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.CHUCNANG" Width="1.5" PointX="7.5" PointY="37.875" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.BANGLAMTHEM" Width="1.5" PointX="7.5" PointY="32.25" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.BANGLUONGTL" Width="1.5" PointX="7.5" PointY="24.375" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.BANGTHUONG" Width="1.5" PointX="7.5" PointY="28.375" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.CHUCNANG" Width="1.5" PointX="7.5" PointY="45.875" />
         <EntityTypeShape EntityType="QLKinhDoanhModel.CHUCVU" Width="1.5" PointX="7.5" PointY="41.375" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.CT_BANGLAMTHEM" Width="1.5" PointX="9.75" PointY="22" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.CT_BANGLUONGTL" Width="1.5" PointX="12.75" PointY="21.625" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.CT_BANGTHUONG" Width="1.5" PointX="12.75" PointY="17.875" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.CT_BANGLAMTHEM" Width="1.5" PointX="12.75" PointY="24" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.CT_BANGLUONGTL" Width="1.5" PointX="9.75" PointY="20.625" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.CT_BANGTHUONG" Width="1.5" PointX="9.75" PointY="24.875" />
         <EntityTypeShape EntityType="QLKinhDoanhModel.CT_HOADON" Width="1.5" PointX="10.5" PointY="16.5" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.CT_PHIEUDATHANG" Width="1.5" PointX="10.5" PointY="5.875" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.DANHGIAKYNANG" Width="1.5" PointX="5.25" PointY="12.625" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.HOADON" Width="1.5" PointX="8.25" PointY="16.125" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.HOPDONG" Width="1.5" PointX="5.25" PointY="16.5" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.KHACHHANG" Width="1.5" PointX="6" PointY="20" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.KYNANG" Width="1.5" PointX="3" PointY="12" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.LICHSUCHUCVU" Width="1.5" PointX="12.75" PointY="28.375" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.LOAIHOPDONG" Width="1.5" PointX="3" PointY="21.75" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.MATHANG" Width="1.5" PointX="8.25" PointY="3.125" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.MUCTHUONG" Width="1.5" PointX="10.5" PointY="13.25" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.NHACUNGCAP" Width="1.5" PointX="6" PointY="2.625" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.CT_PHIEUDATHANG" Width="1.5" PointX="10.5" PointY="12.25" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.DANHGIAKYNANG" Width="1.5" PointX="8.25" PointY="16.625" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.HOADON" Width="1.5" PointX="5.25" PointY="16.125" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.HOPDONG" Width="1.5" PointX="5.25" PointY="12.5" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.KHACHHANG" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.KYNANG" Width="1.5" PointX="6" PointY="21" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.LICHSUCHUCVU" Width="1.5" PointX="9.75" PointY="28.375" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.LOAIHOPDONG" Width="1.5" PointX="3" PointY="11.75" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.MATHANG" Width="1.5" PointX="8.25" PointY="7.125" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.MUCTHUONG" Width="1.5" PointX="7.5" PointY="36.25" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.NHACUNGCAP" Width="1.5" PointX="6" PointY="6.625" />
         <EntityTypeShape EntityType="QLKinhDoanhModel.NHANVIEN" Width="1.5" PointX="3" PointY="15.25" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.NHOMMATHANG" Width="1.5" PointX="6" PointY="5.25" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.NHOMMATHANG" Width="1.5" PointX="6" PointY="9.25" />
         <EntityTypeShape EntityType="QLKinhDoanhModel.PHANQUYEN" Width="1.5" PointX="9.75" PointY="41.625" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.PHIEUDATHANG" Width="1.5" PointX="6" PointY="8.5" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.PHIEUDATHANG" Width="1.5" PointX="3" PointY="21.375" />
         <EntityTypeShape EntityType="QLKinhDoanhModel.PHONGBAN" Width="1.5" PointX="5.25" PointY="41.375" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.TAIKHOAN" Width="1.5" PointX="9.75" PointY="32.375" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.TAIKHOAN" Width="1.5" PointX="12.75" PointY="28.375" />
         <EntityTypeShape EntityType="QLKinhDoanhModel.THAMSO" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="QLKinhDoanhModel.TRINHDO" Width="1.5" PointX="0.75" PointY="17" />
-        <EntityTypeShape EntityType="QLKinhDoanhModel.TuVanKH" Width="1.5" PointX="8.25" PointY="12.5" />
+        <EntityTypeShape EntityType="QLKinhDoanhModel.TuVanKH" Width="1.5" PointX="5.25" PointY="3" />
         <AssociationConnector Association="QLKinhDoanhModel.FK__BANGLAMTH__MaPho__49C3F6B7" />
         <AssociationConnector Association="QLKinhDoanhModel.FK__BANGLAMTH__MaTrg__47DBAE45" />
         <AssociationConnector Association="QLKinhDoanhModel.FK__CT_BANGLA__MaLam__52593CB8" />

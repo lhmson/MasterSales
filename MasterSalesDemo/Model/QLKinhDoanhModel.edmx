@@ -191,7 +191,7 @@
           </Key>
           <Property Name="id" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="TenLoaiHD" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ThoiHan" Type="smalldatetime" Nullable="false" />
+          <Property Name="ThoiHan" Type="int" Nullable="false" />
           <Property Name="Luong" Type="money" />
           <Property Name="isDeleted" Type="bit" />
         </EntityType>
@@ -1346,7 +1346,7 @@
           </Key>
           <Property Name="id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="TenLoaiHD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ThoiHan" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ThoiHan" Type="Int32" Nullable="false" />
           <Property Name="Luong" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="isDeleted" Type="Boolean" />
           <NavigationProperty Name="HOPDONGs" Relationship="QLKinhDoanhModel.FK__HOPDONG__MaLoaiH__3A81B327" FromRole="LOAIHOPDONG" ToRole="HOPDONG" />
@@ -1949,7 +1949,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
