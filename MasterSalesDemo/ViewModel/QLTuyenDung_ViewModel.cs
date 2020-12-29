@@ -19,7 +19,35 @@ using MasterSalesDemo.Helper;
 
 namespace MasterSalesDemo.ViewModel
 {
+    public class ThongTinCaNhan
+    { 
+        public string STT { get; set; }
+        public string HoTen { get; set; }
+        public string MaNV { get; set; }
+        public string ChucVu { get; set; }
+        public DateTime NgaySinh { get; set; }
+        public string PhongBan { get; set; }
+        public string GioiTinh { get; set; }
+        public string NoiSinh { get; set; }
+        public string TenTrinhDo { get; set; }
+        public TRINHDO TD { get; set; }
+        public CHUCVU CHUCVU { get; set; }
 
+        public ThongTinCaNhan(int stt, string MaNV, string HoTen, DateTime NgaySinh, string GioiTinh, string PhongBan, string ChucVu, string NoiSinh, TRINHDO TD, string TenTrinhDo, CHUCVU CHUCVU)
+        {
+            this.STT = stt + "";
+            this.MaNV = MaNV;
+            this.HoTen = HoTen;
+            this.GioiTinh = GioiTinh;
+            this.NgaySinh = NgaySinh;
+            this.PhongBan = PhongBan;
+            this.ChucVu = ChucVu;
+            this.NoiSinh = NoiSinh;
+            this.TD = TD;
+            this.TenTrinhDo = TenTrinhDo;
+            this.CHUCVU = CHUCVU;
+        }
+    }
 
     public class QLTuyenDung_ViewModel : BaseViewModel
     {
@@ -31,6 +59,8 @@ namespace MasterSalesDemo.ViewModel
         public ICommand ThemHopDongCommand { get; set; }
         public ICommand SearchNhanVienCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand SelectionChangedCommand { get; set; }
+        public ICommand SuaThongTinNhanVienCommand { get; set; }
         //public ICommand ThayDoiTrinhDo { get; set; }
 
         #region tạo mã nhân viên
@@ -38,7 +68,7 @@ namespace MasterSalesDemo.ViewModel
         public string format(string a)
         {
             string tmp = a;
-            for (int i = 1; i <= 10 - a.Length; i++)
+            for (int i = 1; i <= 5 - a.Length; i++)
                 tmp = "0" + tmp;
             return tmp;
         }
@@ -72,25 +102,17 @@ namespace MasterSalesDemo.ViewModel
         private string _GioiTinh;
         public string GioiTinh { get => _GioiTinh; set { _GioiTinh = value; OnPropertyChanged(); } }
 
+        private string _NoiSinh;
+        public string NoiSinh { get => _NoiSinh; set { _NoiSinh = value; OnPropertyChanged(); } }
+
         private string _MaTrinhDo;
         public string MaTrinhDo { get => _MaTrinhDo; set { _MaTrinhDo = value; OnPropertyChanged(); } }
 
         private string _TenChuVu;
         public string TenChuVu { get => _TenChuVu; set { _TenChuVu = value; OnPropertyChanged(); } }
 
-        private string _NoiSinh;
-        public string NoiSinh { get => _NoiSinh; set { _NoiSinh = value; OnPropertyChanged(); } }
-
-        private TRINHDO _SelectedTrinhDo;
-        public TRINHDO SelectedTrinhDo
-        {
-            get => _SelectedTrinhDo;
-            set
-            {
-                _SelectedTrinhDo = value;
-                OnPropertyChanged();
-            }
-        }
+        private string _MaChuVu;
+        public string MaChucVu { get => _MaChuVu; set { _MaChuVu = value; OnPropertyChanged(); } }
 
         private NHANVIEN _SelectedItemNhanVien;
         public NHANVIEN SelectedItemNhanVien
@@ -107,11 +129,40 @@ namespace MasterSalesDemo.ViewModel
                     MaTrinhDo = SelectedItemNhanVien.MaTrinhDo;
                     GioiTinh = SelectedItemNhanVien.GioiTinh;
                     NoiSinh = SelectedItemNhanVien.NoiSinh;
-                    SelectedTrinhDo = SelectedItemNhanVien.TRINHDO;
+                    SelectedItemTrinhDo = SelectedItemNhanVien.TRINHDO;
                     NgaySinh = SelectedItemNhanVien.NgaySinh.Value;
-                   // TenTrinhDo = SelectedItemNhanVien.TenTrinhDo;
+                    SelectedItemChucVu = SelectedItemNhanVien.CHUCVU;
+                    // TenTrinhDo = SelectedItemNhanVien.TenTrinhDo;
                 }
             }
+        }
+
+        private ThongTinCaNhan _SelectedNhanVien;
+        public ThongTinCaNhan SelectedNhanVien
+        {
+            get { return _SelectedNhanVien; }
+            set { _SelectedNhanVien = value; OnPropertyChanged();
+                if (SelectedNhanVien != null)
+                {
+                    HoTen = SelectedNhanVien.HoTen;
+                    NgaySinh = SelectedNhanVien.NgaySinh;
+                    GioiTinh = SelectedNhanVien.GioiTinh;
+                    NoiSinh = SelectedNhanVien.NoiSinh;
+                    TenTrinhDo = SelectedNhanVien.TenTrinhDo;
+                    SelectedItemTrinhDo = SelectedNhanVien.TD;
+                    SelectedItemChucVu = SelectedNhanVien.CHUCVU;
+                    MaTrinhDo = SelectedNhanVien.TD.id;
+                    MaChucVu = SelectedNhanVien.CHUCVU.id;
+                    //ChucVu = SelectedNhanVien.ChucVu;
+                }
+            }
+        }
+
+        private ObservableCollection<ThongTinCaNhan> _ListThongTinNhanVien;
+        public ObservableCollection<ThongTinCaNhan> ListThongTinNhanVien
+        {
+            get { return _ListThongTinNhanVien; }
+            set { _ListThongTinNhanVien = value; OnPropertyChanged(); }
         }
 
         #endregion
@@ -129,14 +180,15 @@ namespace MasterSalesDemo.ViewModel
 
         #region Trình độ
 
+        private string _TenTrinhDo;
+        public string TenTrinhDo { get => _TenTrinhDo; set { _TenTrinhDo = value; OnPropertyChanged(); } }
+
         private ObservableCollection<TRINHDO> _ListTrinhDo;
         public ObservableCollection<TRINHDO> ListTrinhDo { get => _ListTrinhDo; set { _ListTrinhDo = value; OnPropertyChanged(); } }
 
         private ObservableCollection<TRINHDO> _TrinhDo;
         public ObservableCollection<TRINHDO> TrinhDo { get => _TrinhDo; set { _TrinhDo = value; OnPropertyChanged(); } }
 
-        private string _TenTrinhDo;
-        public string TenTrinhDo { get => _TenTrinhDo; set { _TenTrinhDo = value; OnPropertyChanged(); } }
 
         private TRINHDO _SelectedItemTrinhDo;
         public TRINHDO SelectedItemTrinhDo
@@ -147,26 +199,8 @@ namespace MasterSalesDemo.ViewModel
                 _SelectedItemTrinhDo = value;
                 OnPropertyChanged();
                 // NCC_NotNull = _SelectedItemTrinhDo != null;
-
-                if (SelectedItemTrinhDo != null)
-                {
-                    TenTrinhDo = SelectedItemTrinhDo.TenTrinhDo;
-                    
-                }
             }
         }
-
-        private TRINHDO _SelectedTenTrinhDo;
-        public TRINHDO SelectedTenTrinhDo
-        {
-            get => _SelectedTenTrinhDo;
-            set
-            {
-                _SelectedTenTrinhDo = value;
-                OnPropertyChanged();
-            }
-        }
-
 
         #endregion
 
@@ -187,9 +221,6 @@ namespace MasterSalesDemo.ViewModel
 
         #region Chức vụ
 
-        private ObservableCollection<CHUCVU> _ListChucVu;
-        public ObservableCollection<CHUCVU> ListChucVu { get => _ListChucVu; set { _ListChucVu = value; OnPropertyChanged(); } }
-
         private ObservableCollection<CHUCVU> _ChucVu;
         public ObservableCollection<CHUCVU> ChucVu { get => _ChucVu; set { _ChucVu = value; OnPropertyChanged(); } }
 
@@ -205,11 +236,6 @@ namespace MasterSalesDemo.ViewModel
                 _SelectedItemChucVu = value;
                 OnPropertyChanged();
                 // NCC_NotNull = _SelectedItemTrinhDo != null;
-
-                if (SelectedItemChucVu != null)
-                {
-                    TenChucVu = SelectedItemChucVu.TenChucVu;
-                }
             }
         }
 
@@ -264,6 +290,8 @@ namespace MasterSalesDemo.ViewModel
 
         #endregion
 
+        #region Phòng ban
+
         private string _TenNhanVien;
         public string TenNhanVien
         {
@@ -271,38 +299,84 @@ namespace MasterSalesDemo.ViewModel
             set { _TenNhanVien = value; OnPropertyChanged(); }
         }
 
-        //public void search_NhanVien(string MaNV, string TenNV)
-        //{
-        //    ObservableCollection<NHANVIEN> listMatHang = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+        private string _SelectedPhongBan;
+        public string SelectedPhongBan
+        {
+            get { return _SelectedPhongBan; }
+            set { _SelectedPhongBan = value; OnPropertyChanged(); }
+        }
 
-        //}
+        #endregion
 
-        //public void SearchNhanVien()
-        //{
-        //    ObservableCollection<NHANVIEN> _listNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
-        //    ListThongTinNhanVien.Clear();
+        #region Tìm kiếm nhân viên
 
-        //    foreach (var nv in _listNhanVien)
-        //    {
-        //        bool validPhongBan = false;
-        //        bool validTen = false;
-        //        CHUCVU chucvu = Global.Ins.getChucVubyMaNV(nv.id);
-        //        if (SelectedPhongBan == null || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
-        //            validPhongBan = true;
+        public void SearchNhanVien()
+        {
+            ObservableCollection<NHANVIEN> _listNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+            ListThongTinNhanVien.Clear();
 
-        //        if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
-        //            validTen = true;
+            foreach (var nv in _listNhanVien)
+            {
+                ThemNhanVienVaoList(nv);
+            }
+        }
 
-        //        if (validTen && validPhongBan)
-        //        {
-        //            int stt = _ListThongTinNhanVien.Count() + 1;
-        //            ThongTinNhanVien item = new ThongTinNhanVien(stt, nv.id, nv.HoTen, chucvu.PHONGBAN.TenPhong, chucvu.TenChucVu);
-        //            ListThongTinNhanVien.Add(item);
-        //        }
-        //    }
+        public TRINHDO getTrinhdobyMaNV(string MaTD)
+        {
+            ObservableCollection<TRINHDO> _listTrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
 
-        //}
+            foreach (var td in _listTrinhDo)
+            {
+                if ( td.id == MaTD)
+                {
+                    return td;
+                }
+            }
+            return null;
+        }
 
+        public CHUCVU getChucVubyMaNV(string MaCV)
+        {
+            ObservableCollection<CHUCVU> _listChucVu = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
+
+            foreach (var cv in _listChucVu)
+            {
+                if (cv.id == MaCV)
+                {
+                    return cv;
+                }
+            }
+            return null;
+        }
+
+        public void BindingSelectionNhanVien()
+        {
+            if (SelectedNhanVien == null)
+                return;
+            HoTen = SelectedNhanVien.HoTen;
+        }
+
+        public void ThemNhanVienVaoList(NHANVIEN nv)
+        {
+            bool validPhongBan = false;
+            bool validTen = false;
+            CHUCVU chucvu = getChucVubyMaNV(nv.MaChucVu);
+            TRINHDO trinhdo = getTrinhdobyMaNV(nv.MaTrinhDo);
+            if (SelectedPhongBan == null || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
+                validPhongBan = true;
+
+            if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
+                validTen = true;
+
+            if (validTen && validPhongBan)
+            {
+                int stt = _ListThongTinNhanVien.Count() + 1;
+                ThongTinCaNhan item = new ThongTinCaNhan(stt, nv.id, nv.HoTen, nv.NgaySinh.Value, nv.GioiTinh, chucvu.PHONGBAN.TenPhong, chucvu.TenChucVu, nv.NoiSinh, trinhdo, trinhdo.TenTrinhDo, chucvu);
+                ListThongTinNhanVien.Add(item);
+            }
+        }
+
+        #endregion
 
         public QLTuyenDung_ViewModel()
         {
@@ -311,13 +385,12 @@ namespace MasterSalesDemo.ViewModel
 
             ListGioiTinh = new List<string>() { "Nam", "Nữ" };
 
-            ListChucVu = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
-
             NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
-            ListNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
 
             LoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
             ListLoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
+
+            ChucVu = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
 
             OpenLoaiHopDongCommand = new AppCommand<object>((p) =>
             {
@@ -342,7 +415,7 @@ namespace MasterSalesDemo.ViewModel
                 exit.Close();
             });
 
-            //_ListThongTinNhanVien = new ObservableCollection<ThongTinNhanVien>();
+            _ListThongTinNhanVien = new ObservableCollection<ThongTinCaNhan>();
 
             #region thêm nhân viên
 
@@ -366,17 +439,53 @@ namespace MasterSalesDemo.ViewModel
                     HoTen = HoTen,
                     NgaySinh = NgaySinh,
                     GioiTinh = GioiTinh,
-                    MaTrinhDo = SelectedTrinhDo.id,
+                    MaTrinhDo = MaTrinhDo,
                     NoiSinh = NoiSinh,
+                    MaChucVu = MaChucVu,
                 };
 
                 DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
                 DataProvider.Ins.DB.SaveChanges();
                 NhanVien.Add(nhanvien);
                 NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
-                ListNhanVien.Add(nhanvien);
+                ThemNhanVienVaoList(nhanvien);
         
                 MessageBox.Show("Thêm thành công");
+            });
+
+            #endregion
+
+            #region sửa thông tin nhân viên
+
+            SuaThongTinNhanVienCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedNhanVien == null)
+                    return false;
+                //ListNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+              
+                return true;
+            }, (p) =>
+            {
+                var nhanvien = DataProvider.Ins.DB.NHANVIENs.Where(x => x.id == SelectedNhanVien.MaNV).SingleOrDefault();
+                nhanvien.HoTen = HoTen;
+                nhanvien.NoiSinh = NoiSinh;
+                nhanvien.NgaySinh = NgaySinh;
+                nhanvien.CHUCVU.id = nhanvien.MaChucVu;
+                nhanvien.TRINHDO.id = nhanvien.MaTrinhDo;
+                //SelectedItemMH.NHACUNGCAP.MaNCC = nhanvien.MaNCC;
+                //SelectedItemMH.NHASANXUAT.MaNSX = nhanvien.MaNSX;
+                //SelectedItemMH.GiaNhap = GiaNhap;
+                //SelectedItemMH.GiaBan = GiaBan;
+                //SelectedItemMH.DonViTinh = DonViTinh;
+                //SelectedItemMH.SoLuongTonGian = SoLuongTonGian;
+                DataProvider.Ins.DB.SaveChanges();
+                SearchNhanVien();
+                OnPropertyChanged("SelectedNhanVien");
+
+                //InitMH();
+                MessageBox.Show("Bạn đã chỉnh sửa thành công");
+
+
             });
 
             #endregion
@@ -455,13 +564,14 @@ namespace MasterSalesDemo.ViewModel
 
             #region tìm nhân viên
 
-            //SearchNhanVienCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
-            //    //search_MatHang(txtMaMH, txtTenMH);
-            //});
-
             SearchCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
-                //SearchNhanVien();
+                SearchNhanVien();
             });
+
+            SelectionChangedCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                BindingSelectionNhanVien();
+            });
+
             #endregion
         }
     }
