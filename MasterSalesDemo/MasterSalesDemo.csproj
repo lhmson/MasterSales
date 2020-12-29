@@ -557,6 +557,8 @@
     <Resource Include="Images\hand.gif" />
     <Resource Include="Images\Shoppingcart.jpg" />
     <Resource Include="Images\PhiHanhGia.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>

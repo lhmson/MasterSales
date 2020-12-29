@@ -85,7 +85,7 @@ namespace MasterSalesDemo.Helper
             //Nếu chưa có tài khoản, chưa làm
 
             //Nếu có tài khoản, đổi chức vụ mới
-            taikhoan.MaChucVu = chucvu.id;
+            taikhoan.NHANVIEN.MaChucVu = chucvu.id;
             DataProvider.Ins.DB.SaveChanges();
 
             //Tạo trong lịch sử
@@ -108,11 +108,11 @@ namespace MasterSalesDemo.Helper
         {
             ObservableCollection<TAIKHOAN> _listTaiKhoan = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
 
-            foreach (var ls in _listTaiKhoan)
+            foreach (var tk in _listTaiKhoan)
             {
-                if (ls.MaNV == MaNV) 
+                if (tk.MaNV == MaNV) 
                 {
-                    return ls.CHUCVU;
+                    return tk.NHANVIEN.CHUCVU;
                 }                    
             }
             return null;
@@ -205,7 +205,7 @@ namespace MasterSalesDemo.Helper
 
             foreach (var ls in _listLS)
                 if (ls.MaNV == nhanvien.id)
-                    if (ls.NgayBD.AddDays(1) > ls.NgayKT)
+                    if (ls.NgayBD?.AddDays(1) > ls.NgayKT)
                         ls.NgayKT = DateTime.Now;
         }
     }

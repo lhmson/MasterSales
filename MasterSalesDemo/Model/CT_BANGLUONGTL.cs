@@ -17,11 +17,11 @@ namespace MasterSalesDemo.Model
         public string id { get; set; }
         public string MaLuongTL { get; set; }
         public string MaNV { get; set; }
-        public decimal LuongCB { get; set; }
-        public decimal TienThuong { get; set; }
-        public decimal LuongLamThem { get; set; }
-        public decimal PhuCap { get; set; }
-        public decimal TongLuong { get; set; }
+        public Nullable<decimal> LuongCB { get; set; }
+        public Nullable<decimal> TienThuong { get; set; }
+        public Nullable<decimal> LuongLamThem { get; set; }
+        public Nullable<decimal> PhuCap { get; set; }
+        public Nullable<decimal> TongLuong { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         public virtual BANGLUONGTL BANGLUONGTL { get; set; }

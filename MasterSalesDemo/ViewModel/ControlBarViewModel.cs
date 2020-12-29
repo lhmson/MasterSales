@@ -74,7 +74,7 @@ namespace MasterSalesDemo.ViewModel
             //cmt tam thoi hihi
             ObservableCollection<CHUCVU> listNhom = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
             foreach (var item in listNhom)
-                if (user.MaChucVu == item.id)
+                if (user.NHANVIEN.MaChucVu == item.id)
                 {
                     ChucVu = item.TenChucVu;
                     break;

@@ -186,7 +186,7 @@ namespace MasterSalesDemo.ViewModel
             if (hopdong != null)
             { 
 
-                HanHopDong = hopdong.LOAIHOPDONG.TenLoaiHD + " - " + " Hiệu lực đến : " + hopdong.NgayKT.ToString("dd/MM/yyyy");
+                HanHopDong = hopdong.LOAIHOPDONG.TenLoaiHD + " - " + " Hiệu lực đến : " + hopdong.NgayKT?.ToString("dd/MM/yyyy");
 
                 if (hopdong.NgayKT < DateTime.Now)
                 {
@@ -205,9 +205,9 @@ namespace MasterSalesDemo.ViewModel
                 if (ls.isDeleted == false && ls.MaNV == nv.id)
                 {
                     int stt = ListQuaTrinhNhanVien.Count() + 1;
-                    string ngayBD = ls.NgayBD.ToString("dd/MM/yyyy");
-                    string ngayKT = ls.NgayKT.ToString("dd/MM/yyyy");
-                    if (ls.NgayBD.AddDays(1.1) >= ls.NgayKT)
+                    string ngayBD = ls.NgayBD?.ToString("dd/MM/yyyy");
+                    string ngayKT = ls.NgayKT?.ToString("dd/MM/yyyy");
+                    if (ls.NgayBD?.AddDays(1.1) >= ls.NgayKT)
                         ngayKT = "Hiện tại";
                     QuaTrinhLamViec quatrinh = new QuaTrinhLamViec(stt, ls.CHUCVU.TenChucVu, ls.CHUCVU.PHONGBAN.TenPhong, ngayBD, ngayKT);
                     ListQuaTrinhNhanVien.Add(quatrinh);
