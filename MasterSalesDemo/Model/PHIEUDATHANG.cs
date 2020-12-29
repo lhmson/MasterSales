@@ -23,9 +23,9 @@ namespace MasterSalesDemo.Model
     
         public string id { get; set; }
         public string MaKH { get; set; }
-        public System.DateTime NgayDat { get; set; }
-        public decimal ThanhTien { get; set; }
-        public int TrangThai { get; set; }
+        public Nullable<System.DateTime> NgayDat { get; set; }
+        public Nullable<decimal> ThanhTien { get; set; }
+        public Nullable<int> TrangThai { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -17,8 +17,8 @@ namespace MasterSalesDemo.Model
         public string id { get; set; }
         public string MaNV { get; set; }
         public string MaChucVu { get; set; }
-        public System.DateTime NgayBD { get; set; }
-        public System.DateTime NgayKT { get; set; }
+        public Nullable<System.DateTime> NgayBD { get; set; }
+        public Nullable<System.DateTime> NgayKT { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         public virtual CHUCVU CHUCVU { get; set; }

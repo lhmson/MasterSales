@@ -22,8 +22,8 @@ namespace MasterSalesDemo.Model
     
         public string id { get; set; }
         public string MaKeToan { get; set; }
-        public System.DateTime NgayLap { get; set; }
-        public int Thang { get; set; }
+        public Nullable<System.DateTime> NgayLap { get; set; }
+        public Nullable<int> Thang { get; set; }
         public string MaPhong { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     

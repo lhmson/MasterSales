@@ -324,7 +324,7 @@ namespace MasterSalesDemo.ViewModel
             ListNhomNguoiDung = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
 
             var nhanvien = from ng_Dung in ListNguoiDung
-                           join nhom in ListNhomNguoiDung on ng_Dung.MaChucVu equals nhom.id
+                           join nhom in ListNhomNguoiDung on ng_Dung.NHANVIEN.MaChucVu equals nhom.id
                            select new TAIKHOAN(/*ng_Dung.TenDangNhap, ng_Dung.MatKhau, ng_Dung.HoTen, nhom.TenNhom*/);
             ListNhanVien = new ObservableCollection<TAIKHOAN>(nhanvien);
 
@@ -366,7 +366,7 @@ namespace MasterSalesDemo.ViewModel
 
             string res = "";
             foreach (var item in ngDung)
-                if (item.MaChucVu == maNhom)
+                if (item.NHANVIEN.MaChucVu == maNhom)
                     res += item.MaNV + "\n";
             return res;
         }
@@ -691,7 +691,7 @@ namespace MasterSalesDemo.ViewModel
 
                     if (VisibilityOfListNguoiDung == Visibility.Visible && SelectedItemNguoiDung != null) // Edit Nhóm người dùng
                     {
-                        if (SelectedItemNguoiDung.MaChucVu == "Ban quản lý  ") // edit later hihi
+                        if (SelectedItemNguoiDung.NHANVIEN.MaChucVu == "Ban quản lý  ") // edit later hihi
                         {
                             System.Windows.MessageBox.Show("Không thể sửa thông tin được cho nhóm Ban quản lý");
                             return;
@@ -816,7 +816,6 @@ namespace MasterSalesDemo.ViewModel
                                 TenDangNhap = TenDangNhap,
                                 MatKhau = MatKhau,
                                 //HoTen = HoTen,
-                                MaChucVu = Ma_Nhom,
                                 //DiaChi = " ",
                                 //SDT = " ",
                                 //GioiTinh = " ",
@@ -840,7 +839,7 @@ namespace MasterSalesDemo.ViewModel
                             var temp = SelectedItemNguoiDung;
                             var nguoiDung = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == SelectedItemNguoiDung.TenDangNhap).SingleOrDefault();
                             nguoiDung.MatKhau = MatKhau;
-                            nguoiDung.MaChucVu = search_MaNhom(SelectedTenNhom);
+                            nguoiDung.NHANVIEN.MaChucVu = search_MaNhom(SelectedTenNhom);
                             //nguoiDung.HoTen = HoTen;
                             DataProvider.Ins.DB.SaveChanges();
 

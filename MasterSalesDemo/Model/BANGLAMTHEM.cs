@@ -22,10 +22,10 @@ namespace MasterSalesDemo.Model
     
         public string id { get; set; }
         public string MaTrgPB { get; set; }
-        public System.DateTime NgayLap { get; set; }
+        public Nullable<System.DateTime> NgayLap { get; set; }
         public int Thang { get; set; }
         public string MaPhong { get; set; }
-        public decimal HeSo { get; set; }
+        public Nullable<decimal> HeSo { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         public virtual PHONGBAN PHONGBAN { get; set; }

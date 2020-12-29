@@ -148,7 +148,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChuyenChucVu.xaml.cs">
+      <DependentUpon>ChuyenChucVu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper\DatabaseCheck.cs" />
+    <Compile Include="Helper\Global.cs" />
     <Compile Include="Helper\ListCTPhieu.cs" />
     <Compile Include="Helper\ListCTTheKho.cs" />
     <Compile Include="Helper\ListMatHangKho.cs" />
@@ -264,6 +268,7 @@
     <Compile Include="BanHang_PrintPreview.xaml.cs">
       <DependentUpon>BanHang_PrintPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ChuyenChucVu_ViewModel.cs" />
     <Compile Include="ViewModel\QLKhachHang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLichSu_ViewModel.cs" />
     <Compile Include="ViewModel\QLKiNang_ViewModel.cs" />
@@ -349,6 +354,10 @@
     <Compile Include="View\TraCuu_Page.xaml.cs">
       <DependentUpon>TraCuu_Page.xaml</DependentUpon>
     </Compile>
+    <Page Include="ChuyenChucVu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NhapHang_PrintPreview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -505,6 +514,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\logo_mastersales.png" />
+    <Resource Include="Images\Staff.jpg" />
     <Resource Include="Images\tinylogo.png" />
   </ItemGroup>
   <ItemGroup>
@@ -542,6 +552,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\hand.gif" />
+    <Resource Include="Images\Shoppingcart.jpg" />
+    <Resource Include="Images\PhiHanhGia.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model\QLKinhDoanhModel.Context.tt">

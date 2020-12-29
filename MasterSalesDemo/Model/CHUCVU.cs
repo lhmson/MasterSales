@@ -18,22 +18,23 @@ namespace MasterSalesDemo.Model
         public CHUCVU()
         {
             this.LICHSUCHUCVUs = new HashSet<LICHSUCHUCVU>();
+            this.NHANVIENs = new HashSet<NHANVIEN>();
             this.PHANQUYENs = new HashSet<PHANQUYEN>();
-            this.TAIKHOANs = new HashSet<TAIKHOAN>();
         }
     
         public string id { get; set; }
         public string TenChucVu { get; set; }
         public string MaPhongBan { get; set; }
-        public decimal PhuCap { get; set; }
+        public Nullable<decimal> PhuCap { get; set; }
+        public Nullable<bool> isTrgPB { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         public virtual PHONGBAN PHONGBAN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LICHSUCHUCVU> LICHSUCHUCVUs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHANQUYEN> PHANQUYENs { get; set; }
+        public virtual ICollection<NHANVIEN> NHANVIENs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TAIKHOAN> TAIKHOANs { get; set; }
+        public virtual ICollection<PHANQUYEN> PHANQUYENs { get; set; }
     }
 }
