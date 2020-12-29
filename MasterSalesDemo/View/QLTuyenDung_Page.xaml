@@ -113,7 +113,7 @@
                 <Grid Margin="0,8,10,8" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
                     <TextBox FontSize="20" materialDesign:HintAssist.Hint="Tên nhân viên"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
-                                 Text="{Binding txtTenNV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="24,0,0,0" />
+                                 Text="{Binding TenNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="24,0,0,0" />
                 </Grid>
 
                 <Grid Margin="10,8,30,8" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2">
@@ -128,7 +128,26 @@
                         <RowDefinition Height="211*"/>
                         <RowDefinition Height="97*"/>
                     </Grid.RowDefinitions>
-                    <ListView x:Name="listViewNhanVien" ItemsSource="{Binding ListNhanVien, Mode=TwoWay}" SelectionMode="Single"
+                    <ListView x:Name="ThongTinNhanVienListView" ItemsSource="{Binding ListThongTinNhanVien, Mode=TwoWay}" SelectionMode="Single"
+                              HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              HorizontalContentAlignment="Stretch" Margin="8,0" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="80" Header="STT" DisplayMemberBinding="{Binding STT}"/>
+                                <GridViewColumn Width="120" Header="Mã số" DisplayMemberBinding="{Binding MaNV}"/>
+                                <GridViewColumn Width="250" Header="Tên nhân viên" DisplayMemberBinding="{Binding HoTen}"/>
+                                <GridViewColumn Width="180" Header="Chức vụ" DisplayMemberBinding="{Binding ChucVu}"/>
+                                <GridViewColumn Width="250" Header="Phòng ban" DisplayMemberBinding="{Binding PhongBan}"/>
+                            </GridView>
+                        </ListView.View>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
+                                                   CommandParameter="{Binding ElementName=listDateDisplayed}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ListView>
+                    <!--<ListView x:Name="listViewNhanVien" ItemsSource="{Binding ListNhanVien, Mode=TwoWay}" SelectionMode="Single"
                               HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
                               HorizontalContentAlignment="Stretch" Margin="8,0,7.4,0" SelectedItem="{Binding SelectedItemNhanVien, Mode=TwoWay}" Grid.RowSpan="2">
                         <ListView.View>
@@ -147,7 +166,7 @@
                                                    CommandParameter="{Binding ElementName=listDateDisplayed}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                    </ListView>
+                    </ListView>-->
                 </Grid>
 
                 <Grid Margin="80,-10,30,20" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3">

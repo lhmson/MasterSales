@@ -22,7 +22,7 @@ namespace MasterSalesDemo.Model
     
         public string id { get; set; }
         public string TenLoaiHD { get; set; }
-        public int ThoiHan { get; set; }
+        public Nullable<int> ThoiHan { get; set; }
         public Nullable<decimal> Luong { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     

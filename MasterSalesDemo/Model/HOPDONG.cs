@@ -16,10 +16,9 @@ namespace MasterSalesDemo.Model
     {
         public string id { get; set; }
         public string MaNV { get; set; }
-        public System.DateTime NgayHD { get; set; }
-        public System.DateTime NgayKT { get; set; }
+        public Nullable<System.DateTime> NgayHD { get; set; }
+        public Nullable<System.DateTime> NgayKT { get; set; }
         public string MaLoaiHD { get; set; }
-        public decimal LuongCB { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         public virtual LOAIHOPDONG LOAIHOPDONG { get; set; }

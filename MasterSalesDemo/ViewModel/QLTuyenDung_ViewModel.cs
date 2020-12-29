@@ -19,6 +19,8 @@ using MasterSalesDemo.Helper;
 
 namespace MasterSalesDemo.ViewModel
 {
+
+
     public class QLTuyenDung_ViewModel : BaseViewModel
     {
         public ICommand CloseWindowCommand { get; set; }
@@ -27,6 +29,8 @@ namespace MasterSalesDemo.ViewModel
         public ICommand ThemNhanVienCommand { get; set; }
         public ICommand ThemLoaiHopDongCommand { get; set; }
         public ICommand ThemHopDongCommand { get; set; }
+        public ICommand SearchNhanVienCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
         //public ICommand ThayDoiTrinhDo { get; set; }
 
         #region tạo mã nhân viên
@@ -222,8 +226,8 @@ namespace MasterSalesDemo.ViewModel
         private string _TenLoaiHD;
         public string TenLoaiHD { get => _TenLoaiHD; set { _TenLoaiHD = value; OnPropertyChanged(); } }
 
-        private int _ThoiHan;
-        public int ThoiHan { get => _ThoiHan; set { _ThoiHan = value; OnPropertyChanged(); } }
+        private int? _ThoiHan;
+        public int? ThoiHan { get => _ThoiHan; set { _ThoiHan = value; OnPropertyChanged(); } }
 
         private decimal? _Luong;
         public decimal? Luong { get => _Luong; set { _Luong = value; OnPropertyChanged(); } }
@@ -259,6 +263,46 @@ namespace MasterSalesDemo.ViewModel
         }
 
         #endregion
+
+        private string _TenNhanVien;
+        public string TenNhanVien
+        {
+            get { return _TenNhanVien; }
+            set { _TenNhanVien = value; OnPropertyChanged(); }
+        }
+
+        //public void search_NhanVien(string MaNV, string TenNV)
+        //{
+        //    ObservableCollection<NHANVIEN> listMatHang = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+
+        //}
+
+        //public void SearchNhanVien()
+        //{
+        //    ObservableCollection<NHANVIEN> _listNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+        //    ListThongTinNhanVien.Clear();
+
+        //    foreach (var nv in _listNhanVien)
+        //    {
+        //        bool validPhongBan = false;
+        //        bool validTen = false;
+        //        CHUCVU chucvu = Global.Ins.getChucVubyMaNV(nv.id);
+        //        if (SelectedPhongBan == null || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
+        //            validPhongBan = true;
+
+        //        if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
+        //            validTen = true;
+
+        //        if (validTen && validPhongBan)
+        //        {
+        //            int stt = _ListThongTinNhanVien.Count() + 1;
+        //            ThongTinNhanVien item = new ThongTinNhanVien(stt, nv.id, nv.HoTen, chucvu.PHONGBAN.TenPhong, chucvu.TenChucVu);
+        //            ListThongTinNhanVien.Add(item);
+        //        }
+        //    }
+
+        //}
+
 
         public QLTuyenDung_ViewModel()
         {
@@ -297,6 +341,8 @@ namespace MasterSalesDemo.ViewModel
                 var exit = p as Window;
                 exit.Close();
             });
+
+            //_ListThongTinNhanVien = new ObservableCollection<ThongTinNhanVien>();
 
             #region thêm nhân viên
 
@@ -405,6 +451,17 @@ namespace MasterSalesDemo.ViewModel
             //    MessageBox.Show("Thêm thành công");
             //});
 
+            #endregion
+
+            #region tìm nhân viên
+
+            //SearchNhanVienCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+            //    //search_MatHang(txtMaMH, txtTenMH);
+            //});
+
+            SearchCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                //SearchNhanVien();
+            });
             #endregion
         }
     }

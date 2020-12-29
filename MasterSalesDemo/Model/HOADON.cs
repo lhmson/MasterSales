@@ -22,12 +22,12 @@ namespace MasterSalesDemo.Model
     
         public string id { get; set; }
         public string MaPhieuDH { get; set; }
-        public System.DateTime NgayLap { get; set; }
+        public Nullable<System.DateTime> NgayLap { get; set; }
         public Nullable<System.DateTime> NgayXuat { get; set; }
         public string MaKH { get; set; }
         public string MaNV { get; set; }
-        public decimal ThanhTien { get; set; }
-        public int TrangThai { get; set; }
+        public Nullable<decimal> ThanhTien { get; set; }
+        public Nullable<int> TrangThai { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

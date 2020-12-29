@@ -234,7 +234,7 @@ namespace MasterSalesDemo.ViewModel
             ObservableCollection<PHANQUYEN> list_PhanQuyen = new ObservableCollection<PHANQUYEN>(DataProvider.Ins.DB.PHANQUYENs);
             foreach (var item in list_PhanQuyen)
             {
-                if (item.MaChucVu == user.MaChucVu)
+                if (item.MaChucVu == user.NHANVIEN.MaChucVu)
                 {
                     Init_Valid_Button(item.MaChucNang);
                     Init_Valid_Tooltip(item.MaChucNang);

@@ -15,7 +15,6 @@ namespace MasterSalesDemo.Model
     public partial class THAMSO
     {
         public string id { get; set; }
-        public string TenThamSo { get; set; }
-        public string GiaTri { get; set; }
+        public decimal GiaTri { get; set; }
     }
 }
