@@ -78,14 +78,9 @@ namespace MasterSalesDemo.Helper
 
         }
 
-        public TAIKHOAN TaoChucVuNhanVien(NHANVIEN nhanvien, CHUCVU chucvu)
+        public void ChuyenChucVuNhanVien(NHANVIEN nhanvien, CHUCVU chucvu)
         {
-            TAIKHOAN taikhoan = getTaiKhoanbyMaNV(nhanvien.id);
-
-            //Nếu chưa có tài khoản, chưa làm
-
-            //Nếu có tài khoản, đổi chức vụ mới
-            taikhoan.NHANVIEN.MaChucVu = chucvu.id;
+            nhanvien.MaChucVu = chucvu.id;
             DataProvider.Ins.DB.SaveChanges();
 
             //Tạo trong lịch sử
@@ -95,15 +90,15 @@ namespace MasterSalesDemo.Helper
                 MaNV = nhanvien.id,
                 MaChucVu = chucvu.id,
                 NgayBD = DateTime.Now,
-                NgayKT = DateTime.Now.AddDays(1),
+                NgayKT = null,
                 isDeleted = false,
             };
 
             DataProvider.Ins.DB.LICHSUCHUCVUs.Add(lichsu);
             updateLichSu(nhanvien);
             DataProvider.Ins.DB.SaveChanges();
-            return taikhoan;
         }
+
         public CHUCVU getChucVubyMaNV(string MaNV)
         {
             ObservableCollection<TAIKHOAN> _listTaiKhoan = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
@@ -205,8 +200,9 @@ namespace MasterSalesDemo.Helper
 
             foreach (var ls in _listLS)
                 if (ls.MaNV == nhanvien.id)
-                    if (ls.NgayBD?.AddDays(1) > ls.NgayKT)
+                    if (ls.NgayKT == null)
                         ls.NgayKT = DateTime.Now;
+            DataProvider.Ins.DB.SaveChanges();
         }
     }
 }

@@ -117,8 +117,7 @@ namespace MasterSalesDemo.ViewModel
             if (ok)
             {
                 CHUCVU chucvu = Global.Ins.getChucVubyTenCVTenPB(SelectedChucVu, SelectedPhongBan);
-                Global.Ins.TaoChucVuNhanVien(nhanvien, chucvu);
-                MessageBox.Show("Bạn đã chuyển chức vụ thành công");
+                Global.Ins.ChuyenChucVuNhanVien(nhanvien, chucvu);
                 Global.Ins.isValid = true;
             }
         }

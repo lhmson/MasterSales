@@ -78,7 +78,12 @@ namespace MasterSalesDemo.ViewModel
             get { return _ListQuaTrinhNhanVien; }
             set { _ListQuaTrinhNhanVien = value; OnPropertyChanged(); }
         }
-
+        private bool _DialogOpen;
+        public bool DialogOpen
+        {
+            get { return _DialogOpen; }
+            set { _DialogOpen = value; OnPropertyChanged(); }
+        }
         private string _SelectedPhongBan;
         public string SelectedPhongBan
         {
@@ -91,6 +96,13 @@ namespace MasterSalesDemo.ViewModel
         {
             get { return _ContentCommand; }
             set { _ContentCommand = value; OnPropertyChanged(); }
+        }
+
+        private string _ThongBao;
+        public string ThongBao
+        {
+            get { return _ThongBao; }
+            set { _ThongBao = value; OnPropertyChanged(); }
         }
 
         private ThongTinNhanVien _SelectedNhanVien;
@@ -134,6 +146,7 @@ namespace MasterSalesDemo.ViewModel
         public ICommand ChuyenCV_GiahanCommand { get; set; }
         public ICommand ThoiViecCommand { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
+        public ICommand DialogOK { get; set; }
         #endregion
 
         #region Support Functions
@@ -152,6 +165,7 @@ namespace MasterSalesDemo.ViewModel
             ListThongTinNhanVien.Clear();
 
             foreach (var nv in _listNhanVien)
+            if (nv.isDeleted == false)
             {
                 bool validPhongBan = false;
                 bool validTen = false;
@@ -207,7 +221,7 @@ namespace MasterSalesDemo.ViewModel
                     int stt = ListQuaTrinhNhanVien.Count() + 1;
                     string ngayBD = ls.NgayBD?.ToString("dd/MM/yyyy");
                     string ngayKT = ls.NgayKT?.ToString("dd/MM/yyyy");
-                    if (ls.NgayBD?.AddDays(1.1) >= ls.NgayKT)
+                    if (ls.NgayKT == null)
                         ngayKT = "Hiện tại";
                     QuaTrinhLamViec quatrinh = new QuaTrinhLamViec(stt, ls.CHUCVU.TenChucVu, ls.CHUCVU.PHONGBAN.TenPhong, ngayBD, ngayKT);
                     ListQuaTrinhNhanVien.Add(quatrinh);
@@ -215,6 +229,15 @@ namespace MasterSalesDemo.ViewModel
             }
         }
         
+        public void RefreshQuaTrinh()
+        {
+            SelectedNhanVien = null;
+            HoTen = "";
+            ChucVu = "";
+            HanHopDong = "";
+            ListQuaTrinhNhanVien.Clear();
+        }
+
         public void ChuyenChucVu()
         {
             NHANVIEN nhanvien = Global.Ins.getNhanVienbyMaNV(SelectedNhanVien.MaNV);
@@ -232,6 +255,7 @@ namespace MasterSalesDemo.ViewModel
             _ListQuaTrinhNhanVien = new ObservableCollection<QuaTrinhLamViec>();
             #endregion
 
+            SearchNhanVien();
             #region Declare Icommands
             SearchCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 SearchNhanVien();
@@ -245,7 +269,36 @@ namespace MasterSalesDemo.ViewModel
                 if (ContentCommand == "Chuyển chức vụ")
                 {
                     ChuyenChucVu();
+                    BindingSelectionNhanVien();
+                    if (Global.Ins.isValid)
+                    {
+                        DialogOpen = true;
+                        ThongBao = "Chuyển chức vụ thành công";
+                    }
                 }
+            });
+
+            ThoiViecCommand = new RelayCommand<Window>((p) => { if (SelectedNhanVien == null) return false; return true; }, (p) => {
+                MessageBoxResult res = MessageBox.Show("Bạn có chắc xóa nhân viên này chứ! Sau khi xóa bạn sẽ không thấy nhân viên này nữa",
+                    "Thôi việc nhân viên", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (res == MessageBoxResult.Yes)
+                {
+                    NHANVIEN nhanvien = Global.Ins.getNhanVienbyMaNV(SelectedNhanVien.MaNV);
+                    nhanvien.isDeleted = true;
+                    nhanvien.NgayKetThuc = DateTime.Now;
+                    Global.Ins.updateLichSu(nhanvien);
+                    DialogOpen = true;
+                    ThongBao = "Thôi việc nhân viên thành công";
+                    SearchNhanVien();
+                    RefreshQuaTrinh();
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+
+            });
+
+            DialogOK = new RelayCommand<Window>((p) => {return true; }, (p) => {
+                DialogOpen = false;
             });
             #endregion
         }
