@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MasterSalesDemo.View"
         mc:Ignorable="d"
-        Title="ThemHopDong" Height="450" Width="800"
+        Title="ThemHopDong" Height="600" Width="1000"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -82,70 +82,65 @@
             </materialDesign:Card>
         </Grid>
 
-        <Grid Margin="8,4,0,8" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="6">
+        <Grid Margin="8,4,0,8" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="5">
             <materialDesign:Card></materialDesign:Card>
         </Grid>
 
         <Grid Margin="8,8,0,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" >
-            <ComboBox x:Name="cbbNhanVien" materialDesign:HintAssist.Hint="Tên nhân viên" Margin="16,0"
-                          Visibility="{Binding VisibilityOfAdd}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          ItemsSource="{Binding ListPhongBan}"
-                          SelectedItem="{Binding SelectedPhongban}">
-            </ComboBox>
-        </Grid>
-
-        <Grid Margin="10,10,10,0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-            <StackPanel Visibility="{Binding VisibilityNgayketthuc}" Orientation="Horizontal" Margin="15,0,0,0">
-                <DatePicker Width="158" materialDesign:HintAssist.Hint="Ngày kết thúc"
-                            HorizontalAlignment="Right"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                            SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,0,30,0.2" >
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectedDateChanged">
-                            <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
-                                               CommandParameter="{Binding ElementName=startDate}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </DatePicker>
-            </StackPanel>
-        </Grid>
-
-        <Grid Margin="10,10,10,0" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-            <StackPanel Visibility="{Binding VisibilityTuNgayDenNgay}" Orientation="Horizontal" Margin="20,0,10,0">
-                <DatePicker x:Name="Ngayketthuc" Width="148" materialDesign:HintAssist.Hint="Ngày kết thúc"
-                            HorizontalAlignment="Right"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                            SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,4,30,3.6" >
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectedDateChanged">
-                            <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
-                                               CommandParameter="{Binding ElementName=startDate}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </DatePicker>
-            </StackPanel>
-        </Grid>
-
-        <Grid Margin="8,4,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5">
-            <ComboBox Foreground="Black" Height="Auto" ItemsSource="{Binding NSX}" DisplayMemberPath="TenNSX"
-                      FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
-                      materialDesign:HintAssist.Hint="Loại hợp đồng" Margin="16,0,0,0">
+            <ComboBox ItemsSource="{Binding NhanVien}" DisplayMemberPath="HoTen"
+                     VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                      materialDesign:HintAssist.Hint="Nhân Viên" Margin="15,10,41.6,0.2" Height="33">
                 <ComboBox.Width>
-                    <Binding ElementName="TenNSX" Path="ActualWidth"/>
+                    <Binding ElementName="HoTen" Path="ActualWidth"/>
                 </ComboBox.Width>
                 <ComboBox.SelectedItem>
-                    <Binding Path="SelectedNSX" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-
+                    <Binding Path="SelectedItemNhanVien" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                     </Binding>
                 </ComboBox.SelectedItem>
             </ComboBox>
         </Grid>
 
-        <Grid Margin="8,8,0,0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" >
-            <TextBox  Text="{Binding TenNCC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                     materialDesign:HintAssist.Hint="Lương cơ bản" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,0"/>
+        <Grid Margin="20,9.2,0,59.2" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="467">
+            <DatePicker x:Name="startDate" Width="427" materialDesign:HintAssist.Hint="Từ ngày"
+                            HorizontalAlignment="Right"
+                           
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
+                            SelectedDateFormat="Short" Margin="0,24,30,24" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedDateChanged">
+                        <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
+                                               CommandParameter="{Binding ElementName=startDate}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </DatePicker>
+        </Grid>
+
+        <Grid Margin="20,10,0,58.4" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="467" >
+            <DatePicker x:Name="Ngayketthuc" Width="427" materialDesign:HintAssist.Hint="Ngày kết thúc"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            SelectedDate="{Binding SelectedEndDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
+                            SelectedDateFormat="Short" Margin="0,24,30,24" 
+                            IsEnabled="False"
+                      >
+            </DatePicker>
+        </Grid>
+
+        <Grid Margin="8,4,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5">
+            <ComboBox Foreground="Black" Height="Auto" ItemsSource="{Binding ListLoaiHopDong}" DisplayMemberPath="TenLoaiHD"
+                      FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                      materialDesign:HintAssist.Hint="Loại hợp đồng" Margin="16,0,0,0">
+                <ComboBox.Width>
+                    <Binding ElementName="TenLoaiHD" Path="ActualWidth"/>
+                </ComboBox.Width>
+                <ComboBox.SelectedItem>
+                    <Binding Path="SelectedItemLoaiHopDong" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+
+                    </Binding>
+                </ComboBox.SelectedItem>
+            </ComboBox>
         </Grid>
 
         <Grid Margin="8,4,0,8" Grid.Row="2" Grid.Column="5">
@@ -156,29 +151,24 @@
             </Button>
         </Grid>
 
-        <Grid Margin="8,8,8,8" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="6" Grid.RowSpan="5">
+        <Grid Margin="8,8,8,8" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="6" Grid.RowSpan="6">
             <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="8,0">
-                <ListView ItemsSource="{Binding ListNCC, Mode=TwoWay,
-                    UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItemNCC,
+                <ListView ItemsSource="{Binding ListHopDong, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Thycute,
                     Mode=TwoWay}" FontSize="16">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding MaNCC}"></GridViewColumn>
-                            <GridViewColumn Header="Tên hợp đồng" DisplayMemberBinding="{Binding TenNCC }"></GridViewColumn>
-                            <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
-                            <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding SDT }"></GridViewColumn>
-                            <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding Fax }"></GridViewColumn>
+                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding LOAIHOPDONG.TenLoaiHD }"></GridViewColumn>
+                            <GridViewColumn Header="Tên hợp đồng" DisplayMemberBinding="{Binding NHANVIEN.HoTen }"></GridViewColumn>
+                            <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding NgayHD}"></GridViewColumn>
+                            <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding NgayKT }"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
         </Grid>
-        <Grid Margin="25,8,8,0" Grid.Row="10" Grid.Column="9" Grid.ColumnSpan="3">
-            <Button  Command="{Binding AddNCCCommand}" Content="Thêm hợp đồng" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
-        </Grid>
-        <Grid Margin="25,8,8,0" Grid.Row="10" Grid.Column="6" Grid.ColumnSpan="3">
-            <Button  Command="{Binding EditNCCCommand}" Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
-
+        <Grid Margin="25,8,8,0" Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="3">
+            <Button  Command="{Binding ThemHopDongCommand}" Content="Thêm hợp đồng" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
         </Grid>
 
     </Grid>

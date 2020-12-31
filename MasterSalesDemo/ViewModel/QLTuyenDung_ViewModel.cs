@@ -61,6 +61,9 @@ namespace MasterSalesDemo.ViewModel
         public ICommand SearchCommand { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand SuaThongTinNhanVienCommand { get; set; }
+        public ICommand OpenThemNhanVienCommand { get; set; }
+        public ICommand SuaLoaiHopDongCommand { get; set; }
+
         //public ICommand ThayDoiTrinhDo { get; set; }
 
         #region tạo mã nhân viên
@@ -83,9 +86,6 @@ namespace MasterSalesDemo.ViewModel
         #endregion
 
         #region nhân viên
-
-        private ObservableCollection<NHANVIEN> _ListNhanVien;
-        public ObservableCollection<NHANVIEN> ListNhanVien { get => _ListNhanVien; set { _ListNhanVien = value; OnPropertyChanged(); } }
 
         private ObservableCollection<NHANVIEN> _NhanVien;
         public ObservableCollection<NHANVIEN> NhanVien { get => _NhanVien; set { _NhanVien = value; OnPropertyChanged(); } }
@@ -174,6 +174,33 @@ namespace MasterSalesDemo.ViewModel
             HoTen = "";
             GioiTinh = "";
             TenChuVu = "";
+            NoiSinh = "";
+            TenTrinhDo = "";
+            NgaySinh = DateTime.Now;
+        }
+
+        #endregion
+
+        #region init thêm hợp đồng
+
+        void InitThemHopDong()
+        {
+            TenLoaiHD = "";
+            NhanVien = null;
+            SelectedStartDate = DateTime.Now;
+            ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+        }
+
+        #endregion
+
+        #region init Thêm loại hợp đồng
+
+        void InitThemLoaiHopDong ()
+        {
+            TenLoaiHD = "";
+            ThoiHan = 0;
+            Luong = 0;
+            ListLoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
         }
 
         #endregion
@@ -188,7 +215,6 @@ namespace MasterSalesDemo.ViewModel
 
         private ObservableCollection<TRINHDO> _TrinhDo;
         public ObservableCollection<TRINHDO> TrinhDo { get => _TrinhDo; set { _TrinhDo = value; OnPropertyChanged(); } }
-
 
         private TRINHDO _SelectedItemTrinhDo;
         public TRINHDO SelectedItemTrinhDo
@@ -252,8 +278,8 @@ namespace MasterSalesDemo.ViewModel
         private string _TenLoaiHD;
         public string TenLoaiHD { get => _TenLoaiHD; set { _TenLoaiHD = value; OnPropertyChanged(); } }
 
-        private int? _ThoiHan;
-        public int? ThoiHan { get => _ThoiHan; set { _ThoiHan = value; OnPropertyChanged(); } }
+        private int _ThoiHan;
+        public int ThoiHan { get => _ThoiHan; set { _ThoiHan = value; OnPropertyChanged(); } }
 
         private decimal? _Luong;
         public decimal? Luong { get => _Luong; set { _Luong = value; OnPropertyChanged(); } }
@@ -271,8 +297,9 @@ namespace MasterSalesDemo.ViewModel
                 if (SelectedItemLoaiHopDong != null)
                 {
                     TenLoaiHD = SelectedItemLoaiHopDong.TenLoaiHD;
-                    ThoiHan = SelectedItemLoaiHopDong.ThoiHan;
+                    ThoiHan = SelectedItemLoaiHopDong.ThoiHan??0;
                     Luong = SelectedItemLoaiHopDong.Luong;
+                    SelectedEndDate = SelectedStartDate.AddMonths(SelectedItemLoaiHopDong.ThoiHan ?? 0);
                 }
             }
         }
@@ -286,6 +313,17 @@ namespace MasterSalesDemo.ViewModel
             ObservableCollection<LOAIHOPDONG> ListLoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
             int tmp = ListLoaiHopDong.Count();
             return "LHD" + format((tmp + 1).ToString());
+        }
+
+        #endregion
+
+        #region tạo mã hợp đồng
+
+        private string GetCodeHopDong()
+        {
+            ObservableCollection<HOPDONG> ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+            int tmp = ListHopDong.Count();
+            return "HD" + format((tmp + 1).ToString());
         }
 
         #endregion
@@ -305,6 +343,29 @@ namespace MasterSalesDemo.ViewModel
             get { return _SelectedPhongBan; }
             set { _SelectedPhongBan = value; OnPropertyChanged(); }
         }
+
+        #endregion
+
+        #region ngày bắt đầu
+
+        private DateTime _SelectedStartDate;
+        public DateTime SelectedStartDate 
+        {   get => _SelectedStartDate; set { _SelectedStartDate = value; OnPropertyChanged();
+
+            if (SelectedStartDate!=null)
+                {
+                   // MessageBox.Show(ThoiHan.ToString());
+                    SelectedEndDate = SelectedStartDate.AddMonths(ThoiHan);
+                }    
+            } 
+        }
+
+        #endregion
+
+        #region ngày kết thúc
+
+        private DateTime _SelectedEndDate;
+        public DateTime SelectedEndDate { get => _SelectedEndDate; set { _SelectedEndDate = value; OnPropertyChanged(); } }
 
         #endregion
 
@@ -378,8 +439,41 @@ namespace MasterSalesDemo.ViewModel
 
         #endregion
 
+        #region hợp đồng
+
+        private ObservableCollection<HOPDONG> _HopDong;
+        public ObservableCollection<HOPDONG> HopDong { get => _HopDong; set { _HopDong = value; OnPropertyChanged(); } }
+        
+        private ObservableCollection<HOPDONG> _ListHopDong;
+        public ObservableCollection<HOPDONG> ListHopDong { get => _ListHopDong; set { _ListHopDong = value; OnPropertyChanged(); } }
+
+        private HOPDONG _SelectedItemHopDong;
+        public HOPDONG SelectedItemHopDong
+        {
+            get => _SelectedItemHopDong;
+            set
+            {
+                _SelectedItemHopDong = value;
+                OnPropertyChanged();
+                // NCC_NotNull = _SelectedItemTrinhDo != null;
+
+                if (SelectedItemLoaiHopDong != null)
+                {
+                    TenLoaiHD = SelectedItemHopDong.LOAIHOPDONG.TenLoaiHD;
+                    HoTen = SelectedItemHopDong.NHANVIEN.HoTen;
+                  
+                }
+            }
+        }
+
+        #endregion
+
         public QLTuyenDung_ViewModel()
         {
+            InitNhanVien();
+            InitThemHopDong();
+            InitThemLoaiHopDong();
+
             TrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
             ListTrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
 
@@ -388,9 +482,14 @@ namespace MasterSalesDemo.ViewModel
             NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
 
             LoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
-            ListLoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
+            
+            HopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
 
             ChucVu = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
+
+            _ListThongTinNhanVien = new ObservableCollection<ThongTinCaNhan>();
+
+            #region mở đóng
 
             OpenLoaiHopDongCommand = new AppCommand<object>((p) =>
             {
@@ -410,12 +509,21 @@ namespace MasterSalesDemo.ViewModel
                 window.ShowDialog();
             });
 
+            OpenThemNhanVienCommand = new AppCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                ThemNhanVien window = new ThemNhanVien();
+                window.ShowDialog();
+            });
+
             CloseWindowCommand = new RelayCommand<object>((p) => { return p == null ? false : true; }, (p) => {
                 var exit = p as Window;
                 exit.Close();
             });
 
-            _ListThongTinNhanVien = new ObservableCollection<ThongTinCaNhan>();
+            #endregion
 
             #region thêm nhân viên
 
@@ -439,9 +547,10 @@ namespace MasterSalesDemo.ViewModel
                     HoTen = HoTen,
                     NgaySinh = NgaySinh,
                     GioiTinh = GioiTinh,
-                    MaTrinhDo = MaTrinhDo,
+                    MaTrinhDo = SelectedItemTrinhDo.id,
                     NoiSinh = NoiSinh,
-                    MaChucVu = MaChucVu,
+                    MaChucVu = SelectedItemChucVu.id,
+                    isDeleted = false,
                 };
 
                 DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
@@ -449,7 +558,7 @@ namespace MasterSalesDemo.ViewModel
                 NhanVien.Add(nhanvien);
                 NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
                 ThemNhanVienVaoList(nhanvien);
-        
+                InitNhanVien();
                 MessageBox.Show("Thêm thành công");
             });
 
@@ -462,7 +571,7 @@ namespace MasterSalesDemo.ViewModel
                 if (SelectedNhanVien == null)
                     return false;
                 //ListNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
-              
+
                 return true;
             }, (p) =>
             {
@@ -477,26 +586,14 @@ namespace MasterSalesDemo.ViewModel
                 {
                     nhanvien.HoTen = HoTen;
                     nhanvien.NoiSinh = NoiSinh;
-                    nhanvien.NgaySinh = NgaySinh;   
-                    nhanvien.MaChucVu = SelectedItemChucVu.id;
-                    nhanvien.MaTrinhDo = SelectedItemTrinhDo.id;
+                    nhanvien.NgaySinh = NgaySinh;
                     DataProvider.Ins.DB.SaveChanges();
                     SearchNhanVien();
                     OnPropertyChanged("SelectedNhanVien");
-
+                    InitNhanVien();
                     //InitMH();
                     MessageBox.Show("Bạn đã chỉnh sửa thành công");
                 }
-
-                //SelectedItemMH.NHACUNGCAP.MaNCC = nhanvien.MaNCC;
-                //SelectedItemMH.NHASANXUAT.MaNSX = nhanvien.MaNSX;
-                //SelectedItemMH.GiaNhap = GiaNhap;
-                //SelectedItemMH.GiaBan = GiaBan;
-                //SelectedItemMH.DonViTinh = DonViTinh;
-                //SelectedItemMH.SoLuongTonGian = SoLuongTonGian;
-
-
-
             });
 
             #endregion
@@ -523,6 +620,7 @@ namespace MasterSalesDemo.ViewModel
                     TenLoaiHD = TenLoaiHD,
                     ThoiHan = ThoiHan,
                     Luong = Luong,
+                    isDeleted = false,
                 };
 
                 DataProvider.Ins.DB.LOAIHOPDONGs.Add(loaihopdong);
@@ -530,46 +628,77 @@ namespace MasterSalesDemo.ViewModel
                 LoaiHopDong.Add(loaihopdong);
                 LoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
                 ListLoaiHopDong.Add(loaihopdong);
-
+                InitThemLoaiHopDong();
                 MessageBox.Show("Thêm thành công");
+            });
+
+            #endregion
+
+            #region sửa loại hợp đồng
+
+            SuaLoaiHopDongCommand = new RelayCommand<object>((p) =>
+            {
+                if (TenLoaiHD == null || ThoiHan ==0 || Luong ==0 )
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                var loaihopdong = DataProvider.Ins.DB.LOAIHOPDONGs.Where(x => x.id == SelectedItemLoaiHopDong.id).SingleOrDefault();
+                SelectedItemLoaiHopDong.TenLoaiHD = TenLoaiHD;
+                SelectedItemLoaiHopDong.ThoiHan = ThoiHan;
+                SelectedItemLoaiHopDong.Luong = Luong;
+                DataProvider.Ins.DB.SaveChanges();
+                InitThemLoaiHopDong();
+                MessageBox.Show("Bạn lưu thành công nhà sản xuất");
+
             });
 
             #endregion
 
             #region thêm hợp đồng
 
-            //ThemHopDongCommand = new AppCommand<object>((p) =>
-            //{
-            //    if (string.IsNullOrEmpty(TenLoaiHD))
-            //        return false;
+            ThemHopDongCommand = new AppCommand<object>((p) =>
+            {
+                if (string.IsNullOrEmpty(TenLoaiHD) || string.IsNullOrEmpty(HoTen))
+                    return false;
 
-            //    var tennhanvien = DataProvider.Ins.DB.NHANVIENs.Where(x => x.HoTen.ToLower() == HoTen.ToLower());
-            //    if (tennhanvien == null || tennhanvien.Count() != 0)
-            //        return false;
+                return true;
 
-            //    return true;
+            }, (p) =>
+            {
+                string mahopdong = GetCodeHopDong();
+                var hopdong = new HOPDONG()
+                {
+                    id = mahopdong,
+                    MaLoaiHD = SelectedItemLoaiHopDong.id,
+                    MaNV = SelectedItemNhanVien.id,
+                    NgayHD = SelectedStartDate,
+                    NgayKT = SelectedEndDate,
+                    isDeleted = false,
+                };
 
-            //}, (p) =>
-            //{
-            //    string manhanvien = GetCodeNhanVien();
-            //    var nhanvien = new HOPDONG()
-            //    {
-            //        id = manhanvien,
-            //        HoTen = HoTen,
-            //        NgaySinh = NgaySinh,
-            //        GioiTinh = GioiTinh,
-            //        MaTrinhDo = SelectedTrinhDo.id,
-            //        NoiSinh = NoiSinh,
-            //    };
+                NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Where(x => x.id == SelectedItemNhanVien.id).FirstOrDefault();
+                HOPDONG hd = DataProvider.Ins.DB.HOPDONGs.Where(x => x.MaNV == nv.id).FirstOrDefault();
 
-            //    DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
-            //    DataProvider.Ins.DB.SaveChanges();
-            //    NhanVien.Add(nhanvien);
-            //    NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
-            //    ListNhanVien.Add(nhanvien);
-
-            //    MessageBox.Show("Thêm thành công");
-            //});
+                if (hd != null)
+                {
+                    if (hd.NgayKT < SelectedStartDate)
+                    {
+                        MessageBox.Show("Nhân viên còn hợp đồng");
+                    }
+                    else
+                    {
+                        DataProvider.Ins.DB.HOPDONGs.Add(hopdong);
+                        DataProvider.Ins.DB.SaveChanges();
+                        HopDong.Add(hopdong);
+                        ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+                        ListHopDong.Add(hopdong);
+                        InitThemHopDong();
+                        MessageBox.Show("Thêm thành công");
+                    }    
+                }  
+            });
 
             #endregion
 
