@@ -467,23 +467,34 @@ namespace MasterSalesDemo.ViewModel
             }, (p) =>
             {
                 var nhanvien = DataProvider.Ins.DB.NHANVIENs.Where(x => x.id == SelectedNhanVien.MaNV).SingleOrDefault();
-                nhanvien.HoTen = HoTen;
-                nhanvien.NoiSinh = NoiSinh;
-                nhanvien.NgaySinh = NgaySinh;
-                nhanvien.CHUCVU.id = nhanvien.MaChucVu;
-                nhanvien.TRINHDO.id = nhanvien.MaTrinhDo;
+                MessageBox.Show(nhanvien.MaTrinhDo);
+                MessageBox.Show(SelectedItemTrinhDo.id);
+                if (String.Compare(nhanvien.TRINHDO.id, SelectedItemTrinhDo.id) == 1)
+                {
+                    MessageBox.Show("Phải chọn trình độ cao hơn");
+                }
+                else
+                {
+                    nhanvien.HoTen = HoTen;
+                    nhanvien.NoiSinh = NoiSinh;
+                    nhanvien.NgaySinh = NgaySinh;   
+                    nhanvien.MaChucVu = SelectedItemChucVu.id;
+                    nhanvien.MaTrinhDo = SelectedItemTrinhDo.id;
+                    DataProvider.Ins.DB.SaveChanges();
+                    SearchNhanVien();
+                    OnPropertyChanged("SelectedNhanVien");
+
+                    //InitMH();
+                    MessageBox.Show("Bạn đã chỉnh sửa thành công");
+                }
+
                 //SelectedItemMH.NHACUNGCAP.MaNCC = nhanvien.MaNCC;
                 //SelectedItemMH.NHASANXUAT.MaNSX = nhanvien.MaNSX;
                 //SelectedItemMH.GiaNhap = GiaNhap;
                 //SelectedItemMH.GiaBan = GiaBan;
                 //SelectedItemMH.DonViTinh = DonViTinh;
                 //SelectedItemMH.SoLuongTonGian = SoLuongTonGian;
-                DataProvider.Ins.DB.SaveChanges();
-                SearchNhanVien();
-                OnPropertyChanged("SelectedNhanVien");
 
-                //InitMH();
-                MessageBox.Show("Bạn đã chỉnh sửa thành công");
 
 
             });

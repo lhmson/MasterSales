@@ -242,7 +242,7 @@
                 <Grid Margin="50,20,50,0" Grid.Row="7" Grid.Column="6" Grid.ColumnSpan="6" >
                     <ComboBox ItemsSource="{Binding ChucVu}" DisplayMemberPath="TenChucVu"
                      VerticalAlignment="Center" HorizontalAlignment="Stretch" 
-                      materialDesign:HintAssist.Hint="Trình độ">
+                      materialDesign:HintAssist.Hint="Chức vụ">
                         <ComboBox.Width>
                             <Binding ElementName="TenChucVu" Path="ActualWidth"/>
                         </ComboBox.Width>
