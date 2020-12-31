@@ -46,106 +46,29 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.2*"/>
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="0.75*"/>
                 </Grid.RowDefinitions>
-                <Grid Margin="8,8,8,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13">
-                    <materialDesign:Card
-                  Background="{DynamicResource PrimaryHueDarkBrush}"
-                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
-                  Padding="8">
-                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20">TRA CỨU THẺ KHO</TextBlock>
-                    </materialDesign:Card>
-                </Grid>
-                <Grid Margin="8,8,8,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8">
-                    <materialDesign:Card
-                  Background="{DynamicResource PrimaryHueDarkBrush}"
-                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
-                  Padding="8">
-                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" Text="Danh sách thẻ kho" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                    </materialDesign:Card>
-                </Grid>
-                <Grid Margin="8,8,8,0" Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="5">
+                <Grid Margin="8,8,8,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="12">
                     <materialDesign:Card 
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
-                  Padding="6">
-                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" Text="Chi tiết thẻ kho" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                  Padding="8">
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">TRA CỨU THÔNG TIN</TextBlock>
                     </materialDesign:Card>
                 </Grid>
-                <Grid Margin="8" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="8" Grid.RowSpan="6">
-                    <materialDesign:Card></materialDesign:Card>
-                </Grid>
-                <Grid Margin="8" Grid.Row="2" Grid.Column="8" Grid.ColumnSpan="5" Grid.RowSpan="6">
-                    <materialDesign:Card></materialDesign:Card>
-                </Grid>
-                <Grid Margin="8,8,0,8" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
-                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Tên mặt hàng"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
-                                 Text="{Binding txtTenMH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="24,0,0,0" />
-                </Grid>
-                <Grid Margin="8" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3">
-                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Mã mặt hàng"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
-                                 Text="{Binding txtMaMH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="12,0" />
-                </Grid>
-                <Grid Margin="0,8,8,8" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2">
-                    <Button Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=ThemHangWindow}"
-                        Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True"
-                         Content="Tra cứu" Height="48" FontSize="20" Margin="0,0,24,0" >
-                    </Button>
-                </Grid>
-                <Grid Margin="8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" Grid.RowSpan="5">
-                    <ListView x:Name="listViewReport" ItemsSource="{Binding ListTK, Mode=TwoWay}" SelectionMode="Single"
-                              HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              HorizontalContentAlignment="Stretch" Margin="8,0" SelectedItem="{Binding SelectedTheKho, Mode=TwoWay}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Width="60" Header="STT" DisplayMemberBinding="{Binding STT}"/>
-                                <GridViewColumn Width="120" Header="Mã Thẻ Kho" DisplayMemberBinding="{Binding MaThe}"/>
-                                <GridViewColumn Width="120" Header="Mã MH" DisplayMemberBinding="{Binding MaMH}"/>
-                                <GridViewColumn Width="200" Header="Tên MH" DisplayMemberBinding="{Binding TenMH}"/>
-                                <GridViewColumn Width="120" Header="Người Lập" DisplayMemberBinding="{Binding NguoiLap}"/>
-                                <GridViewColumn Width="150" Header="Ngày Lập" DisplayMemberBinding="{Binding NgayLap}"/>
-                                <GridViewColumn Width="150" Header="Tồn Gian" DisplayMemberBinding="{Binding SLTonGian}"/>
-                                <GridViewColumn Width="150" Header="Tồn Kho" DisplayMemberBinding="{Binding SLTonKho}"/>
-                            </GridView>
-                        </ListView.View>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
-                                                   CommandParameter="{Binding ElementName=listDateDisplayed}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ListView>
-                </Grid>
-                <Grid Margin="8" Grid.Row="2" Grid.Column="8" Grid.ColumnSpan="5" Grid.RowSpan="5">
-                    <ListView x:Name="listView" ItemsSource="{Binding ListCTTK, Mode=TwoWay}" SelectionMode="Single"
-                              HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              HorizontalContentAlignment="Stretch" Margin="8,0"  SelectedItem="{Binding SelectedMatHang, Mode=TwoWay}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"/>
-                                <GridViewColumn  Header="Mã Phiếu" DisplayMemberBinding="{Binding MaPhieu}"/>
-                                <GridViewColumn  Header="Loại" DisplayMemberBinding="{Binding Loai}"/>
-                                <GridViewColumn  Header="Ngày" DisplayMemberBinding="{Binding Ngay}"/>
-                                <GridViewColumn  Header="Nhập" DisplayMemberBinding="{Binding Nhap}"/>
-                                <GridViewColumn  Header="Xuất" DisplayMemberBinding="{Binding Xuat}"/>
-                                <GridViewColumn  Header="Diễn giải" DisplayMemberBinding="{Binding DienGiai}"/>
-                            </GridView>
-                        </ListView.View>
 
-                    </ListView>
-                </Grid>
+               
+
             </Grid>
         </materialDesign:DialogHost>
 
