@@ -597,6 +597,7 @@
   <ItemGroup>
     <Resource Include="Images\Contract.jpg" />
     <Resource Include="Images\ChuyenChucVu.jpg" />
+    <Resource Include="Images\Shopping.jpg" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>
