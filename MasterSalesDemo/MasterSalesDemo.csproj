@@ -274,6 +274,9 @@
     <Compile Include="ViewModel\QLLichSu_ViewModel.cs" />
     <Compile Include="ViewModel\QLKiNang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLuongThuong_ViewModel.cs" />
+    <Compile Include="View\DanhGiaKyNang.xaml.cs">
+      <DependentUpon>DanhGiaKyNang.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\KyNang.xaml.cs">
       <DependentUpon>KyNang.xaml</DependentUpon>
     </Compile>
@@ -381,6 +384,10 @@
     <Page Include="BanHang_PrintPreview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DanhGiaKyNang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\KyNang.xaml">
       <SubType>Designer</SubType>

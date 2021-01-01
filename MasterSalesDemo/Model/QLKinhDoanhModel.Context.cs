@@ -10,6 +10,7 @@
 namespace MasterSalesDemo.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
@@ -54,5 +55,7 @@ namespace MasterSalesDemo.Model
         public virtual DbSet<THAMSO> THAMSOes { get; set; }
         public virtual DbSet<TRINHDO> TRINHDOes { get; set; }
         public virtual DbSet<TuVanKH> TuVanKHs { get; set; }
+        public List<DANHGIAKYNANG> DANHGIAKYNANG { get; internal set; }
+        public List<KYNANG> KYNANG { get; internal set; }
     }
 }

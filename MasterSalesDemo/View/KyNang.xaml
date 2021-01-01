@@ -68,9 +68,14 @@
             <materialDesign:Card></materialDesign:Card>
         </Grid>
 
-        <Grid Margin="8,8,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" >
+        <Grid Margin="8,8,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" >
             <TextBox  Text="{Binding TenKyNang, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      materialDesign:HintAssist.Hint="Tên kỹ năng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,0,15.6,-0.2" Height="57" VerticalAlignment="Top"/>
+        </Grid>
+
+        <Grid Margin="0,4,8,8" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="1" Grid.RowSpan="2">
+            <Button VerticalAlignment="Stretch" Command="{Binding InitKNCommand}" Padding="0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"  Content="{materialDesign:PackIcon Kind=RotateLeft, Size=32}"  Margin="16,0,0,0" Height="46" FontSize="20"/>
         </Grid>
 
         <Grid Margin="8,8,8,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="5">
@@ -92,7 +97,7 @@
         </Grid>
 
         <Grid Margin="8,8,8,0" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="3">
-            <Button  Command="{Binding EditNCCCommand}" Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
+            <Button  Command="{Binding SuaKyNangCommand}" Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
         </Grid>
 
     </Grid>

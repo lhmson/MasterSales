@@ -102,9 +102,15 @@
                     <materialDesign:Card Grid.ColumnSpan="3" Margin="0,0,0.6,0"></materialDesign:Card>
                 </Grid>
 
-                <Grid Margin="50,8,20,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Grid Margin="50,8,20,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <ComboBox x:Name="cbbQuyDinh" materialDesign:HintAssist.Hint="Phòng ban"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding ListPhongBan}"
+                          SelectedItem="{Binding SelectedPhongBan}">
+                    </ComboBox>
+                </Grid>
 
-                <Grid Margin="0,8,10,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4">
+                <Grid Margin="0,8,10,8" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
                     <TextBox FontSize="20" materialDesign:HintAssist.Hint="Tên nhân viên"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
                                  Text="{Binding TenNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="48,6,-0.4,6.2" />

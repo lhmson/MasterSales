@@ -57,7 +57,6 @@ namespace MasterSalesDemo.ViewModel
         public ICommand ThemNhanVienCommand { get; set; }
         public ICommand ThemLoaiHopDongCommand { get; set; }
         public ICommand ThemHopDongCommand { get; set; }
-        public ICommand SearchNhanVienCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand SuaThongTinNhanVienCommand { get; set; }
@@ -113,6 +112,13 @@ namespace MasterSalesDemo.ViewModel
 
         private string _MaChuVu;
         public string MaChucVu { get => _MaChuVu; set { _MaChuVu = value; OnPropertyChanged(); } }
+
+        private string _TenNhanVien;
+        public string TenNhanVien
+        {
+            get { return _TenNhanVien; }
+            set { _TenNhanVien = value; OnPropertyChanged(); }
+        }
 
         private NHANVIEN _SelectedItemNhanVien;
         public NHANVIEN SelectedItemNhanVien
@@ -177,6 +183,8 @@ namespace MasterSalesDemo.ViewModel
             NoiSinh = "";
             TenTrinhDo = "";
             NgaySinh = DateTime.Now;
+            _ListThongTinNhanVien = new ObservableCollection<ThongTinCaNhan>();
+            SearchNhanVien();
         }
 
         #endregion
@@ -330,18 +338,27 @@ namespace MasterSalesDemo.ViewModel
 
         #region Phòng ban
 
-        private string _TenNhanVien;
-        public string TenNhanVien
-        {
-            get { return _TenNhanVien; }
-            set { _TenNhanVien = value; OnPropertyChanged(); }
-        }
-
         private string _SelectedPhongBan;
         public string SelectedPhongBan
         {
             get { return _SelectedPhongBan; }
             set { _SelectedPhongBan = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<string> _ListPhongBan;
+        public ObservableCollection<string> ListPhongBan
+        {
+            get { return _ListPhongBan; }
+            set { _ListPhongBan = value; OnPropertyChanged(); }
+        }
+
+        public void LoadSourceComboBoxPhongBan()
+        {
+            ObservableCollection<PHONGBAN> _listPhongBan = new ObservableCollection<PHONGBAN>(DataProvider.Ins.DB.PHONGBANs);
+
+            ListPhongBan = new ObservableCollection<string>();
+            foreach (var pb in _listPhongBan)
+                ListPhongBan.Add(pb.TenPhong);
         }
 
         #endregion
@@ -468,11 +485,23 @@ namespace MasterSalesDemo.ViewModel
 
         #endregion
 
+        #region kỹ năng nhân viên
+
+        private ObservableCollection<KYNANG> _ListKyNangNhanVien;
+        public ObservableCollection<KYNANG> ListKyNangNhanVien
+        {
+            get { return _ListKyNangNhanVien; }
+            set { _ListKyNangNhanVien = value; OnPropertyChanged(); }
+        }
+
+        #endregion
+
         public QLTuyenDung_ViewModel()
         {
             InitNhanVien();
             InitThemHopDong();
             InitThemLoaiHopDong();
+            LoadSourceComboBoxPhongBan();
 
             TrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
             ListTrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
@@ -486,8 +515,6 @@ namespace MasterSalesDemo.ViewModel
             HopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
 
             ChucVu = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
-
-            _ListThongTinNhanVien = new ObservableCollection<ThongTinCaNhan>();
 
             #region mở đóng
 
@@ -576,8 +603,7 @@ namespace MasterSalesDemo.ViewModel
             }, (p) =>
             {
                 var nhanvien = DataProvider.Ins.DB.NHANVIENs.Where(x => x.id == SelectedNhanVien.MaNV).SingleOrDefault();
-                MessageBox.Show(nhanvien.MaTrinhDo);
-                MessageBox.Show(SelectedItemTrinhDo.id);
+
                 if (String.Compare(nhanvien.TRINHDO.id, SelectedItemTrinhDo.id) == 1)
                 {
                     MessageBox.Show("Phải chọn trình độ cao hơn");
@@ -650,7 +676,7 @@ namespace MasterSalesDemo.ViewModel
                 SelectedItemLoaiHopDong.Luong = Luong;
                 DataProvider.Ins.DB.SaveChanges();
                 InitThemLoaiHopDong();
-                MessageBox.Show("Bạn lưu thành công nhà sản xuất");
+                MessageBox.Show("Bạn lưu thành công");
 
             });
 
