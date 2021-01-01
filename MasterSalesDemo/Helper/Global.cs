@@ -58,6 +58,22 @@ namespace MasterSalesDemo.Helper
             return autoGenerateCode("LS", flag, 7);
         }
 
+        public string autoGenerateHopDong()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<HOPDONG> _listHD = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+            foreach (var ls in _listHD)
+            {
+                int number = filterNumber(ls.id);
+                if (number > flag)
+                    flag = number;
+            }
+
+            flag++;
+            return autoGenerateCode("HD", flag, 7);
+        }
+
         public void setNhanVien(NHANVIEN nv)
         {
             this.NhanVien = nv;
@@ -97,6 +113,16 @@ namespace MasterSalesDemo.Helper
             DataProvider.Ins.DB.LICHSUCHUCVUs.Add(lichsu);
             updateLichSu(nhanvien);
             DataProvider.Ins.DB.SaveChanges();
+        }
+
+        public LOAIHOPDONG getLHDbyTenLHD(string TenLHD)
+        {
+            ObservableCollection<LOAIHOPDONG> _listLHD = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
+
+            foreach (var lhd in _listLHD)
+                if (lhd.TenLoaiHD == TenLHD)
+                    return lhd;
+            return null;
         }
 
         public CHUCVU getChucVubyMaNV(string MaNV)
@@ -171,7 +197,7 @@ namespace MasterSalesDemo.Helper
                     return tk;
             return null;
         }
-        //Functions load database
+        //Functions load database GET ALL
         #region
         public ObservableCollection<string> getAllTenPhongBan()
         {
@@ -191,9 +217,28 @@ namespace MasterSalesDemo.Helper
                     ListChucVu.Add(cv.TenChucVu);
             return ListChucVu;
         }
+
+        public ObservableCollection<string> getAllTenLoaiHD()
+        {
+            ObservableCollection<string> ListLoaiHD = new ObservableCollection<string>();
+            ObservableCollection<LOAIHOPDONG> _listLoaiHD = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
+            foreach (var lhd in _listLoaiHD)
+                ListLoaiHD.Add(lhd.TenLoaiHD);
+            return ListLoaiHD;
+        }
         #endregion
 
         //Functions sub
+        public void deleteHopDong(string MaNV)
+        {
+            ObservableCollection<HOPDONG> _listHD = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+
+            foreach (var hd in _listHD)
+                if (hd.MaNV == MaNV)
+                    hd.isDeleted = true;
+
+            DataProvider.Ins.DB.SaveChanges();
+        }
         public void updateLichSu(NHANVIEN nhanvien)
         {
             ObservableCollection<LICHSUCHUCVU> _listLS = new ObservableCollection<LICHSUCHUCVU>(DataProvider.Ins.DB.LICHSUCHUCVUs);

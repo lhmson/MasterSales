@@ -151,6 +151,9 @@
     <Compile Include="ChuyenChucVu.xaml.cs">
       <DependentUpon>ChuyenChucVu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GiaHanHD_Window.xaml.cs">
+      <DependentUpon>GiaHanHD_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper\DatabaseCheck.cs" />
     <Compile Include="Helper\Global.cs" />
     <Compile Include="Helper\ListCTPhieu.cs" />
@@ -269,6 +272,7 @@
       <DependentUpon>BanHang_PrintPreview.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ChuyenChucVu_ViewModel.cs" />
+    <Compile Include="ViewModel\GiaHanHD_ViewModel.cs" />
     <Compile Include="ViewModel\QLKhachHang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLichSu_ViewModel.cs" />
     <Compile Include="ViewModel\QLKiNang_ViewModel.cs" />
@@ -367,6 +371,10 @@
       <DependentUpon>TraCuu_Page.xaml</DependentUpon>
     </Compile>
     <Page Include="ChuyenChucVu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaHanHD_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -587,6 +595,8 @@
     <Resource Include="Images\PhiHanhGia.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Contract.jpg" />
+    <Resource Include="Images\ChuyenChucVu.jpg" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>

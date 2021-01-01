@@ -211,6 +211,8 @@ namespace MasterSalesDemo.ViewModel
                     ContentCommand = "Chuyển chức vụ";
             }
 
+            if (hopdong == null)
+                ContentCommand = "Gia hạn hợp đồng";
             //Binding Qua trinh lam viec
             ListQuaTrinhNhanVien.Clear();
             List<LICHSUCHUCVU> _listLS = new List<LICHSUCHUCVU>(DataProvider.Ins.DB.LICHSUCHUCVUs);
@@ -240,9 +242,19 @@ namespace MasterSalesDemo.ViewModel
 
         public void ChuyenChucVu()
         {
+            Global.Ins.isValid = false;
             NHANVIEN nhanvien = Global.Ins.getNhanVienbyMaNV(SelectedNhanVien.MaNV);
             ChuyenChucVu windowChuyenChucVu = new ChuyenChucVu(nhanvien);
             windowChuyenChucVu.ShowDialog();
+        }
+
+
+        public void GiaHanHD()
+        {
+            Global.Ins.isValid = false;
+            NHANVIEN nhanvien = Global.Ins.getNhanVienbyMaNV(SelectedNhanVien.MaNV);
+            GiaHanHD_Window giahanWindow = new GiaHanHD_Window(nhanvien);
+            giahanWindow.ShowDialog();
         }
         #endregion
 
@@ -274,6 +286,17 @@ namespace MasterSalesDemo.ViewModel
                     {
                         DialogOpen = true;
                         ThongBao = "Chuyển chức vụ thành công";
+                    }
+                }
+
+                if (ContentCommand == "Gia hạn hợp đồng")
+                {
+                    GiaHanHD();
+                    if (Global.Ins.isValid)
+                    {
+                        BindingSelectionNhanVien();
+                        DialogOpen = true;
+                        ThongBao = "Gia hạn thành công";
                     }
                 }
             });
