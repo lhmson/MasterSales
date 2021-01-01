@@ -89,6 +89,22 @@ namespace MasterSalesDemo.Helper
             flag++;
             return autoGenerateCode("HD", flag, 10);
         }
+
+        public string autoGenerateCTHoaDon()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<CT_HOADON> _listCTHD = new ObservableCollection<CT_HOADON>(DataProvider.Ins.DB.CT_HOADON);
+            foreach (var ls in _listCTHD)
+            {
+                int number = filterNumber(ls.id);
+                if (number > flag)
+                    flag = number;
+            }
+
+            flag++;
+            return autoGenerateCode("CTHD", flag, 10);
+        }
         public void setNhanVien(NHANVIEN nv)
         {
             this.NhanVien = nv;
@@ -130,6 +146,14 @@ namespace MasterSalesDemo.Helper
             DataProvider.Ins.DB.SaveChanges();
         }
 
+        public MATHANG getMatHangbyMaMH(string MaMH)
+        {
+            ObservableCollection<MATHANG> _listMH = new ObservableCollection<MATHANG>(DataProvider.Ins.DB.MATHANGs);
+            foreach (var mh in _listMH)
+                if (mh.id == MaMH)
+                    return mh;
+            return null;
+        }
         public LOAIHOPDONG getLHDbyTenLHD(string TenLHD)
         {
             ObservableCollection<LOAIHOPDONG> _listLHD = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);

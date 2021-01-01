@@ -143,7 +143,7 @@ namespace MasterSalesDemo.ViewModel
             if (Global.Ins.isThemThanhCong)
             {
                 DialogOpen = true;
-                ThongBao = "Thêm mặt hàng" + Global.Ins.TenMH + " vào giỏ hàng thành công";
+                ThongBao = "Thêm mặt hàng " + Global.Ins.TenMH + " vào giỏ hàng thành công";
                 addGioHang();
                 Global.Ins.isThemThanhCong = false;
             }
@@ -170,6 +170,60 @@ namespace MasterSalesDemo.ViewModel
                 res += Double.Parse(item.ThanhTien);
             TongTien = res + "";
         }
+        public void TaoHoaDon()
+        {
+            if (String.IsNullOrWhiteSpace(MaHD))
+            {
+                System.Windows.MessageBox.Show("Bạn chưa tạo mã hóa đơn");
+                return;
+            }
+
+            if (ListMatHang.Count == 0)
+            {
+                System.Windows.MessageBox.Show("Không thể tạo một hóa đơn rỗng");
+                return;
+            }
+
+            HOADON hd = new HOADON()
+            {
+                id = Global.Ins.autoGenerateHoaDon(),
+                MaPhieuDH = null,
+                NgayLap = DateTime.Now,
+                NgayXuat = DateTime.Now,
+                MaKH = null,
+                MaNV = Global.Ins.NhanVien.id,
+                ThanhTien = decimal.Parse(TongTien),
+                TrangThai = 1,
+                isDeleted = false,
+            };
+            DataProvider.Ins.DB.HOADONs.Add(hd);
+            DataProvider.Ins.DB.SaveChanges();
+            foreach (var item in ListMatHang)
+            {
+                CT_HOADON ct = new CT_HOADON()
+                {
+                    id = Global.Ins.autoGenerateCTHoaDon(),
+                    MaHD = hd.id,
+                    MaMH = item.MaMH,
+                    SLMua = int.Parse(item.SoLuong),
+                    DonGia = decimal.Parse(item.DonGia),
+                    TongTien = decimal.Parse(item.ThanhTien),
+                    isDeleted = false,
+                };
+                DataProvider.Ins.DB.CT_HOADON.Add(ct);
+                DataProvider.Ins.DB.SaveChanges();
+            }
+            if (CreateReport)
+            {
+                BanHang_PrintPreview_ViewModel vm = new BanHang_PrintPreview_ViewModel(hd.id, Global.Ins.NhanVien.HoTen, hd.ThanhTien + "", ListMatHang);
+                BanHang_PrintPreview print = new BanHang_PrintPreview(vm);
+                print.Show();
+            }
+
+            DialogOpen = true;
+            ThongBao = "Tạo hóa đơn thành công";
+            LoadDatabase();
+        }
         #endregion
         public BanHang_ViewModel()
         {
@@ -194,6 +248,10 @@ namespace MasterSalesDemo.ViewModel
 
             DialogOK = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 DialogOpen = false;
+            });
+
+            XacNhanCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                TaoHoaDon();
             });
         }
     }
