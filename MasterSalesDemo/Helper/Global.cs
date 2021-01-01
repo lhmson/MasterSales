@@ -74,6 +74,21 @@ namespace MasterSalesDemo.Helper
             return autoGenerateCode("HD", flag, 7);
         }
 
+        public string autoGenerateHoaDon()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<HOADON> _listHD = new ObservableCollection<HOADON>(DataProvider.Ins.DB.HOADONs);
+            foreach (var ls in _listHD)
+            {
+                int number = filterNumber(ls.id);
+                if (number > flag)
+                    flag = number;
+            }
+
+            flag++;
+            return autoGenerateCode("HD", flag, 10);
+        }
         public void setNhanVien(NHANVIEN nv)
         {
             this.NhanVien = nv;
@@ -197,6 +212,26 @@ namespace MasterSalesDemo.Helper
                     return tk;
             return null;
         }
+
+        public ObservableCollection<MATHANG> searchMHbyTenNhom_TenMH(string TenNhomMH, string TenMH)
+        {
+            ObservableCollection<MATHANG> _listMH = new ObservableCollection<MATHANG>(DataProvider.Ins.DB.MATHANGs);
+            ObservableCollection<MATHANG> _res = new ObservableCollection<MATHANG>();
+            foreach (var mh in _listMH)
+            {
+                bool isValidNhom = false;
+                bool isValidTenMH = false;
+                if (String.IsNullOrWhiteSpace(TenNhomMH) || mh.NHOMMATHANG.TenNhomMH == TenNhomMH)
+                    isValidNhom = true;
+
+                if (String.IsNullOrWhiteSpace(TenMH) || mh.TenMH.ToLower().Contains(TenMH.ToLower()))
+                    isValidTenMH = true;
+
+                if (isValidNhom && isValidTenMH )
+                    _res.Add(mh);
+            }
+            return _res;
+        }
         //Functions load database GET ALL
         #region
         public ObservableCollection<string> getAllTenPhongBan()
@@ -226,6 +261,15 @@ namespace MasterSalesDemo.Helper
                 ListLoaiHD.Add(lhd.TenLoaiHD);
             return ListLoaiHD;
         }
+
+        public ObservableCollection<string> getAllTenNhomMH()
+        {
+            ObservableCollection<string> res = new ObservableCollection<string>();
+            ObservableCollection<NHOMMATHANG> _listNhomMH = new ObservableCollection<NHOMMATHANG>(DataProvider.Ins.DB.NHOMMATHANGs);
+            foreach (var nmh in _listNhomMH)
+                res.Add(nmh.TenNhomMH);
+            return res;
+        }
         #endregion
 
         //Functions sub
@@ -249,5 +293,10 @@ namespace MasterSalesDemo.Helper
                         ls.NgayKT = DateTime.Now;
             DataProvider.Ins.DB.SaveChanges();
         }
+
+        //Dung cho them gio hang
+        public string TenMH { get; set; }
+        public int SoLuongMua { get; set; }
+        public bool isThemThanhCong { get; set; }
     }
 }

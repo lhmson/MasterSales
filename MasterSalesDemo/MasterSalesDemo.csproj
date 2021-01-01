@@ -271,12 +271,16 @@
     <Compile Include="BanHang_PrintPreview.xaml.cs">
       <DependentUpon>BanHang_PrintPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ThemGioHang_Window.xaml.cs">
+      <DependentUpon>ThemGioHang_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ChuyenChucVu_ViewModel.cs" />
     <Compile Include="ViewModel\GiaHanHD_ViewModel.cs" />
     <Compile Include="ViewModel\QLKhachHang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLichSu_ViewModel.cs" />
     <Compile Include="ViewModel\QLKiNang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLuongThuong_ViewModel.cs" />
+    <Compile Include="ViewModel\ThemGioHang.cs" />
     <Compile Include="View\KyNang.xaml.cs">
       <DependentUpon>KyNang.xaml</DependentUpon>
     </Compile>
@@ -385,6 +389,10 @@
     <Page Include="BanHang_PrintPreview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemGioHang_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\KyNang.xaml">
       <SubType>Designer</SubType>
@@ -598,6 +606,7 @@
     <Resource Include="Images\Contract.jpg" />
     <Resource Include="Images\ChuyenChucVu.jpg" />
     <Resource Include="Images\Shopping.jpg" />
+    <Resource Include="Images\LAPTOP.jpg" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>

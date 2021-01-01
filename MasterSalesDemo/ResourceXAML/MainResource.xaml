@@ -19,4 +19,5 @@
     <viewmodel:CaiDatKhac_ViewModel x:Key="CaiDatKhacVM"></viewmodel:CaiDatKhac_ViewModel>
     <viewmodel:ChuyenChucVu_ViewModel x:Key="ChuyenChucVuVM"></viewmodel:ChuyenChucVu_ViewModel>
     <viewmodel:GiaHanHD_ViewModel x:Key="GiaHanHDVM"></viewmodel:GiaHanHD_ViewModel>
+    <viewmodel:ThemGioHang x:Key="ThemGioHangVM"></viewmodel:ThemGioHang>
 </ResourceDictionary>
