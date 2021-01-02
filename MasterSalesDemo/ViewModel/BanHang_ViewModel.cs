@@ -40,6 +40,13 @@ namespace MasterSalesDemo.ViewModel
             set { _MaHD = value; OnPropertyChanged(); }
         }
 
+        private string _MaPhieuDH;
+        public string MaPhieuDH
+        {
+            get { return _MaPhieuDH; }
+            set { _MaPhieuDH = value; OnPropertyChanged(); }
+        }
+
         private bool _CreateReport;
         public bool CreateReport
         {
@@ -87,7 +94,7 @@ namespace MasterSalesDemo.ViewModel
         public ICommand GetMaHDCommand { get; set; }
         public ICommand HuyCommand { get; set; }
         public ICommand XacNhanCommand { get; set; }
-        public ICommand XemDatThemGioHangCommandOnlineCommand { get; set; }
+        public ICommand XemDatOnlineCommand { get; set; }
         public ICommand ThemGioHangCommand { get; set; }
         public ICommand BoRaGioHangCommand { get; set; }
         public ICommand DialogOK { get; set; }
@@ -196,6 +203,11 @@ namespace MasterSalesDemo.ViewModel
                 TrangThai = 1,
                 isDeleted = false,
             };
+            if (!String.IsNullOrWhiteSpace(MaPhieuDH))
+                hd.MaPhieuDH = MaPhieuDH;
+            PHIEUDATHANG pdh = Global.Ins.getPhieuDHbyMaPhieu(MaPhieuDH);
+            pdh.TrangThai = 1;
+  
             DataProvider.Ins.DB.HOADONs.Add(hd);
             DataProvider.Ins.DB.SaveChanges();
             foreach (var item in ListMatHang)
@@ -224,9 +236,41 @@ namespace MasterSalesDemo.ViewModel
             ThongBao = "Tạo hóa đơn thành công";
             LoadDatabase();
         }
+        public void BindingPhieuDHOnline()
+        {
+            LoadDatabase();
+            MaPhieuDH = Global.Ins.PhieuDHXuLY.id;
+            if (Global.Ins.PhieuDHXuLY == null)
+                return;
+            PHIEUDATHANG pdh = Global.Ins.PhieuDHXuLY;
+            ObservableCollection<CT_PHIEUDATHANG> _listCTPDH = new ObservableCollection<CT_PHIEUDATHANG>(DataProvider.Ins.DB.CT_PHIEUDATHANG);
+            foreach (var ctphdh in _listCTPDH)
+                if (ctphdh.MaPhieuDH ==pdh.id)
+                {
+                    int stt = ListMatHang.Count + 1;
+                    MATHANG mh = ctphdh.MATHANG;
+                    ListMatHangMua mhmua = new ListMatHangMua(stt+"",mh.id,mh.TenMH,mh.DonVi,mh.DonGia+"",ctphdh.SLDat+"",ctphdh.TongTien+"");
+                    ListMatHang.Add(mhmua);
+                }
+            TinhTien();
+        }
+        public void XuLyPhieuOnline()
+        {
+            DatOnline_Window window = new DatOnline_Window();
+            Global.Ins.isXuLy = false;
+            window.ShowDialog();
+            if (Global.Ins.isXuLy)
+            {
+                DialogOpen = true;
+                ThongBao = "Xác nhận xử lý phiếu đặt hàng thàng công";
+                BindingPhieuDHOnline();
+            }
+        }
         #endregion
         public BanHang_ViewModel()
         {
+            Global.Ins.isXuLy = false;
+            Global.Ins.PhieuDHXuLY = null;
             LoadDatabase();
 
             GetMaHDCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
@@ -235,6 +279,8 @@ namespace MasterSalesDemo.ViewModel
 
             HuyCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 LoadDatabase();
+                Global.Ins.isXuLy = false;
+                Global.Ins.PhieuDHXuLY = null;
             });
 
             ThemGioHangCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
@@ -252,6 +298,10 @@ namespace MasterSalesDemo.ViewModel
 
             XacNhanCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 TaoHoaDon();
+            });
+
+            XemDatOnlineCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                XuLyPhieuOnline();
             });
         }
     }

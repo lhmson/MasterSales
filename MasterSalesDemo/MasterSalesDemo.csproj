@@ -151,6 +151,9 @@
     <Compile Include="ChuyenChucVu.xaml.cs">
       <DependentUpon>ChuyenChucVu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DatOnline_Window.xaml.cs">
+      <DependentUpon>DatOnline_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GiaHanHD_Window.xaml.cs">
       <DependentUpon>GiaHanHD_Window.xaml</DependentUpon>
     </Compile>
@@ -275,6 +278,7 @@
       <DependentUpon>ThemGioHang_Window.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ChuyenChucVu_ViewModel.cs" />
+    <Compile Include="ViewModel\DatOnline_ViewModel.cs" />
     <Compile Include="ViewModel\GiaHanHD_ViewModel.cs" />
     <Compile Include="ViewModel\QLKhachHang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLichSu_ViewModel.cs" />
@@ -375,6 +379,10 @@
       <DependentUpon>TraCuu_Page.xaml</DependentUpon>
     </Compile>
     <Page Include="ChuyenChucVu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DatOnline_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -607,6 +615,7 @@
     <Resource Include="Images\ChuyenChucVu.jpg" />
     <Resource Include="Images\Shopping.jpg" />
     <Resource Include="Images\LAPTOP.jpg" />
+    <Resource Include="Images\Online.jpg" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>

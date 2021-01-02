@@ -237,6 +237,17 @@ namespace MasterSalesDemo.Helper
             return null;
         }
 
+        public KHACHHANG getKHbyMaKH(string MaKH)
+        {
+            ObservableCollection<KHACHHANG> _listKH = new ObservableCollection<KHACHHANG>(DataProvider.Ins.DB.KHACHHANGs);
+
+            foreach (var kh in _listKH)
+                if (kh.id == MaKH)
+                    return kh;
+
+            return null;
+        }
+
         public ObservableCollection<MATHANG> searchMHbyTenNhom_TenMH(string TenNhomMH, string TenMH)
         {
             ObservableCollection<MATHANG> _listMH = new ObservableCollection<MATHANG>(DataProvider.Ins.DB.MATHANGs);
@@ -258,6 +269,16 @@ namespace MasterSalesDemo.Helper
         }
         //Functions load database GET ALL
         #region
+        public ObservableCollection<PHIEUDATHANG> getAllPhieuDatHang()
+        {
+            ObservableCollection<PHIEUDATHANG> _listPDH= new ObservableCollection<PHIEUDATHANG>(DataProvider.Ins.DB.PHIEUDATHANGs);
+            ObservableCollection<PHIEUDATHANG> _RES = new ObservableCollection<PHIEUDATHANG>();
+            foreach (var pdh in _listPDH)
+                if (!(pdh.isDeleted == true))
+                    _RES.Add(pdh);
+            return _RES;
+        }
+
         public ObservableCollection<string> getAllTenPhongBan()
         {
             ObservableCollection<string>  ListPhongBan = new ObservableCollection<string>();
@@ -322,5 +343,18 @@ namespace MasterSalesDemo.Helper
         public string TenMH { get; set; }
         public int SoLuongMua { get; set; }
         public bool isThemThanhCong { get; set; }
+
+        //Dung cho xu ly dat hang online
+        public PHIEUDATHANG PhieuDHXuLY { get; set; }
+        public bool isXuLy { get; set; }
+
+        public PHIEUDATHANG getPhieuDHbyMaPhieu(string MaPhieu)
+        {
+            ObservableCollection<PHIEUDATHANG> _listPDH = new ObservableCollection<PHIEUDATHANG>(DataProvider.Ins.DB.PHIEUDATHANGs);
+            foreach (var pdh in _listPDH)
+                if (!(pdh.isDeleted == true) && pdh.id == MaPhieu)
+                    return pdh;
+            return null;
+        }
     }
 }
