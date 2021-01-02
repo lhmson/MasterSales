@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MasterSalesDemo.View"
         mc:Ignorable="d"
-        Title="ThemNhanVien" Height="550" Width="500"
+        Title="ThemNhanVien" Height="600" Width="500"
 
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -81,7 +81,7 @@
             <ComboBox Name="cbbGioiTinh" materialDesign:HintAssist.Hint="Giới tính"
                           Visibility="{Binding VisibilityOfAdd}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           ItemsSource="{Binding ListGioiTinh}"
-                          SelectedItem="{Binding GioiTinh}" Height="52" Margin="0,17,-0.4,10.2">
+                          SelectedItem="{Binding GioiTinh}" Height="48" Margin="0,13,-0.4,10.2">
             </ComboBox>
         </Grid>
 

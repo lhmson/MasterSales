@@ -65,25 +65,6 @@ namespace MasterSalesDemo.ViewModel
 
         //public ICommand ThayDoiTrinhDo { get; set; }
 
-        #region tạo mã nhân viên
-
-        public string format(string a)
-        {
-            string tmp = a;
-            for (int i = 1; i <= 5 - a.Length; i++)
-                tmp = "0" + tmp;
-            return tmp;
-        }
-
-        private string GetCodeNhanVien()
-        {
-            ObservableCollection<NHANVIEN> ListNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
-            int tmp = ListNhanVien.Count();
-            return "NV" + format((tmp + 1).ToString());
-        }
-
-        #endregion
-
         #region nhân viên
 
         private ObservableCollection<NHANVIEN> _NhanVien;
@@ -179,11 +160,11 @@ namespace MasterSalesDemo.ViewModel
         {
             HoTen = "";
             GioiTinh = "";
-            TenChuVu = "";
+            SelectedItemTrinhDo = null;
             NoiSinh = "";
-            TenTrinhDo = "";
+            SelectedItemChucVu = null;
             NgaySinh = DateTime.Now;
-            _ListThongTinNhanVien = new ObservableCollection<ThongTinCaNhan>();
+            ListThongTinNhanVien = new ObservableCollection<ThongTinCaNhan>();
             SearchNhanVien();
         }
 
@@ -332,6 +313,25 @@ namespace MasterSalesDemo.ViewModel
             ObservableCollection<HOPDONG> ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
             int tmp = ListHopDong.Count();
             return "HD" + format((tmp + 1).ToString());
+        }
+
+        #endregion
+
+        #region tạo mã nhân viên
+
+        public string format(string a)
+        {
+            string tmp = a;
+            for (int i = 1; i <= 5 - a.Length; i++)
+                tmp = "0" + tmp;
+            return tmp;
+        }
+
+        private string GetCodeNhanVien()
+        {
+            ObservableCollection<NHANVIEN> ListNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+            int tmp = ListNhanVien.Count();
+            return "NV" + format((tmp + 1).ToString());
         }
 
         #endregion
@@ -542,6 +542,7 @@ namespace MasterSalesDemo.ViewModel
             }, (p) =>
             {
                 ThemNhanVien window = new ThemNhanVien();
+                window.Closed += ThemNhanVienWindow_Closed;
                 window.ShowDialog();
             });
 
@@ -739,6 +740,11 @@ namespace MasterSalesDemo.ViewModel
             });
 
             #endregion
+        }
+
+        private void ThemNhanVienWindow_Closed(object sender, EventArgs e)
+        {
+            SearchNhanVien();
         }
     }
 }

@@ -270,10 +270,12 @@
       <DependentUpon>BanHang_PrintPreview.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ChuyenChucVu_ViewModel.cs" />
+    <Compile Include="ViewModel\DanhGiaKyNang_ViewModel.cs" />
     <Compile Include="ViewModel\QLKhachHang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLichSu_ViewModel.cs" />
     <Compile Include="ViewModel\QLKiNang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLuongThuong_ViewModel.cs" />
+    <Compile Include="ViewModel\SuaDanhGia_ViewModel.cs" />
     <Compile Include="View\DanhGiaKyNang.xaml.cs">
       <DependentUpon>DanhGiaKyNang.xaml</DependentUpon>
     </Compile>
@@ -291,6 +293,9 @@
     </Compile>
     <Compile Include="View\QLKiNang_Page.xaml.cs">
       <DependentUpon>QLKiNang_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SuaDanhGiaKN.xaml.cs">
+      <DependentUpon>SuaDanhGiaKN.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ThemHopDong.xaml.cs">
       <DependentUpon>ThemHopDong.xaml</DependentUpon>
@@ -408,6 +413,10 @@
     <Page Include="View\QLKiNang_Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SuaDanhGiaKN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ThemHopDong.xaml">
       <SubType>Designer</SubType>

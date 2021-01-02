@@ -14,18 +14,56 @@ using System.Windows.Documents;
 using MasterSalesDemo.View;
 using System.Windows.Input;
 using System.Runtime.InteropServices;
+using MasterSalesDemo.Helper;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace MasterSalesDemo.ViewModel
 {
+    public class ThongTinCaNhanNV
+    {
+        public string STT { get; set; }
+        public string HoTen { get; set; }
+        public string MaNV { get; set; }
+        public string ChucVu { get; set; }
+        public DateTime NgaySinh { get; set; }
+        public string PhongBan { get; set; }
+        public string GioiTinh { get; set; }
+        public string NoiSinh { get; set; }
+        public string TenTrinhDo { get; set; }
+        public TRINHDO TD { get; set; }
+        public CHUCVU CHUCVU { get; set; }
+
+        public ThongTinCaNhanNV(int stt, string MaNV, string HoTen, DateTime NgaySinh, string GioiTinh, string PhongBan, string ChucVu, string NoiSinh, TRINHDO TD, string TenTrinhDo, CHUCVU CHUCVU)
+        {
+            this.STT = stt + "";
+            this.MaNV = MaNV;
+            this.HoTen = HoTen;
+            this.GioiTinh = GioiTinh;
+            this.NgaySinh = NgaySinh;
+            this.PhongBan = PhongBan;
+            this.ChucVu = ChucVu;
+            this.NoiSinh = NoiSinh;
+            this.TD = TD;
+            this.TenTrinhDo = TenTrinhDo;
+            this.CHUCVU = CHUCVU;
+        }
+    }
 
     public class KyNangNhanVien
     {
         public string STT { get; set; }
         public string TenKyNang { get; set; }
         public string DanhGia { get; set; }
+        public string MaKN { get; set; }
 
-        
+        public KyNangNhanVien(int stt, DANHGIAKYNANG dgkn)
+        {
+            STT = stt + "";
+            KYNANG kn = DataProvider.Ins.DB.KYNANGs.Where(x => x.id == dgkn.MaKyNang).FirstOrDefault();
+            MaKN = kn.id;
+            TenKyNang = kn.TenKyNang;
+            DanhGia = dgkn.LoaiDanhGia;
+        }
     }
 
     public class QLKiNang_ViewModel : BaseViewModel
@@ -33,7 +71,6 @@ namespace MasterSalesDemo.ViewModel
         public ICommand CloseWindowCommand { get; set; }
         public ICommand OpenKyNangCommand { get; set; }
         public ICommand OpenTrinhDoCommand { get; set; }
-        public ICommand OpenDanhGiaKyNangCommand { get; set; }
         public ICommand ThemTrinhDoCommand { get; set; }
         public ICommand ThemKyNangCommand { get; set; }
         public ICommand SuaKyNangCommand { get; set; }
@@ -43,6 +80,8 @@ namespace MasterSalesDemo.ViewModel
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand ThayDoiTrinhDoCommand { get; set; }
         public ICommand ThemKyNangNhanVienCommand { get; set; }
+        public ICommand DanhGiaKyNangNhanVienCommand { get; set; }
+
         ///public ICommand SelectionChangedCommand { get; set; }
 
         public string format(string a)
@@ -131,7 +170,7 @@ namespace MasterSalesDemo.ViewModel
 
         public void InitNhanVien()
         {
-            _ListThongTinNhanVien = new ObservableCollection<ThongTinCaNhan>();
+            _ListThongTinNhanVien = new ObservableCollection<ThongTinCaNhanNV>();
             SearchNhanVien();
         }
 
@@ -176,30 +215,31 @@ namespace MasterSalesDemo.ViewModel
         private string _NhanVienDanhGia;
         public string NhanVienDanhGia { get => _NhanVienDanhGia; set { _NhanVienDanhGia = value; OnPropertyChanged(); } }
 
-        private NHANVIEN _SelectedItemNhanVien;
-        public NHANVIEN SelectedItemNhanVien
-        {
-            get => _SelectedItemNhanVien;
-            set
-            {
-                _SelectedItemNhanVien = value;
-                OnPropertyChanged();
-                if (SelectedItemNhanVien != null)
-                {
-                    MaNhanVien = SelectedItemNhanVien.id;
-                    HoTen = SelectedItemNhanVien.HoTen;
-                    MaTrinhDo = SelectedItemNhanVien.MaTrinhDo;
-                    GioiTinh = SelectedItemNhanVien.GioiTinh;
-                    NoiSinh = SelectedItemNhanVien.NoiSinh;
-                    SelectedItemTrinhDo = SelectedItemNhanVien.TRINHDO;
-                    NgaySinh = SelectedItemNhanVien.NgaySinh.Value;
-                    // TenTrinhDo = SelectedItemNhanVien.TenTrinhDo;
-                }
-            }
-        }
+        //private NHANVIEN _SelectedItemNhanVien;
+        //public NHANVIEN SelectedItemNhanVien
+        //{
+        //    get => _SelectedItemNhanVien;
+        //    set
+        //    {
+        //        _SelectedItemNhanVien = value;
+        //        OnPropertyChanged();
+        //        if (SelectedItemNhanVien != null)
+        //        {
+        //            MaNhanVien = SelectedItemNhanVien.id;
+        //            HoTen = SelectedItemNhanVien.HoTen;
+        //            MaTrinhDo = SelectedItemNhanVien.MaTrinhDo;
+        //            GioiTinh = SelectedItemNhanVien.GioiTinh;
+        //            NoiSinh = SelectedItemNhanVien.NoiSinh;
+        //            SelectedItemTrinhDo = SelectedItemNhanVien.TRINHDO;
+        //            NgaySinh = SelectedItemNhanVien.NgaySinh.Value;
+                
+        //            // TenTrinhDo = SelectedItemNhanVien.TenTrinhDo;
+        //        }
+        //    }
+        //}
 
-        private ThongTinCaNhan _SelectedNhanVien;
-        public ThongTinCaNhan SelectedNhanVien
+        private ThongTinCaNhanNV _SelectedNhanVien;
+        public ThongTinCaNhanNV SelectedNhanVien
         {
             get { return _SelectedNhanVien; }
             set
@@ -219,8 +259,8 @@ namespace MasterSalesDemo.ViewModel
             }
         }
 
-        private ObservableCollection<ThongTinCaNhan> _ListThongTinNhanVien;
-        public ObservableCollection<ThongTinCaNhan> ListThongTinNhanVien
+        private ObservableCollection<ThongTinCaNhanNV> _ListThongTinNhanVien;
+        public ObservableCollection<ThongTinCaNhanNV> ListThongTinNhanVien
         {
             get { return _ListThongTinNhanVien; }
             set { _ListThongTinNhanVien = value; OnPropertyChanged(); }
@@ -276,6 +316,20 @@ namespace MasterSalesDemo.ViewModel
             HoTen = SelectedNhanVien.HoTen;
         }
 
+        private string _ContentCommand;
+        public string ContentCommand
+        {
+            get { return _ContentCommand; }
+            set { _ContentCommand = value; OnPropertyChanged(); }
+        }
+
+        private string _ContentEditCommand;
+        public string ContentEditCommand
+        {
+            get { return _ContentEditCommand; }
+            set { _ContentEditCommand = value; OnPropertyChanged(); }
+        }
+
         public void ThemNhanVienVaoList(NHANVIEN nv)
         {
             bool validPhongBan = false;
@@ -291,7 +345,7 @@ namespace MasterSalesDemo.ViewModel
             if (validTen && validPhongBan)
             {
                 int stt = _ListThongTinNhanVien.Count() + 1;
-                ThongTinCaNhan item = new ThongTinCaNhan(stt, nv.id, nv.HoTen, nv.NgaySinh.Value, nv.GioiTinh, chucvu.PHONGBAN.TenPhong, chucvu.TenChucVu, nv.NoiSinh, trinhdo, trinhdo.TenTrinhDo, chucvu);
+                ThongTinCaNhanNV item = new ThongTinCaNhanNV(stt, nv.id, nv.HoTen, nv.NgaySinh.Value, nv.GioiTinh, chucvu.PHONGBAN.TenPhong, chucvu.TenChucVu, nv.NoiSinh, trinhdo, trinhdo.TenTrinhDo, chucvu);
                 ListThongTinNhanVien.Add(item);
             }
         }
@@ -309,6 +363,9 @@ namespace MasterSalesDemo.ViewModel
         private string _TenKyNang;
         public string TenKyNang { get => _TenKyNang; set { _TenKyNang = value; OnPropertyChanged(); } }
 
+        private string _MaKyNang;
+        public string MaKyNang { get => _MaKyNang; set { _MaKyNang = value; OnPropertyChanged(); } }
+
         private KYNANG _SelectedItemKyNang;
         public KYNANG SelectedItemKyNang
         {
@@ -322,6 +379,7 @@ namespace MasterSalesDemo.ViewModel
                 if (SelectedItemKyNang != null)
                 {
                     TenKyNang = SelectedItemKyNang.TenKyNang;
+                    MaKyNang = SelectedItemKyNang.id;
                 }
             }
         }
@@ -336,13 +394,12 @@ namespace MasterSalesDemo.ViewModel
                 if (SelectedNhanVien != null)
                 {
                     TenKyNang = SelectedKyNang.KYNANG.TenKyNang;
-                    LoaiDanhGia = SelectedKyNang.LoaiDanhGia;
                 }
             }
         }
 
-        private ObservableCollection<DANHGIAKYNANG> _ListDanhGiaKyNangNhanVien;
-        public ObservableCollection<DANHGIAKYNANG> ListDanhGiaKyNangNhanVien
+        private ObservableCollection<KyNangNhanVien> _ListDanhGiaKyNangNhanVien;
+        public ObservableCollection<KyNangNhanVien> ListDanhGiaKyNangNhanVien
         {
             get { return _ListDanhGiaKyNangNhanVien; }
             set 
@@ -363,21 +420,17 @@ namespace MasterSalesDemo.ViewModel
             }
         }
 
-        private string _LoaiDanhGia;
-        public string LoaiDanhGia { get => _LoaiDanhGia; set { _LoaiDanhGia = value; OnPropertyChanged(); } }
-
-        #endregion
-
-        #region đánh giá kỹ năng
-
-        private List<string> _ListDanhGia;
-        public List<string> ListDanhGia
+        private KyNangNhanVien _SelectedItemKyNangNhanVien;
+        public KyNangNhanVien SelectedItemKyNangNhanVien
         {
-            get { return _ListDanhGia; }
+            get { return _SelectedItemKyNangNhanVien; }
             set
             {
-                _ListDanhGia = value;
-                OnPropertyChanged(nameof(ListDanhGia));
+                _SelectedItemKyNangNhanVien = value; OnPropertyChanged();
+                if (SelectedItemKyNangNhanVien != null)
+                {
+                    MaKyNang = SelectedItemKyNangNhanVien.MaKN;
+                }    
             }
         }
 
@@ -410,33 +463,77 @@ namespace MasterSalesDemo.ViewModel
 
         #endregion
 
+        public void display_CTKN()
+        {
+            ListDanhGiaKyNangNhanVien = new ObservableCollection<KyNangNhanVien>();
+
+            if (SelectedNhanVien == null) return;
+            string manv = SelectedNhanVien.MaNV;
+
+            ObservableCollection<DANHGIAKYNANG> ListDGKyNang = new ObservableCollection<DANHGIAKYNANG>(DataProvider.Ins.DB.DANHGIAKYNANGs);
+            int stt = 1;
+            foreach (var dgkn in ListDGKyNang)
+                if (dgkn.MaNV == manv)
+                {
+                    KyNangNhanVien temp = new KyNangNhanVien(stt, dgkn);
+                    stt++;
+                    ListDanhGiaKyNangNhanVien.Add(temp);
+                }
+        }
+
+        public void ThemKyNang()
+        {
+            NHANVIEN nhanvien = Global.Ins.getNhanVienbyMaNV(SelectedNhanVien.MaNV);
+            DanhGiaKyNang wd = new DanhGiaKyNang(nhanvien);
+            wd.Closed += ThemKyNangWindow_Closed;
+            wd.ShowDialog();
+        }
+
+        public void SuaDanhGia()
+        {
+            DANHGIAKYNANG temp = new DANHGIAKYNANG();
+
+            ObservableCollection<DANHGIAKYNANG> ListDGKyNang = new ObservableCollection<DANHGIAKYNANG>(DataProvider.Ins.DB.DANHGIAKYNANGs);
+            foreach (var dgkn in ListDGKyNang)
+            {
+                if (dgkn.MaNV == SelectedNhanVien.MaNV && dgkn.MaKyNang == MaKyNang)
+                {
+                    temp = dgkn;
+                }
+                if (temp != null)
+                    break;    
+            }    
+
+            if (temp == null)
+            {
+                MessageBox.Show("thycute");
+            }
+            else
+            {
+               SuaDanhGiaKN wd = new SuaDanhGiaKN(temp);
+                       // wd.Closed += ThemKyNangWindow_Closed;
+                        wd.ShowDialog();
+            }
+         
+        }
+
+        private void ThemKyNangWindow_Closed(object sender, EventArgs e)
+        {
+            display_CTKN();
+        }
+
         public QLKiNang_ViewModel()
         {
             InitKyNang();
             InitTrinhDo();
             InitNhanVien();
-
-            ListDanhGia = new List<string>() { "Xuất sắc", "Giỏi", "Khá" };
+            if (SelectedNhanVien!= null)
+                display_CTKN();
+            ContentCommand = "Thêm kỹ năng";
+            ContentEditCommand = "Đánh giá";
 
             ObservableCollection<DANHGIAKYNANG> ListDanhGiaKyNang = new ObservableCollection<DANHGIAKYNANG>(DataProvider.Ins.DB.DANHGIAKYNANGs);
             LoadSourceComboBoxPhongBan();
-
-            //ListKyNangNhanVien = new ObservableCollection<Ky>();
-            //list_DGKN = new ObservableCollection<DANHGIAKYNANG>(DataProvider.Ins.DB.DANHGIAKYNANG);
-
-            //ObservableCollection<KYNANG> list_KN = new ObservableCollection<KYNANG>(DataProvider.Ins.DB.KYNANG);
-            //int stt = 1;
-            //foreach (var dgkn in list_DGKN)
-            //{
-            //    if (dgkn.MaNV == MaNhanVien)
-            //    {
-            //        foreach (var kn in list_KN)
-            //            if (kn.id == dgkn.MaKyNang)
-            //            {
-            //                ListDanhGiaKyNangNhanVien.Add(dgkn);
-            //            }    
-            //    }    
-            //}
 
             #region đóng mở window
 
@@ -455,15 +552,6 @@ namespace MasterSalesDemo.ViewModel
             }, (p) =>
             {
                 TrinhDo window = new TrinhDo();
-                window.ShowDialog();
-            });
-
-            OpenDanhGiaKyNangCommand = new AppCommand<object>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                DanhGiaKyNang window = new DanhGiaKyNang();
                 window.ShowDialog();
             });
 
@@ -542,10 +630,8 @@ namespace MasterSalesDemo.ViewModel
 
             #endregion
 
-            #region sửa kỹ năng
-            #endregion
-
             #region sửa trình độ
+
             SuaKyNangCommand = new RelayCommand<object>((p) =>
             {
                 if (TenKyNang == null )
@@ -586,6 +672,7 @@ namespace MasterSalesDemo.ViewModel
 
             SelectionChangedCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 BindingSelectionNhanVien();
+                display_CTKN();
             });
 
             #endregion
@@ -626,47 +713,26 @@ namespace MasterSalesDemo.ViewModel
 
             #region thêm kỹ năng nhân viên
 
-            ThemKyNangNhanVienCommand = new AppCommand<object>((p) =>
-            {
-                if (string.IsNullOrEmpty(TenKyNang) || string.IsNullOrEmpty(LoaiDanhGia))
-                    return false;
-//                foreach (var dgkn in ListDanhGiaKyNang)
-//                {
-//                    if (dgkn.MaNV == SelectedNhanVien.MaNV)
-//                    {
-                        
-//                    }    
-//                }
-//}    
-//                MessageBox.Show()
-
-                return true;
-
-            }, (p) =>
-            {
-                //string manhanvien = GetCodeNhanVien();
-                //var nhanvien = new NHANVIEN()
-                //{
-                //    id = manhanvien,
-                //    HoTen = HoTen,
-                //    NgaySinh = NgaySinh,
-                //    GioiTinh = GioiTinh,
-                //    MaTrinhDo = SelectedItemTrinhDo.id,
-                //    NoiSinh = NoiSinh,
-                //    MaChucVu = SelectedItemChucVu.id,
-                //    isDeleted = false,
-                //};
-
-                //DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
-                //DataProvider.Ins.DB.SaveChanges();
-                //NhanVien.Add(nhanvien);
-                //NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
-                //ThemNhanVienVaoList(nhanvien);
-                //InitNhanVien();
-                //MessageBox.Show("Thêm thành công");
+            ThemKyNangNhanVienCommand = new RelayCommand<Window>((p) => { if (SelectedNhanVien == null) return false; return true; }, (p) => {
+                if (ContentCommand == "Thêm kỹ năng")
+                {
+                    ThemKyNang();
+                }
             });
 
             #endregion
+
+            #region sửa đánh giá kỹ năng
+
+            DanhGiaKyNangNhanVienCommand = new RelayCommand<Window>((p) => { if (SelectedItemKyNangNhanVien == null) return false; return true; }, (p) => {
+                if (ContentEditCommand == "Đánh giá")
+                {
+                    SuaDanhGia();
+                }
+            });
+
+            #endregion
+
         }
     }
 }

@@ -17,14 +17,15 @@ using System.Windows.Shapes;
 namespace MasterSalesDemo.View
 {
     /// <summary>
-    /// Interaction logic for DanhGiaKyNang.xaml
+    /// Interaction logic for SuaDanhGiaKN.xaml
     /// </summary>
-    public partial class DanhGiaKyNang : Window
+    public partial class SuaDanhGiaKN : Window
     {
-        public DanhGiaKyNang(NHANVIEN nhanvien)
+
+        public SuaDanhGiaKN(DANHGIAKYNANG dgkn)
         {
             InitializeComponent();
-            this.DataContext = new DanhGiaKyNang_ViewModel(nhanvien);
+            this.DataContext = new SuaDanhGiaKN(dgkn);
         }
     }
 }
