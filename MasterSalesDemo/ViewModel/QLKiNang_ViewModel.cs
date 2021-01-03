@@ -80,7 +80,7 @@ namespace MasterSalesDemo.ViewModel
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand ThayDoiTrinhDoCommand { get; set; }
         public ICommand ThemKyNangNhanVienCommand { get; set; }
-        public ICommand DanhGiaKyNangNhanVienCommand { get; set; }
+        public ICommand EvaluateSkillsOfStaffCommand { get; set; }
 
         ///public ICommand SelectionChangedCommand { get; set; }
 
@@ -398,13 +398,13 @@ namespace MasterSalesDemo.ViewModel
             }
         }
 
-        private ObservableCollection<KyNangNhanVien> _ListDanhGiaKyNangNhanVien;
-        public ObservableCollection<KyNangNhanVien> ListDanhGiaKyNangNhanVien
+        private ObservableCollection<KyNangNhanVien> _ListEvaluateSkillsOfStaff;
+        public ObservableCollection<KyNangNhanVien> ListEvaluateSkillsOfStaff
         {
-            get { return _ListDanhGiaKyNangNhanVien; }
+            get { return _ListEvaluateSkillsOfStaff; }
             set 
             {
-                _ListDanhGiaKyNangNhanVien = value; 
+                _ListEvaluateSkillsOfStaff = value; 
                 OnPropertyChanged();  
             }
         }
@@ -429,7 +429,8 @@ namespace MasterSalesDemo.ViewModel
                 _SelectedItemKyNangNhanVien = value; OnPropertyChanged();
                 if (SelectedItemKyNangNhanVien != null)
                 {
-                    MaKyNang = SelectedItemKyNangNhanVien.MaKN;
+                    KYNANG kn = DataProvider.Ins.DB.KYNANGs.Where(x => x.TenKyNang ==SelectedItemKyNangNhanVien.TenKyNang).FirstOrDefault();
+                    MaKyNang = kn.id;
                 }    
             }
         }
@@ -465,7 +466,7 @@ namespace MasterSalesDemo.ViewModel
 
         public void display_CTKN()
         {
-            ListDanhGiaKyNangNhanVien = new ObservableCollection<KyNangNhanVien>();
+            ListEvaluateSkillsOfStaff = new ObservableCollection<KyNangNhanVien>();
 
             if (SelectedNhanVien == null) return;
             string manv = SelectedNhanVien.MaNV;
@@ -477,7 +478,7 @@ namespace MasterSalesDemo.ViewModel
                 {
                     KyNangNhanVien temp = new KyNangNhanVien(stt, dgkn);
                     stt++;
-                    ListDanhGiaKyNangNhanVien.Add(temp);
+                    ListEvaluateSkillsOfStaff.Add(temp);
                 }
         }
 
@@ -494,30 +495,27 @@ namespace MasterSalesDemo.ViewModel
             DANHGIAKYNANG temp = new DANHGIAKYNANG();
 
             ObservableCollection<DANHGIAKYNANG> ListDGKyNang = new ObservableCollection<DANHGIAKYNANG>(DataProvider.Ins.DB.DANHGIAKYNANGs);
+
             foreach (var dgkn in ListDGKyNang)
             {
                 if (dgkn.MaNV == SelectedNhanVien.MaNV && dgkn.MaKyNang == MaKyNang)
                 {
                     temp = dgkn;
+                    break;
                 }
-                if (temp != null)
-                    break;    
-            }    
+            }
 
-            if (temp == null)
-            {
-                MessageBox.Show("thycute");
-            }
-            else
-            {
-               SuaDanhGiaKN wd = new SuaDanhGiaKN(temp);
-                       // wd.Closed += ThemKyNangWindow_Closed;
-                        wd.ShowDialog();
-            }
-         
+            SuaDanhGiaKN wd = new SuaDanhGiaKN(temp);
+            wd.Closed += SuaDanhGia_Closed;
+            wd.ShowDialog();
         }
 
         private void ThemKyNangWindow_Closed(object sender, EventArgs e)
+        {
+            display_CTKN();
+        }
+
+        private void SuaDanhGia_Closed(object sender, EventArgs e)
         {
             display_CTKN();
         }
@@ -724,7 +722,7 @@ namespace MasterSalesDemo.ViewModel
 
             #region sửa đánh giá kỹ năng
 
-            DanhGiaKyNangNhanVienCommand = new RelayCommand<Window>((p) => { if (SelectedItemKyNangNhanVien == null) return false; return true; }, (p) => {
+            EvaluateSkillsOfStaffCommand = new RelayCommand<Window>((p) => { if (SelectedItemKyNangNhanVien == null) return false; return true; }, (p) => {
                 if (ContentEditCommand == "Đánh giá")
                 {
                     SuaDanhGia();

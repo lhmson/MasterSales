@@ -115,7 +115,7 @@
                     </Button>
                 </Grid>
 
-                <Grid Margin="50,0,40,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="3">
+                <Grid Margin="50,0,40,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="4">
                     <ListView x:Name="ThongTinNhanVienListView" ItemsSource="{Binding ListThongTinNhanVien, Mode=TwoWay}" SelectionMode="Single"
                               HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
                               HorizontalContentAlignment="Stretch" Margin="8,0" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay}">
@@ -173,13 +173,13 @@
                 </Grid>
 
                 <Grid Margin="50,0,40,5" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="6" Grid.RowSpan="3">
-                    <ListView x:Name="listView" ItemsSource="{Binding ListDanhGiaKyNangNhanVien, Mode=TwoWay}" SelectionMode="Single"
+                    <ListView x:Name="listView" ItemsSource="{Binding ListEvaluateSkillsOfStaff, Mode=TwoWay}" SelectionMode="Single"
                               HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
                               HorizontalContentAlignment="Stretch" Margin="8,0" SelectedItem="{Binding SelectedItemKyNangNhanVien, Mode=TwoWay}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="80" Header="STT" DisplayMemberBinding="{Binding STT }"/>
-                                <GridViewColumn Width="180" Header="Tên kỹ năng" DisplayMemberBinding="{Binding TenKyNang}"/>
+                                <GridViewColumn Width="280" Header="Tên kỹ năng" DisplayMemberBinding="{Binding TenKyNang}"/>
                                 <GridViewColumn Width="180" Header="Đánh giá" DisplayMemberBinding="{Binding DanhGia}"/>
                             </GridView>
                         </ListView.View>
@@ -200,7 +200,7 @@
                 </Grid>
 
                 <Grid Margin="20,-10,20,20" Grid.Row="6" Grid.Column="10" Grid.ColumnSpan="2">
-                    <Button Command="{Binding DanhGiaKyNangNhanVienCommand}" CommandParameter="{Binding ElementName=Window}"
+                    <Button Command="{Binding EvaluateSkillsOfStaffCommand}" CommandParameter="{Binding ElementName=Window}"
                         Style="{StaticResource MaterialDesignFlatAccentBgButton}" IsDefault="True"
                         Content="{Binding ContentEditCommand}" Height="48" FontSize="20" Margin="0,0,24,0" >
                     </Button>

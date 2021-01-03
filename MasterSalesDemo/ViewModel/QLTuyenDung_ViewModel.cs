@@ -629,7 +629,7 @@ namespace MasterSalesDemo.ViewModel
 
             ThemLoaiHopDongCommand = new AppCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(TenLoaiHD))
+                if (string.IsNullOrEmpty(TenLoaiHD) || ThoiHan == 0 || Luong == 0)
                     return false;
 
                 var tenloaihopdong = DataProvider.Ins.DB.LOAIHOPDONGs.Where(x => x.TenLoaiHD.ToLower() == TenLoaiHD.ToLower());

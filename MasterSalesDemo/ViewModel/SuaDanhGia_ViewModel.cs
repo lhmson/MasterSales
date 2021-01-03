@@ -23,7 +23,7 @@ namespace MasterSalesDemo.ViewModel
         #region Icommand
 
         public ICommand CloseWindowCommand { get; set; }
-        public ICommand DanhGiaKyNangNhanVienCommand { get; set; }
+        public ICommand EvaluateSkillsOfStaffCommand { get; set; }
 
         #endregion
 
@@ -60,6 +60,24 @@ namespace MasterSalesDemo.ViewModel
                 Global.Ins.isValid = false;
                 p.Close();
             });
+
+            #region sửa trình độ
+
+            EvaluateSkillsOfStaffCommand = new RelayCommand<object>((p) =>
+            {
+                if (LoaiDanhGia == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                var danhgiakynang = DataProvider.Ins.DB.DANHGIAKYNANGs.Where(x => x.id == dgkn.id).SingleOrDefault();
+                danhgiakynang.LoaiDanhGia = LoaiDanhGia;
+                DataProvider.Ins.DB.SaveChanges();
+
+                MessageBox.Show("Bạn lưu thành công");
+            });
+            #endregion
 
         }
     }

@@ -25,7 +25,7 @@ namespace MasterSalesDemo.View
         public SuaDanhGiaKN(DANHGIAKYNANG dgkn)
         {
             InitializeComponent();
-            this.DataContext = new SuaDanhGiaKN(dgkn);
+            this.DataContext = new SuaDanhGia_ViewModel(dgkn);
         }
     }
 }

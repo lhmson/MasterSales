@@ -133,6 +133,7 @@ namespace MasterSalesDemo.ViewModel
 
             }, (p) =>
             {
+
                 string madanhgia = GetCodeMaDanhGia();
                 var dgkn = new DANHGIAKYNANG()
                 {
@@ -143,10 +144,26 @@ namespace MasterSalesDemo.ViewModel
                     isDeleted = false,
                 };
 
-                DataProvider.Ins.DB.DANHGIAKYNANGs.Add(dgkn);
-                DataProvider.Ins.DB.SaveChanges();
+                ObservableCollection<DANHGIAKYNANG> ListDGKyNang = new ObservableCollection<DANHGIAKYNANG>(DataProvider.Ins.DB.DANHGIAKYNANGs);
+                bool flag = false;
 
-                MessageBox.Show("Thêm thành công");
+                foreach (var danhgia in ListDGKyNang)
+                {
+                    if (danhgia.MaKyNang == dgkn.MaKyNang && danhgia.MaNV == dgkn.MaNV)
+                    {
+                        MessageBox.Show("Nhân viên này đã có kỹ năng này");
+                        flag = true;
+                        break;
+                    }    
+                }
+
+                if (!flag)
+                {
+                    DataProvider.Ins.DB.DANHGIAKYNANGs.Add(dgkn);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                    MessageBox.Show("Thêm thành công");
+                } 
             });
 
             #endregion
