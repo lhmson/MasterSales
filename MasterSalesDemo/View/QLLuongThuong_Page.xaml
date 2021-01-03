@@ -137,9 +137,9 @@
   ToolTip="Xuất ra file excel" Width="48" Padding="0" />
                     <Button
                         VerticalAlignment="Stretch"
-  Content="Duyệt bảng lương"
+  Content="{Binding btnDuyetContent}"
                         Margin="0,10,0,0"
-  ToolTip="Dành cho kế toán: Duyệt bảng lương"  Padding="16,0" Background="#FF43A047" BorderBrush="#FF43A047" />
+  ToolTip="Dành cho kế toán: Duyệt bảng lương"  Padding="16,0" Background="{Binding btnDuyetBackground}" BorderBrush="{Binding btnDuyetBackground}"  Foreground="{Binding btnDuyetForeground}" Command="{Binding duyetCommand}"/>
                 </StackPanel>
                 <Grid Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="10" Background="White">
                     <DataGrid
@@ -274,6 +274,7 @@
                             </DockPanel>
                             <Button  Margin="0,32,0,0"
     Style="{StaticResource MaterialDesignRaisedButton}"
+                                     Visibility="{Binding luuThayDoiVisibility}"
                            IsEnabled="{Binding luuThayDoiEnabled}"
                                      Command="{Binding luuThayDoiCommand}"
     ToolTip="Lưu thay đổi">

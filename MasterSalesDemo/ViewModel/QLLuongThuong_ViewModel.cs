@@ -133,6 +133,31 @@ namespace MasterSalesDemo.ViewModel
             get => _visibilitySoBuoiPopup;
             set { _visibilitySoBuoiPopup = value; OnPropertyChanged(); }
         }
+        private string _btnDuyetContent;
+        public string btnDuyetContent
+        {
+            get { return _btnDuyetContent; }
+            set { _btnDuyetContent = value; OnPropertyChanged(); }
+        }
+        private string _btnDuyetBackground;
+        public string btnDuyetBackground
+        {
+            get { return _btnDuyetBackground; }
+            set { _btnDuyetBackground = value; OnPropertyChanged(); }
+        }
+        private string _btnDuyetForeground;
+        public string btnDuyetForeground
+        {
+            get { return _btnDuyetForeground; }
+            set { _btnDuyetForeground = value; OnPropertyChanged(); }
+        }
+        private string _luuThayDoiVisibility;
+        public string luuThayDoiVisibility
+        {
+            get => _luuThayDoiVisibility;
+            set { _luuThayDoiVisibility = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         #region Icommands
@@ -143,6 +168,7 @@ namespace MasterSalesDemo.ViewModel
         public ICommand mucDoSelectionChangedCommand { get; set; }
         public ICommand soBuoiSelectionChangedCommand { get; set; }
         public ICommand luuThayDoiCommand { get; set; }
+        public ICommand duyetCommand { get; set; }
         #endregion
         #region Functions
         public void loadData()
@@ -174,6 +200,7 @@ namespace MasterSalesDemo.ViewModel
             luuThayDoiEnabled = false;
             suaThongTinEnabled = false;
             visibilitySoBuoiPopup = "Collapsed";
+            luuThayDoiVisibility = "Collapsed";
             loadTable();
         }
         public void loadTable()
@@ -265,7 +292,7 @@ namespace MasterSalesDemo.ViewModel
                         BANGLUONGTL temp = new BANGLUONGTL()
                         {
                             id = Global.Ins.autoGenerateBangLuongTL(),
-                            MaKeToan = Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005" ? Global.Ins.NhanVien.id : null,
+                            MaKeToan = null,
                             NgayLap = DateTime.Now,
                             Thang = thang,
                             Nam = nam,
@@ -296,14 +323,59 @@ namespace MasterSalesDemo.ViewModel
                         DataProvider.Ins.DB.SaveChanges();
                     }
                     dongluongthuong.LuongTL = DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLUONGTL.Where(x => x.MaNV == item.id).First().TongLuong ?? 0;
-                    
                     BangLuongThuong.Add(dongluongthuong);
+                    if (i==2)
+                    {
+                        SelectedNhanVien = dongluongthuong;
+                        loadThongTin();
+                    }
                 }
+            if (i==1)
+            {
+                SelectedMucDo = null;
+                SoBuoi = 0;
+                TTTenNV = "(Chọn nhân viên để tiếp tục)";
+                SelectedNhanVien = null;
+                luuThayDoiEnabled = false;
+                suaThongTinEnabled = false;
+                visibilitySoBuoiPopup = "Collapsed";
+                luuThayDoiVisibility = "Collapsed";
+            }
             luuThayDoiEnabled = false;
+            if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).Count()>0 && DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan!=null)
+            {
+                btnDuyetContent = "Đã được duyệt";
+                btnDuyetBackground = "#f0fff0";
+                btnDuyetForeground = "#119111";
+                daDuyet = true;
+            }
+            else if (Global.Ins.NhanVien.CHUCVU.MaPhongBan=="PB005")
+            {
+                btnDuyetContent = "Duyệt bảng lương";
+                btnDuyetBackground = "#119111";
+                btnDuyetForeground = "#FFFFFF";
+                daDuyet = false;
+            }
+            else
+            {
+                btnDuyetContent = "Đang chờ duyệt";
+                btnDuyetBackground = "#f0fff0";
+                btnDuyetForeground = "#119111";
+                daDuyet = false;
+            }
         }
         public void loadThongTin()
         {
-            suaThongTinEnabled = true;
+            if (Global.Ins.NhanVien.id == DataProvider.Ins.DB.PHONGBANs.Where(x=>x.id==SelectedPhongBan).First().MaTrgPB && !daDuyet)
+            {
+                suaThongTinEnabled = true;
+                luuThayDoiVisibility = "Visible";
+            }
+            else
+            {
+                suaThongTinEnabled = false;
+                luuThayDoiVisibility = "Collapsed";
+            }
             if (SelectedNhanVien != null)
             {
                 int thang = Global.Ins.filterNumber(SelectedThang);
@@ -318,6 +390,8 @@ namespace MasterSalesDemo.ViewModel
         {
             return true;
         }
+
+        public bool daDuyet=false;
 
         #endregion
         public QLLuongThuong_ViewModel()
@@ -373,6 +447,21 @@ namespace MasterSalesDemo.ViewModel
                     loadTable();
                 }
                 luuThayDoiEnabled = false;
+            });
+            duyetCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                int thang = Global.Ins.filterNumber(SelectedThang);
+                int nam = Global.Ins.filterNumber(SelectedNam);
+                if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan == null && Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
+                {
+                    DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan = Global.Ins.NhanVien.id;
+                    DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().NgayLap = DateTime.Now;
+                    DataProvider.Ins.DB.SaveChanges();
+                    btnDuyetContent = "Đã được duyệt";
+                    btnDuyetBackground = "#f0fff0";
+                    btnDuyetForeground = "#119111";
+                    loadTable();
+                }
             });
         }
     }
