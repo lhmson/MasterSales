@@ -74,6 +74,7 @@ namespace MasterSalesDemo.ViewModel
         public ICommand ThemTrinhDoCommand { get; set; }
         public ICommand ThemKyNangCommand { get; set; }
         public ICommand SuaKyNangCommand { get; set; }
+        public ICommand XoaKyNangCommand { get; set; }
         public ICommand InitKNCommand { get; set; }
         public ICommand InitTDCommand { get; set; }
         public ICommand SearchCommand { get; set; }
@@ -81,7 +82,7 @@ namespace MasterSalesDemo.ViewModel
         public ICommand ThayDoiTrinhDoCommand { get; set; }
         public ICommand ThemKyNangNhanVienCommand { get; set; }
         public ICommand EvaluateSkillsOfStaffCommand { get; set; }
-
+        
         ///public ICommand SelectionChangedCommand { get; set; }
 
         public string format(string a)
@@ -540,6 +541,7 @@ namespace MasterSalesDemo.ViewModel
                 return true;
             }, (p) =>
             {
+                InitKyNang();
                 KyNang window = new KyNang();
                 window.ShowDialog();
             });
@@ -549,6 +551,7 @@ namespace MasterSalesDemo.ViewModel
                 return true;
             }, (p) =>
             {
+                InitTrinhDo();
                 TrinhDo window = new TrinhDo();
                 window.ShowDialog();
             });
@@ -628,7 +631,7 @@ namespace MasterSalesDemo.ViewModel
 
             #endregion
 
-            #region sửa trình độ
+            #region sửa kỹ năng
 
             SuaKyNangCommand = new RelayCommand<object>((p) =>
             {
@@ -731,6 +734,26 @@ namespace MasterSalesDemo.ViewModel
 
             #endregion
 
+            #region xóa kĩ năng hệ thống
+
+            XoaKyNangCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItemKyNang == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                var kynang = DataProvider.Ins.DB.KYNANGs.Where(x => x.id == SelectedItemKyNang.id).SingleOrDefault();
+                kynang.isDeleted = true;
+                DataProvider.Ins.DB.SaveChanges();
+                ListKyNang.Remove(kynang);
+                //InitKyNang();
+                MessageBox.Show("Bạn đã xóa thành công");
+
+            });
+
+            #endregion
         }
     }
 }

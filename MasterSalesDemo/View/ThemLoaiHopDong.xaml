@@ -122,7 +122,7 @@
         </Grid>
 
         <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="2">
-            <Button  Command="{Binding SuaLoaiHopDongCommand}" Content="Xóa" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
+            <Button  Command="{Binding XoaLoaiHopDongCommand}" Content="Xóa" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
         </Grid>
 
     </Grid>
