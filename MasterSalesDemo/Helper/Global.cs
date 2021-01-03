@@ -58,6 +58,53 @@ namespace MasterSalesDemo.Helper
             return autoGenerateCode("LS", flag, 7);
         }
 
+        public string autoGenerateHopDong()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<HOPDONG> _listHD = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+            foreach (var ls in _listHD)
+            {
+                int number = filterNumber(ls.id);
+                if (number > flag)
+                    flag = number;
+            }
+
+            flag++;
+            return autoGenerateCode("HD", flag, 7);
+        }
+
+        public string autoGenerateHoaDon()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<HOADON> _listHD = new ObservableCollection<HOADON>(DataProvider.Ins.DB.HOADONs);
+            foreach (var ls in _listHD)
+            {
+                int number = filterNumber(ls.id);
+                if (number > flag)
+                    flag = number;
+            }
+
+            flag++;
+            return autoGenerateCode("HD", flag, 10);
+        }
+
+        public string autoGenerateCTHoaDon()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<CT_HOADON> _listCTHD = new ObservableCollection<CT_HOADON>(DataProvider.Ins.DB.CT_HOADON);
+            foreach (var ls in _listCTHD)
+            {
+                int number = filterNumber(ls.id);
+                if (number > flag)
+                    flag = number;
+            }
+
+            flag++;
+            return autoGenerateCode("CTHD", flag, 10);
+        }
         public void setNhanVien(NHANVIEN nv)
         {
             this.NhanVien = nv;
@@ -78,14 +125,9 @@ namespace MasterSalesDemo.Helper
 
         }
 
-        public TAIKHOAN TaoChucVuNhanVien(NHANVIEN nhanvien, CHUCVU chucvu)
+        public void ChuyenChucVuNhanVien(NHANVIEN nhanvien, CHUCVU chucvu)
         {
-            TAIKHOAN taikhoan = getTaiKhoanbyMaNV(nhanvien.id);
-
-            //Nếu chưa có tài khoản, chưa làm
-
-            //Nếu có tài khoản, đổi chức vụ mới
-            taikhoan.NHANVIEN.MaChucVu = chucvu.id;
+            nhanvien.MaChucVu = chucvu.id;
             DataProvider.Ins.DB.SaveChanges();
 
             //Tạo trong lịch sử
@@ -95,15 +137,33 @@ namespace MasterSalesDemo.Helper
                 MaNV = nhanvien.id,
                 MaChucVu = chucvu.id,
                 NgayBD = DateTime.Now,
-                NgayKT = DateTime.Now.AddDays(1),
+                NgayKT = null,
                 isDeleted = false,
             };
 
             DataProvider.Ins.DB.LICHSUCHUCVUs.Add(lichsu);
             updateLichSu(nhanvien);
             DataProvider.Ins.DB.SaveChanges();
-            return taikhoan;
         }
+
+        public MATHANG getMatHangbyMaMH(string MaMH)
+        {
+            ObservableCollection<MATHANG> _listMH = new ObservableCollection<MATHANG>(DataProvider.Ins.DB.MATHANGs);
+            foreach (var mh in _listMH)
+                if (mh.id == MaMH)
+                    return mh;
+            return null;
+        }
+        public LOAIHOPDONG getLHDbyTenLHD(string TenLHD)
+        {
+            ObservableCollection<LOAIHOPDONG> _listLHD = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
+
+            foreach (var lhd in _listLHD)
+                if (lhd.TenLoaiHD == TenLHD)
+                    return lhd;
+            return null;
+        }
+
         public CHUCVU getChucVubyMaNV(string MaNV)
         {
             ObservableCollection<TAIKHOAN> _listTaiKhoan = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
@@ -176,8 +236,49 @@ namespace MasterSalesDemo.Helper
                     return tk;
             return null;
         }
-        //Functions load database
+
+        public KHACHHANG getKHbyMaKH(string MaKH)
+        {
+            ObservableCollection<KHACHHANG> _listKH = new ObservableCollection<KHACHHANG>(DataProvider.Ins.DB.KHACHHANGs);
+
+            foreach (var kh in _listKH)
+                if (kh.id == MaKH)
+                    return kh;
+
+            return null;
+        }
+
+        public ObservableCollection<MATHANG> searchMHbyTenNhom_TenMH(string TenNhomMH, string TenMH)
+        {
+            ObservableCollection<MATHANG> _listMH = new ObservableCollection<MATHANG>(DataProvider.Ins.DB.MATHANGs);
+            ObservableCollection<MATHANG> _res = new ObservableCollection<MATHANG>();
+            foreach (var mh in _listMH)
+            {
+                bool isValidNhom = false;
+                bool isValidTenMH = false;
+                if (String.IsNullOrWhiteSpace(TenNhomMH) || mh.NHOMMATHANG.TenNhomMH == TenNhomMH)
+                    isValidNhom = true;
+
+                if (String.IsNullOrWhiteSpace(TenMH) || mh.TenMH.ToLower().Contains(TenMH.ToLower()))
+                    isValidTenMH = true;
+
+                if (isValidNhom && isValidTenMH )
+                    _res.Add(mh);
+            }
+            return _res;
+        }
+        //Functions load database GET ALL
         #region
+        public ObservableCollection<PHIEUDATHANG> getAllPhieuDatHang()
+        {
+            ObservableCollection<PHIEUDATHANG> _listPDH= new ObservableCollection<PHIEUDATHANG>(DataProvider.Ins.DB.PHIEUDATHANGs);
+            ObservableCollection<PHIEUDATHANG> _RES = new ObservableCollection<PHIEUDATHANG>();
+            foreach (var pdh in _listPDH)
+                if (!(pdh.isDeleted == true))
+                    _RES.Add(pdh);
+            return _RES;
+        }
+
         public ObservableCollection<string> getAllTenPhongBan()
         {
             ObservableCollection<string>  ListPhongBan = new ObservableCollection<string>();
@@ -196,17 +297,64 @@ namespace MasterSalesDemo.Helper
                     ListChucVu.Add(cv.TenChucVu);
             return ListChucVu;
         }
+
+        public ObservableCollection<string> getAllTenLoaiHD()
+        {
+            ObservableCollection<string> ListLoaiHD = new ObservableCollection<string>();
+            ObservableCollection<LOAIHOPDONG> _listLoaiHD = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
+            foreach (var lhd in _listLoaiHD)
+                ListLoaiHD.Add(lhd.TenLoaiHD);
+            return ListLoaiHD;
+        }
+
+        public ObservableCollection<string> getAllTenNhomMH()
+        {
+            ObservableCollection<string> res = new ObservableCollection<string>();
+            ObservableCollection<NHOMMATHANG> _listNhomMH = new ObservableCollection<NHOMMATHANG>(DataProvider.Ins.DB.NHOMMATHANGs);
+            foreach (var nmh in _listNhomMH)
+                res.Add(nmh.TenNhomMH);
+            return res;
+        }
         #endregion
 
         //Functions sub
+        public void deleteHopDong(string MaNV)
+        {
+            ObservableCollection<HOPDONG> _listHD = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+
+            foreach (var hd in _listHD)
+                if (hd.MaNV == MaNV)
+                    hd.isDeleted = true;
+
+            DataProvider.Ins.DB.SaveChanges();
+        }
         public void updateLichSu(NHANVIEN nhanvien)
         {
             ObservableCollection<LICHSUCHUCVU> _listLS = new ObservableCollection<LICHSUCHUCVU>(DataProvider.Ins.DB.LICHSUCHUCVUs);
 
             foreach (var ls in _listLS)
                 if (ls.MaNV == nhanvien.id)
-                    if (ls.NgayBD?.AddDays(1) > ls.NgayKT)
+                    if (ls.NgayKT == null)
                         ls.NgayKT = DateTime.Now;
+            DataProvider.Ins.DB.SaveChanges();
+        }
+
+        //Dung cho them gio hang
+        public string TenMH { get; set; }
+        public int SoLuongMua { get; set; }
+        public bool isThemThanhCong { get; set; }
+
+        //Dung cho xu ly dat hang online
+        public PHIEUDATHANG PhieuDHXuLY { get; set; }
+        public bool isXuLy { get; set; }
+
+        public PHIEUDATHANG getPhieuDHbyMaPhieu(string MaPhieu)
+        {
+            ObservableCollection<PHIEUDATHANG> _listPDH = new ObservableCollection<PHIEUDATHANG>(DataProvider.Ins.DB.PHIEUDATHANGs);
+            foreach (var pdh in _listPDH)
+                if (!(pdh.isDeleted == true) && pdh.id == MaPhieu)
+                    return pdh;
+            return null;
         }
     }
 }

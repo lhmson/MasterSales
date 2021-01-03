@@ -14,7 +14,296 @@ namespace MasterSalesDemo.ViewModel
 {
     public class BanHang_ViewModel : BaseViewModel
 	{
+        #region Variables
 
+        #endregion
+
+        #region Binding Variables
+        private ObservableCollection<ListMatHangMua> _ListMatHang;
+        public ObservableCollection<ListMatHangMua> ListMatHang
+        {
+            get { return _ListMatHang; }
+            set { _ListMatHang = value; OnPropertyChanged(); }
+        }
+
+        private ListMatHangMua _SelectedMatHang;
+        public ListMatHangMua SelectedMatHang
+        {
+            get { return _SelectedMatHang; }
+            set { _SelectedMatHang = value; OnPropertyChanged(); }
+        }
+
+        private string _MaHD;
+        public string MaHD
+        {
+            get { return _MaHD; }
+            set { _MaHD = value; OnPropertyChanged(); }
+        }
+
+        private string _MaPhieuDH;
+        public string MaPhieuDH
+        {
+            get { return _MaPhieuDH; }
+            set { _MaPhieuDH = value; OnPropertyChanged(); }
+        }
+
+        private bool _CreateReport;
+        public bool CreateReport
+        {
+            get { return _CreateReport; }
+            set { _CreateReport = value; OnPropertyChanged(); }
+        }
+
+        private string _NgayLapHD;
+        public string NgayLapHD
+        {
+            get { return _NgayLapHD; }
+            set { _NgayLapHD = value; OnPropertyChanged(); }
+        }
+
+        private string _TenNhanVien;
+        public string TenNhanVien
+        {
+            get { return _TenNhanVien; }
+            set { _TenNhanVien = value; OnPropertyChanged(); }
+        }
+
+        private string _TongTien;
+        public string TongTien
+        {
+            get { return _TongTien; }
+            set { _TongTien = value; OnPropertyChanged(); }
+        }
+
+        private bool _DialogOpen;
+        public bool DialogOpen
+        {
+            get { return _DialogOpen; }
+            set { _DialogOpen = value; OnPropertyChanged(); }
+        }
+
+        private string _ThongBao;
+        public string ThongBao
+        {
+            get { return _ThongBao; }
+            set { _ThongBao = value; OnPropertyChanged(); }
+        }
+        #endregion
+
+        #region Icommand
+        public ICommand GetMaHDCommand { get; set; }
+        public ICommand HuyCommand { get; set; }
+        public ICommand XacNhanCommand { get; set; }
+        public ICommand XemDatOnlineCommand { get; set; }
+        public ICommand ThemGioHangCommand { get; set; }
+        public ICommand BoRaGioHangCommand { get; set; }
+        public ICommand DialogOK { get; set; }
+        #endregion
+
+        #region
+        public void LoadDatabase()
+        {
+            DialogOpen = false;
+            MaHD = "";
+            TongTien = "0";
+            NgayLapHD = DateTime.Now.ToString("dd/MM/yyyy");
+            TenNhanVien = Global.Ins.NhanVien.HoTen;
+            ListMatHang = new ObservableCollection<ListMatHangMua>();
+            SelectedMatHang = null;
+            CreateReport = false;
+        }
+        public void addGioHang()
+        {
+            ObservableCollection<MATHANG> _listMH = new ObservableCollection<MATHANG>(DataProvider.Ins.DB.MATHANGs);
+
+            MATHANG res = null;
+            foreach (var mh in _listMH)
+                if (mh.TenMH == Global.Ins.TenMH)
+                {
+                    res = mh;
+                    break;
+                }
+
+            bool flag = true;
+            foreach (var item in ListMatHang)
+                if (item.MatHang == res.TenMH)
+                {
+                    item.SoLuong = (int.Parse(item.SoLuong) + Global.Ins.SoLuongMua) + "";
+                    ObservableCollection<ListMatHangMua> temp = new ObservableCollection<ListMatHangMua>(ListMatHang);
+                    ListMatHang = temp;
+                    flag = false;
+                }
+
+            if (flag)
+            {
+                int stt = ListMatHang.Count + 1;
+                int sl = Global.Ins.SoLuongMua;
+                decimal thanhtien = sl * res.DonGia??0;
+                ListMatHangMua mh = new ListMatHangMua(stt + "", res.id, res.TenMH, res.DonVi, res.DonGia + "", sl + "", thanhtien + "");
+                ListMatHang.Add(mh);
+            }
+        }
+        public void ThemGioHang()
+        {
+            ThemGioHang_Window window = new ThemGioHang_Window();
+            window.ShowDialog();
+            if (Global.Ins.isThemThanhCong)
+            {
+                DialogOpen = true;
+                ThongBao = "Thêm mặt hàng " + Global.Ins.TenMH + " vào giỏ hàng thành công";
+                addGioHang();
+                Global.Ins.isThemThanhCong = false;
+            }
+        }
+        public void BoHang()
+        {
+            if (SelectedMatHang == null)
+                return;
+            ObservableCollection<ListMatHangMua> temp = new ObservableCollection<ListMatHangMua>();
+            foreach (var item in ListMatHang)
+                if (item.STT != SelectedMatHang.STT)
+                {
+                    ListMatHangMua mh = item;
+                    mh.STT = (temp.Count + 1) + "";
+                    temp.Add(mh);
+                }
+            ListMatHang = temp;
+            TinhTien();
+        }
+        public void TinhTien()
+        {
+            double res = 0;
+            foreach (var item in ListMatHang)
+                res += Double.Parse(item.ThanhTien);
+            TongTien = res + "";
+        }
+        public void TaoHoaDon()
+        {
+            if (String.IsNullOrWhiteSpace(MaHD))
+            {
+                System.Windows.MessageBox.Show("Bạn chưa tạo mã hóa đơn");
+                return;
+            }
+
+            if (ListMatHang.Count == 0)
+            {
+                System.Windows.MessageBox.Show("Không thể tạo một hóa đơn rỗng");
+                return;
+            }
+
+            HOADON hd = new HOADON()
+            {
+                id = Global.Ins.autoGenerateHoaDon(),
+                MaPhieuDH = null,
+                NgayLap = DateTime.Now,
+                NgayXuat = DateTime.Now,
+                MaKH = null,
+                MaNV = Global.Ins.NhanVien.id,
+                ThanhTien = decimal.Parse(TongTien),
+                TrangThai = 1,
+                isDeleted = false,
+            };
+            if (!String.IsNullOrWhiteSpace(MaPhieuDH))
+                hd.MaPhieuDH = MaPhieuDH;
+            PHIEUDATHANG pdh = Global.Ins.getPhieuDHbyMaPhieu(MaPhieuDH);
+            pdh.TrangThai = 1;
+  
+            DataProvider.Ins.DB.HOADONs.Add(hd);
+            DataProvider.Ins.DB.SaveChanges();
+            foreach (var item in ListMatHang)
+            {
+                CT_HOADON ct = new CT_HOADON()
+                {
+                    id = Global.Ins.autoGenerateCTHoaDon(),
+                    MaHD = hd.id,
+                    MaMH = item.MaMH,
+                    SLMua = int.Parse(item.SoLuong),
+                    DonGia = decimal.Parse(item.DonGia),
+                    TongTien = decimal.Parse(item.ThanhTien),
+                    isDeleted = false,
+                };
+                DataProvider.Ins.DB.CT_HOADON.Add(ct);
+                DataProvider.Ins.DB.SaveChanges();
+            }
+            if (CreateReport)
+            {
+                BanHang_PrintPreview_ViewModel vm = new BanHang_PrintPreview_ViewModel(hd.id, Global.Ins.NhanVien.HoTen, hd.ThanhTien + "", ListMatHang);
+                BanHang_PrintPreview print = new BanHang_PrintPreview(vm);
+                print.Show();
+            }
+
+            DialogOpen = true;
+            ThongBao = "Tạo hóa đơn thành công";
+            LoadDatabase();
+        }
+        public void BindingPhieuDHOnline()
+        {
+            LoadDatabase();
+            MaPhieuDH = Global.Ins.PhieuDHXuLY.id;
+            if (Global.Ins.PhieuDHXuLY == null)
+                return;
+            PHIEUDATHANG pdh = Global.Ins.PhieuDHXuLY;
+            ObservableCollection<CT_PHIEUDATHANG> _listCTPDH = new ObservableCollection<CT_PHIEUDATHANG>(DataProvider.Ins.DB.CT_PHIEUDATHANG);
+            foreach (var ctphdh in _listCTPDH)
+                if (ctphdh.MaPhieuDH ==pdh.id)
+                {
+                    int stt = ListMatHang.Count + 1;
+                    MATHANG mh = ctphdh.MATHANG;
+                    ListMatHangMua mhmua = new ListMatHangMua(stt+"",mh.id,mh.TenMH,mh.DonVi,mh.DonGia+"",ctphdh.SLDat+"",ctphdh.TongTien+"");
+                    ListMatHang.Add(mhmua);
+                }
+            TinhTien();
+        }
+        public void XuLyPhieuOnline()
+        {
+            DatOnline_Window window = new DatOnline_Window();
+            Global.Ins.isXuLy = false;
+            window.ShowDialog();
+            if (Global.Ins.isXuLy)
+            {
+                DialogOpen = true;
+                ThongBao = "Xác nhận xử lý phiếu đặt hàng thàng công";
+                BindingPhieuDHOnline();
+            }
+        }
+        #endregion
+        public BanHang_ViewModel()
+        {
+            Global.Ins.isXuLy = false;
+            Global.Ins.PhieuDHXuLY = null;
+            LoadDatabase();
+
+            GetMaHDCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                MaHD = Global.Ins.autoGenerateHoaDon();
+            });
+
+            HuyCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                LoadDatabase();
+                Global.Ins.isXuLy = false;
+                Global.Ins.PhieuDHXuLY = null;
+            });
+
+            ThemGioHangCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                ThemGioHang();
+                TinhTien();
+            });
+
+            BoRaGioHangCommand = new RelayCommand<Window>((p) => { if (SelectedMatHang == null) return false; return true; }, (p) => {
+                BoHang();
+            });
+
+            DialogOK = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                DialogOpen = false;
+            });
+
+            XacNhanCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                TaoHoaDon();
+            });
+
+            XemDatOnlineCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                XuLyPhieuOnline();
+            });
+        }
     }
 }
 

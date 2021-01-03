@@ -61,6 +61,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                     <RowDefinition Height="0.75*"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
@@ -88,17 +89,17 @@
                         <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" Text= "Giỏ hàng" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     </materialDesign:Card>
                 </Grid>
-                <Grid Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="6">
+                <Grid Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="7">
                     <materialDesign:Card>
                     </materialDesign:Card>
                 </Grid>
-                <Grid Margin="8,8,8,16" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="9" Grid.RowSpan="6">
+                <Grid Margin="8,8,8,16" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="9" Grid.RowSpan="7">
                     <materialDesign:Card>
                     </materialDesign:Card>
                 </Grid>
                 <Grid Margin="32,8,8,8" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                     <TextBox x:Name="MaSoTietKiemTB" KeyboardNavigation.TabIndex="0"
-                                 FontSize="20" materialDesign:HintAssist.Hint="Mã Hóa Đơn"
+                                 FontSize="20" materialDesign:HintAssist.Hint="Mã hóa Đơn"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
                                  Text="{Binding MaHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True" IsEnabled="True">
                         <TextBox.InputBindings>
@@ -120,29 +121,34 @@
                                         Command="{Binding GetMaHDCommand}" Margin="0,19,0,0"/>
                 </Grid>
                 <Grid Margin="32,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4">
-                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Ngày Lập Hóa Đơn" IsEnabled="True"
+                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Mã phiếu đặt hàng" IsEnabled="True"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center" IsReadOnly="True"
+                                 Text="{Binding MaPhieuDH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                </Grid>
+                <Grid Margin="32,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
+                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Ngày lập" IsEnabled="True"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center" IsReadOnly="True"
                                  Text="{Binding NgayLapHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
                 </Grid>
-                <Grid Margin="32,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
+                <Grid Margin="32,8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4">
                     <TextBox FontSize="20" materialDesign:HintAssist.Hint="Nhân viên"
 							 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
 							 Text="{Binding TenNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True"
 							 IsReadOnly="True"/>
                 </Grid>
-                <Grid Margin="32,8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4">
+                <Grid Margin="32,8" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4">
                     <TextBox FontSize="20" materialDesign:HintAssist.Hint="Tổng Tiền" IsEnabled="True"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
                             Text="{Binding TongTien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             IsReadOnly="True"/>
                 </Grid>
-                <Grid Margin="32,8" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4">
+                <Grid Margin="32,8" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4">
                     <CheckBox IsChecked="{Binding CreateReport, Mode=TwoWay}"  Style="{StaticResource MaterialDesignCheckBox}" Content="Xuất phiếu" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                 </Grid>
-                <Grid Margin="8,8,32,32" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3">
+                <Grid Margin="8,8,32,32" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3">
                     <Button Command="{Binding XacNhanCommand}" Style="{StaticResource MaterialDesignRaisedButton}"  Content="Xác nhận" FontSize="20" Height="48" />
                 </Grid>
-                <Grid Margin="32,8,8,32" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="1">
+                <Grid Margin="32,8,8,32" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="1">
                     <Button Command="{Binding HuyCommand}" Style="{StaticResource MaterialDesignRaisedButton}"
                             Content="{materialDesign:PackIcon Kind=RotateLeft, Size=32}" FontSize="20" Height="48" />
                 </Grid>
@@ -169,21 +175,21 @@
                     </ListView>
                 </Grid>
 
-                <Grid Margin="40,10,30,25" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3">
-                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Xem đặt online" Height="60" FontSize="20" BorderBrush="#228B22" Background="#228B22"/>
+                <Grid Margin="40,10,30,-10" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3">
+                    <Button Command="{Binding XemDatOnlineCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Xử lý phiếu Online" Height="60" FontSize="20"/>
                 </Grid>
                 <Grid Margin="40,10,30,10" Grid.Row="5" Grid.Column="10" Grid.ColumnSpan="3">
-                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Thêm vào giỏ hàng" Height="60" FontSize="20" BorderBrush="#FFA500" Background="#FFA500"/>
+                    <Button Command="{Binding ThemGioHangCommand}" Style="{StaticResource MaterialDesignRaisedButton}" Content="Thêm vào giỏ hàng" Height="60" FontSize="20"/>
                 </Grid>
                 <Grid Margin="40,-2,30,2" Grid.Row="6" Grid.Column="10" Grid.ColumnSpan="3">
-                    <Button Command="{Binding LapPhieuDNXHCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Bỏ ra giỏ hàng" Height="60" FontSize="20" BorderBrush="#FFD32F2F" Background="#FFD32F2F"/>
+                    <Button Command="{Binding BoRaGioHangCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Bỏ ra giỏ hàng" Height="60" FontSize="20" BorderBrush="#FFD32F2F" Background="#FFD32F2F"/>
                 </Grid>
                 <Grid Margin="8" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label Content="{materialDesign:PackIcon ArrowLeftBold, Size=64}" Foreground="#FF00967C" />
                 </Grid>
 
                 <Grid Margin="40,10,30,25" Grid.Row="2" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="3">
-                    <Image Source="..\Images\Shoppingcart.jpg" Margin="10"/>
+                    <Image Source="..\Images\Shopping.jpg" Margin="0"/>
                 </Grid>
             </Grid>
         </materialDesign:DialogHost>

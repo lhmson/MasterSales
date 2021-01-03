@@ -1,4 +1,4 @@
-﻿<Window x:Class="MasterSalesDemo.ChuyenChucVu"
+﻿<Window x:Class="MasterSalesDemo.GiaHanHD_Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,10 +21,10 @@
         WindowStartupLocation="CenterScreen"
         Icon="./Images/PhiHanhGia.jpg"
         
-        DataContext="{StaticResource ChuyenChucVuVM}"
+        DataContext="{StaticResource GiaHanHDVM}"
         
-        Name="ChuyenChucVuWindow"
-        Height="500" Width="900">
+        Name="GiaHanHDWindow"
+        Height="550" Width="900">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -37,9 +37,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.ColumnSpan="3">
-            <Button Background="{StaticResource PrimaryHueDarkBrush}" Name="titleBtn" Content="CHUYỂN CHỨC VỤ"></Button>
-
-            <!--<UC:ControlBarUC Tag="{Binding Title, ElementName=loginWindow}"></UC:ControlBarUC>-->
+            <Button Background="{StaticResource PrimaryHueDarkBrush}" Name="titleBtn" Content="GIA HẠN HỢP ĐỒNG"></Button>
         </Grid>
         <Grid Grid.Row="1" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
@@ -47,7 +45,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <materialDesign:Card Grid.Row="1" Width="500" Height="400" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                <materialDesign:Card Grid.Row="1" Width="500" Height="450" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
                     <Grid >
                         <Grid.Resources>
                             <Style TargetType="Grid">
@@ -55,6 +53,7 @@
                             </Style>
                         </Grid.Resources>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
@@ -74,43 +73,56 @@
                         VerticalAlignment="Center" IsEnabled="False"/>
                         </Grid>
                         <Grid Grid.Row="4">
+                            <TextBox materialDesign:HintAssist.Hint="Hạn hợp đồng"
+                             Text="{Binding HanHopDong}"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" IsEnabled="False"/>
+                        </Grid>
+                        <Grid Grid.Row="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="1" Command="{Binding XacNhanCommand}" CommandParameter="{Binding ElementName=ChuyenChucVuWindow}"
+                            <Button Grid.Column="1" Command="{Binding XacNhanCommand}" CommandParameter="{Binding ElementName=GiaHanHDWindow}"
                         Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True"
                         Width="120" Content="XÁC NHẬN" Margin="4,0,0,0">
                             </Button>
-                            <Button Grid.Column="0" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ChuyenChucVuWindow}"
+                            <Button Grid.Column="0" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=GiaHanHDWindow}"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}"
                         Width="120" Content="THOÁT" Margin="0,0,4,0">
                             </Button>
                         </Grid>
                         <Grid Grid.Row="2" >
-                            <ComboBox x:Name="cbbQuyDin1" materialDesign:HintAssist.Hint="Chọn phòng ban"
+                            <ComboBox x:Name="cbbQuyDin1" materialDesign:HintAssist.Hint="Chọn loại hợp đồng"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          ItemsSource="{Binding ListPhongBan}"
-                          SelectedItem="{Binding SelectedPhongBan}">
+                          ItemsSource="{Binding ListLoaiHD}"
+                          SelectedItem="{Binding SelectedLoaiHD}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="{Binding SelectionChangePBCommand}"/>
+                                        <i:InvokeCommandAction Command="{Binding SelectionChangeLoaiHDCommand}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
                         </Grid>
                         <Grid Grid.Row="3" >
-                            <ComboBox x:Name="cbbQuyDinh" materialDesign:HintAssist.Hint="Chọn chức vụ"
-                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          ItemsSource="{Binding ListChucVu}"
-                          SelectedItem="{Binding SelectedChucVu}">
-                            </ComboBox>
+                            <DatePicker Width="440" materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            SelectedDate="{Binding NgayBD,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
+                            SelectedDateFormat="Short" Margin="0,0,0,0" >
+                                <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedDateChanged">
+                                    <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
+                                               CommandParameter="{Binding ElementName=startDate}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            </DatePicker>
                         </Grid>
                     </Grid>
                 </materialDesign:Card>
             </Grid>
             <Grid Grid.Column="1">
-                <Image Source="/Images/ChuyenChucVu.jpg" VerticalAlignment="Center" HorizontalAlignment="Center" Width="340"/>
+                <Image Source="/Images/Contract.jpg" VerticalAlignment="Center" HorizontalAlignment="Center" Width="380"/>
             </Grid>
         </Grid>
     </Grid>
