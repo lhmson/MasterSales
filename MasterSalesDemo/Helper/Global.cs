@@ -31,6 +31,7 @@ namespace MasterSalesDemo.Helper
             return int.Parse(number);
         }
 
+
         //ex: auto Generate("LS", 123, 8) => code : LS000123
         public string autoGenerateCode(string quydinh, int max, int length)
         {
@@ -58,6 +59,116 @@ namespace MasterSalesDemo.Helper
             return autoGenerateCode("LS", flag, 7);
         }
 
+        public ObservableCollection<NHANVIEN> getAllNhanVienbyMaPhongBan(string MaPB)
+        {
+            ObservableCollection<NHANVIEN> _listNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+            ObservableCollection<NHANVIEN> _Res = new ObservableCollection<NHANVIEN>();
+            foreach (var nv in _listNhanVien)
+                if (nv.CHUCVU.PHONGBAN.id == MaPB)
+                    _Res.Add(nv);
+            return _Res;
+        }
+        public string autoGenerateMucThuong()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<MUCTHUONG> _listMT = new ObservableCollection<MUCTHUONG>(DataProvider.Ins.DB.MUCTHUONGs);
+            foreach (var mt in _listMT)
+            {
+                int number = filterNumber(mt.id);
+                if (number > flag)
+                    flag = number;
+            }
+
+            flag++;
+            return autoGenerateCode("MT", flag, 5);
+        }
+
+        public string autoGenerateBangLamThem()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<BANGLAMTHEM> _listBLT = new ObservableCollection<BANGLAMTHEM>(DataProvider.Ins.DB.BANGLAMTHEMs);
+            foreach (var blt in _listBLT)
+            {
+                int number = filterNumber(blt.id);
+                if (number > flag)
+                    flag = number;
+            }
+
+            flag++;
+            return autoGenerateCode("BLT", flag, 10);
+        }
+        public string autoGenerateBangThuong()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<BANGTHUONG> _listTemp = new ObservableCollection<BANGTHUONG>(DataProvider.Ins.DB.BANGTHUONGs);
+            foreach (var item in _listTemp)
+            {
+                int number = filterNumber(item.id);
+                if (number > flag)
+                    flag = number;
+            }
+            flag++;
+            return autoGenerateCode("BT", flag, 10);
+        }
+        public string autoGenerateBangLuongTL()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<BANGLUONGTL> _listTemp = new ObservableCollection<BANGLUONGTL>(DataProvider.Ins.DB.BANGLUONGTLs);
+            foreach (var item in _listTemp)
+            {
+                int number = filterNumber(item.id);
+                if (number > flag)
+                    flag = number;
+            }
+            flag++;
+            return autoGenerateCode("BLTL", flag, 12);
+        }
+        public string autoGenerateCTBangLamThem()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<CT_BANGLAMTHEM> _listTemp = new ObservableCollection<CT_BANGLAMTHEM>(DataProvider.Ins.DB.CT_BANGLAMTHEM);
+            foreach (var item in _listTemp)
+            {
+                int number = filterNumber(item.id);
+                if (number > flag)
+                    flag = number;
+            }
+            flag++;
+            return autoGenerateCode("CTBLT", flag, 15);
+        }
+        public string autoGenerateCTBangThuong()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<CT_BANGTHUONG> _listTemp = new ObservableCollection<CT_BANGTHUONG>(DataProvider.Ins.DB.CT_BANGTHUONG);
+            foreach (var item in _listTemp)
+            {
+                int number = filterNumber(item.id);
+                if (number > flag)
+                    flag = number;
+            }
+            flag++;
+            return autoGenerateCode("CTBT", flag, 14);
+        }
+        public string autoGenerateCTBangLuongTL()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<CT_BANGLUONGTL> _listTemp = new ObservableCollection<CT_BANGLUONGTL>(DataProvider.Ins.DB.CT_BANGLUONGTL);
+            foreach (var item in _listTemp)
+            {
+                int number = filterNumber(item.id);
+                if (number > flag)
+                    flag = number;
+            }
+            flag++;
+            return autoGenerateCode("CTBLTL", flag, 16);
+        }
         public void setNhanVien(NHANVIEN nv)
         {
             this.NhanVien = nv;
@@ -184,6 +295,14 @@ namespace MasterSalesDemo.Helper
             ObservableCollection<PHONGBAN> _listPhongBan = new ObservableCollection<PHONGBAN>(DataProvider.Ins.DB.PHONGBANs);
             foreach (var pb in _listPhongBan)
                 ListPhongBan.Add(pb.TenPhong);
+            return ListPhongBan;
+        }
+        public ObservableCollection<string> getAllPhongBan()
+        {
+            ObservableCollection<string> ListPhongBan = new ObservableCollection<string>();
+            ObservableCollection<PHONGBAN> _listPhongBan = new ObservableCollection<PHONGBAN>(DataProvider.Ins.DB.PHONGBANs);
+            foreach (var pb in _listPhongBan)
+                ListPhongBan.Add(pb.id);
             return ListPhongBan;
         }
 

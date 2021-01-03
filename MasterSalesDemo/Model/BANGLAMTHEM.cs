@@ -27,6 +27,7 @@ namespace MasterSalesDemo.Model
         public string MaPhong { get; set; }
         public Nullable<decimal> HeSo { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+        public Nullable<int> Nam { get; set; }
     
         public virtual PHONGBAN PHONGBAN { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
