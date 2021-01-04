@@ -25,7 +25,6 @@ namespace MasterSalesDemo.ViewModel
         public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
         private string _Password;
         public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
-
         public LoginViewModel()
         {
             UserName = "";

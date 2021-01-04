@@ -11,7 +11,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
-        TextElement.FontSize="20"
+        TextElement.FontSize="16"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -34,9 +34,10 @@
             <materialDesign:DialogHost.DialogContent>
                 <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
                     <StackPanel Orientation="Vertical" Margin="15">
-                        <materialDesign:PackIcon Kind="CheckCircleOutline" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="{Binding dialogIcon}" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
                         <TextBlock FontSize="18" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Cancel" Command="{Binding DialogCancel}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4,4,8,4" VerticalAlignment="Center" Visibility="{Binding cancelVisibility}"/>
                             <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
@@ -77,7 +78,215 @@
                     </materialDesign:Card>
                 </Grid>
 
-            </Grid>
+                <StackPanel  Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="6"  HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="24,0,0,0">
+                    <ComboBox
+  materialDesign:HintAssist.Hint="Chọn phòng ban"
+  IsEditable="False" 
+                        IsEnabled="{Binding chonPhongBanEnabled}"
+  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        FontSize="16" Margin="0,10,16,0" ItemsSource="{Binding ListPhongBan, Mode=TwoWay}" SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding phongBanSelectionChangedCommand}"
+                                                   />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                    <TextBox
+                        IsEnabled="False"
+  materialDesign:HintAssist.Hint="Tên phòng ban"
+                        IsReadOnly="True"
+                        Text="{Binding SelectedTenPhongBan}"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,5.5,16,0" Padding="0,0,4,0"/>
+                    <ComboBox
+  materialDesign:HintAssist.Hint="Chọn năm"
+  IsEditable="False"
+  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        FontSize="16" Margin="0,10,16,0" ItemsSource="{Binding ListNam, Mode=TwoWay}" SelectedItem="{Binding SelectedNam, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding namSelectionChangedCommand}"
+                                                   />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+
+                    <ComboBox
+  materialDesign:HintAssist.Hint="Chọn tháng"
+  IsEditable="True"
+  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        FontSize="16" Margin="0,10,16,0" ItemsSource="{Binding ListThang, Mode=TwoWay}" SelectedItem="{Binding SelectedThang, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding thangSelectionChangedCommand}"
+                                                   />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,8,0">
+                    <Button
+                                                VerticalAlignment="Stretch"
+                   Content="{materialDesign:PackIcon Upload}"
+                        Margin="0,10,8,0"
+  ToolTip="Lấy từ file excel" Width="48" Padding="0" />
+                    <Button
+                                                VerticalAlignment="Stretch"
+  Content="{materialDesign:PackIcon Download}"
+                        Margin="0,10,8,0"
+  ToolTip="Xuất ra file excel" Width="48" Padding="0" />
+                    <Button
+                        VerticalAlignment="Stretch"
+  Content="{Binding btnDuyetContent}"
+                        Margin="0,10,0,0"
+  ToolTip="Dành cho kế toán: Duyệt bảng lương"  Padding="16,0" Background="{Binding btnDuyetBackground}" BorderBrush="{Binding btnDuyetBackground}"  Foreground="{Binding btnDuyetForeground}" Command="{Binding duyetCommand}"/>
+                </StackPanel>
+                <materialDesign:Card Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="10" Background="White">
+                    <DataGrid
+                        Background="White"
+  Margin="8, 8 ,8, 8"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay}"
+  ItemsSource="{Binding BangLuongThuong, Mode=TwoWay}"
+  CanUserSortColumns="True"
+                       CanUserReorderColumns="False"
+                        IsReadOnly ="True"
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+  CanUserAddRows="False"
+  AutoGenerateColumns="False"
+  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+  materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged" >
+                                <i:InvokeCommandAction Command="{Binding nhanVienSelectionChangedCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+      Binding="{Binding STT}"
+                                 FontSize="16">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock FontSize="16" Text="STT" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                            <DataGridTextColumn
+      Binding="{Binding MaNV}"
+                                FontSize="16"
+      >
+                                <DataGridTextColumn.Header>
+                                    <TextBlock FontSize="16" Text="Mã Nhân Viên" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <!-- set a max length to get an indicator in the editor -->
+                            <DataGridTextColumn
+      Binding="{Binding TenNV}"
+                                FontSize="16"
+      >
+                                <DataGridTextColumn.Header>
+                                    <TextBlock FontSize="16" Text="Tên Nhân Viên" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn
+                                  FontSize="16"
+      Binding="{Binding LuongCB}"
+      >
+                                <DataGridTextColumn.Header>
+                                    <TextBlock FontSize="16" Text="Lương Cơ Bản" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                  FontSize="16"
+      Binding="{Binding LuongPC}"
+      >
+                                <DataGridTextColumn.Header>
+                                    <TextBlock FontSize="16" Text="Lương Phụ Cấp" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                  FontSize="16"
+      Binding="{Binding Thuong}"
+      >
+                                <DataGridTextColumn.Header>
+                                    <TextBlock FontSize="16" Text="Thưởng" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                  FontSize="16"
+      Binding="{Binding LuongNG}"
+      >
+                                <DataGridTextColumn.Header>
+                                    <TextBlock FontSize="16" Text="Lương Ngoài Giờ" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                  FontSize="16"
+      Binding="{Binding LuongTL}"
+      >
+                                <DataGridTextColumn.Header>
+                                    <TextBlock FontSize="16" Text="Lương Thực Lãnh" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </materialDesign:Card>
+                <materialDesign:Card Margin="8,8,8,16" Grid.Row="1" Grid.Column="10" Grid.RowSpan="7" Grid.ColumnSpan="3" VerticalAlignment="Top">
+                    <StackPanel Background="White" >
+                        <StackPanel Margin="16,16,16,16">
+                            <materialDesign:Card 
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8"
+                                Margin="-16,-16,-16,0">
+                                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">THÔNG TIN NHÂN VIÊN</TextBlock>
+                            </materialDesign:Card>
+                            <TextBlock Margin="0,32,0,0" Text="Tên nhân viên" FontSize="14" FontWeight="Bold" Foreground="Gray" />
+                            <TextBlock Margin="0,8,0,0" Text="{Binding TTTenNV}"  />
+                            <TextBlock Margin="0,32,0,0" Text="Mức độ hoàn thành" FontSize="14" FontWeight="Bold" Foreground="Gray" />
+                            <ComboBox Margin="0,2,0,0" ItemsSource="{Binding ListMucDo, Mode=TwoWay}" SelectedItem="{Binding SelectedMucDo, Mode=TwoWay}" IsEnabled="{Binding suaThongTinEnabled}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding mucDoSelectionChangedCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                            <TextBlock Margin="0,32,0,0" Text="Số buổi làm thêm" FontSize="14" FontWeight="Bold" Foreground="Gray" />
+                            <DockPanel LastChildFill="True">
+                                <materialDesign:PopupBox DockPanel.Dock="Right" Visibility="{Binding visibilitySoBuoiPopup}"  VerticalAlignment="Center" PopupContent=" Vui lòng nhập số nguyên " Margin="8,0,4,0" >
+
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Foreground="Red" Kind="Error" />
+                                    </materialDesign:PopupBox.ToggleContent>
+                                </materialDesign:PopupBox>
+                                <TextBox   Margin="0,4,0,0" HorizontalAlignment="Stretch"
+  Style="{StaticResource MaterialDesignTextBox}" Text="{Binding SoBuoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding suaThongTinEnabled}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding soBuoiSelectionChangedCommand}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+
+                            </DockPanel>
+                            <Button  Margin="0,32,0,0"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+                                     Visibility="{Binding luuThayDoiVisibility}"
+                           IsEnabled="{Binding luuThayDoiEnabled}"
+                                     Command="{Binding luuThayDoiCommand}"
+    ToolTip="Lưu thay đổi">
+                                Lưu thay đổi
+                            </Button>
+
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+                </Grid>
         </materialDesign:DialogHost>
     </Grid>
 </Page>
