@@ -62,6 +62,7 @@ namespace MasterSalesDemo.ViewModel
         public ICommand SuaThongTinNhanVienCommand { get; set; }
         public ICommand OpenThemNhanVienCommand { get; set; }
         public ICommand SuaLoaiHopDongCommand { get; set; }
+        public ICommand XoaLoaiHopDongCommand { get; set; }
 
         //public ICommand ThayDoiTrinhDo { get; set; }
 
@@ -523,6 +524,7 @@ namespace MasterSalesDemo.ViewModel
                 return true;
             }, (p) =>
             {
+                InitThemLoaiHopDong();
                 ThemLoaiHopDong window = new ThemLoaiHopDong();
                 window.ShowDialog();
             });
@@ -532,6 +534,7 @@ namespace MasterSalesDemo.ViewModel
                 return true;
             }, (p) =>
             {
+                InitThemHopDong();
                 ThemHopDong window = new ThemHopDong();
                 window.ShowDialog();
             });
@@ -541,6 +544,7 @@ namespace MasterSalesDemo.ViewModel
                 return true;
             }, (p) =>
             {
+                InitNhanVien();
                 ThemNhanVien window = new ThemNhanVien();
                 window.Closed += ThemNhanVienWindow_Closed;
                 window.ShowDialog();
@@ -682,6 +686,28 @@ namespace MasterSalesDemo.ViewModel
             });
 
             #endregion
+
+            #region xóa loại hợp đồng
+
+            XoaLoaiHopDongCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItemLoaiHopDong == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                var loaihopdong = DataProvider.Ins.DB.LOAIHOPDONGs.Where(x => x.id == SelectedItemLoaiHopDong.id).SingleOrDefault();
+                SelectedItemLoaiHopDong.isDeleted = true;
+                DataProvider.Ins.DB.SaveChanges();
+                ListLoaiHopDong.Remove(loaihopdong);
+               // InitThemLoaiHopDong();
+                MessageBox.Show("Bạn đã xóa thành công");
+
+            });
+
+            #endregion
+
 
             #region thêm hợp đồng
 
