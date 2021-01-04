@@ -42,7 +42,7 @@ namespace MasterSalesDemo.ViewModel
             get { return _ListPhongBan; }
             set { _ListPhongBan = value; OnPropertyChanged(); }
         }
-        
+
         private string _SelectedPhongBan;
         public string SelectedPhongBan
         {
@@ -97,8 +97,8 @@ namespace MasterSalesDemo.ViewModel
             get { return _SelectedMucDo; }
             set { _SelectedMucDo = value; OnPropertyChanged(); }
         }
-        private int _SoBuoi;
-        public int SoBuoi
+        private string _SoBuoi;
+        public string SoBuoi
         {
             get { return _SoBuoi; }
             set { _SoBuoi = value; OnPropertyChanged(); }
@@ -157,7 +157,36 @@ namespace MasterSalesDemo.ViewModel
             get => _luuThayDoiVisibility;
             set { _luuThayDoiVisibility = value; OnPropertyChanged(); }
         }
-
+        private bool _DialogOpen;
+        public bool DialogOpen
+        {
+            get => _DialogOpen;
+            set { _DialogOpen = value; OnPropertyChanged(); }
+        }
+        private string _ThongBao;
+        public string ThongBao
+        {
+            get => _ThongBao;
+            set { _ThongBao = value; OnPropertyChanged(); }
+        }
+        private string _cancelVisibility;
+        public string cancelVisibility
+        {
+            get => _cancelVisibility;
+            set { _cancelVisibility = value; OnPropertyChanged(); }
+        }
+        private string _dialogIcon;
+        public string dialogIcon
+        {
+            get => _dialogIcon;
+            set { _dialogIcon = value; OnPropertyChanged(); }
+        }
+        private bool _chonPhongBanEnabled;
+        public bool chonPhongBanEnabled
+        {
+            get => _chonPhongBanEnabled;
+            set { _chonPhongBanEnabled = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region Icommands
@@ -169,6 +198,8 @@ namespace MasterSalesDemo.ViewModel
         public ICommand soBuoiSelectionChangedCommand { get; set; }
         public ICommand luuThayDoiCommand { get; set; }
         public ICommand duyetCommand { get; set; }
+        public ICommand DialogOK { get; set; }
+        public ICommand DialogCancel { get; set; }
         #endregion
         #region Functions
         public void loadData()
@@ -183,24 +214,27 @@ namespace MasterSalesDemo.ViewModel
             {
                 ListNam.Add((DateTime.Today.Year - i).ToString());
             }
-            for (int i=1;i<=12;i++)
+            for (int i = 1; i <= 12; i++)
             {
                 ListThang.Add("Tháng " + i.ToString());
             }
             SelectedNam = DateTime.Today.Year.ToString();
-            SelectedThang ="Tháng " + DateTime.Today.Month.ToString();
+            SelectedThang = "Tháng " + DateTime.Today.Month.ToString();
             ObservableCollection<MUCTHUONG> _listMT = new ObservableCollection<MUCTHUONG>(DataProvider.Ins.DB.MUCTHUONGs);
             ListMucDo = new ObservableCollection<string>();
             foreach (var item in _listMT)
                 ListMucDo.Add(item.TenMucThuong);
-            SelectedMucDo=null;
-            SoBuoi = 0;
+            SelectedMucDo = null;
+            SoBuoi = "0";
             TTTenNV = "(Chọn nhân viên để tiếp tục)";
             SelectedNhanVien = null;
             luuThayDoiEnabled = false;
             suaThongTinEnabled = false;
             visibilitySoBuoiPopup = "Collapsed";
             luuThayDoiVisibility = "Collapsed";
+            chonPhongBanEnabled = false;
+            if (Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
+                chonPhongBanEnabled = true;
             loadTable();
         }
         public void loadTable()
@@ -238,7 +272,7 @@ namespace MasterSalesDemo.ViewModel
                         DataProvider.Ins.DB.BANGLAMTHEMs.Add(temp);
                         DataProvider.Ins.DB.SaveChanges();
                     }
-                    if (DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && SelectedPhongBan == x.MaPhong).First().CT_BANGLAMTHEM.Where(x => x.MaNV == item.id).Count()==0)
+                    if (DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && SelectedPhongBan == x.MaPhong).First().CT_BANGLAMTHEM.Where(x => x.MaNV == item.id).Count() == 0)
                     {
                         CT_BANGLAMTHEM tempp = new CT_BANGLAMTHEM()
                         {
@@ -253,9 +287,9 @@ namespace MasterSalesDemo.ViewModel
                         DataProvider.Ins.DB.SaveChanges();
                     }
                     dongluongthuong.LuongNG = DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && SelectedPhongBan == x.MaPhong).First().CT_BANGLAMTHEM.Where(x => x.MaNV == item.id).First().TienLamThem ?? 0;
-                    
+
                     //2. bang thuong
-                    if (DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).Count()==0)
+                    if (DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).Count() == 0)
                     {
                         BANGTHUONG temp = new BANGTHUONG()
                         {
@@ -270,7 +304,7 @@ namespace MasterSalesDemo.ViewModel
                         DataProvider.Ins.DB.BANGTHUONGs.Add(temp);
                         DataProvider.Ins.DB.SaveChanges();
                     }
-                    if (DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).First().CT_BANGTHUONG.Where(x => x.MaNV == item.id).Count()==0)
+                    if (DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).First().CT_BANGTHUONG.Where(x => x.MaNV == item.id).Count() == 0)
                     {
                         CT_BANGTHUONG tempp = new CT_BANGTHUONG()
                         {
@@ -285,7 +319,7 @@ namespace MasterSalesDemo.ViewModel
                         DataProvider.Ins.DB.SaveChanges();
                     }
                     dongluongthuong.Thuong = DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).First().CT_BANGTHUONG.Where(x => x.MaNV == item.id).First().TienThuong ?? 0;
-                    
+
                     //3. luong thuc lanh
                     if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).Count() == 0)
                     {
@@ -302,7 +336,7 @@ namespace MasterSalesDemo.ViewModel
                         DataProvider.Ins.DB.BANGLUONGTLs.Add(temp);
                         DataProvider.Ins.DB.SaveChanges();
                     }
-                    if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLUONGTL.Where(x => x.MaNV == item.id).Count()==0)
+                    if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLUONGTL.Where(x => x.MaNV == item.id).Count() == 0)
                     {
                         decimal luongcb = DataProvider.Ins.DB.HOPDONGs.Where(x => x.MaNV == item.id).First().LOAIHOPDONG.Luong ?? 0;
                         decimal tienthuong = DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).First().CT_BANGTHUONG.Where(x => x.MaNV == item.id).First().TienThuong ?? 0;
@@ -324,32 +358,21 @@ namespace MasterSalesDemo.ViewModel
                     }
                     dongluongthuong.LuongTL = DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLUONGTL.Where(x => x.MaNV == item.id).First().TongLuong ?? 0;
                     BangLuongThuong.Add(dongluongthuong);
-                    if (i==2)
+                    if (i == 2)
                     {
                         SelectedNhanVien = dongluongthuong;
                         loadThongTin();
                     }
                 }
-            if (i==1)
-            {
-                SelectedMucDo = null;
-                SoBuoi = 0;
-                TTTenNV = "(Chọn nhân viên để tiếp tục)";
-                SelectedNhanVien = null;
-                luuThayDoiEnabled = false;
-                suaThongTinEnabled = false;
-                visibilitySoBuoiPopup = "Collapsed";
-                luuThayDoiVisibility = "Collapsed";
-            }
             luuThayDoiEnabled = false;
-            if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).Count()>0 && DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan!=null)
+            if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).Count() > 0 && DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan != null)
             {
                 btnDuyetContent = "Đã được duyệt";
                 btnDuyetBackground = "#f0fff0";
                 btnDuyetForeground = "#119111";
                 daDuyet = true;
             }
-            else if (Global.Ins.NhanVien.CHUCVU.MaPhongBan=="PB005")
+            else if (Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
             {
                 btnDuyetContent = "Duyệt bảng lương";
                 btnDuyetBackground = "#119111";
@@ -362,6 +385,17 @@ namespace MasterSalesDemo.ViewModel
                 btnDuyetBackground = "#f0fff0";
                 btnDuyetForeground = "#119111";
                 daDuyet = false;
+            }
+            if (i == 1 || daDuyet)
+            {
+                SelectedMucDo = null;
+                SoBuoi = "0";
+                TTTenNV = "(Chọn nhân viên để tiếp tục)";
+                SelectedNhanVien = null;
+                luuThayDoiEnabled = false;
+                suaThongTinEnabled = false;
+                visibilitySoBuoiPopup = "Collapsed";
+                luuThayDoiVisibility = "Collapsed";
             }
         }
         public void loadThongTin()
@@ -381,17 +415,44 @@ namespace MasterSalesDemo.ViewModel
                 int thang = Global.Ins.filterNumber(SelectedThang);
                 TTTenNV = SelectedNhanVien.TenNV;
                 SelectedMucDo = DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGTHUONG.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().MUCTHUONG.TenMucThuong;
-                SoBuoi = DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().SoBuoi ?? 0;
+                SoBuoi = (DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().SoBuoi ?? 0).ToString();
                 luuThayDoiEnabled = false;
             }
         }
 
         public bool dataCheck()
         {
-            return true;
+            int number;
+            if (!int.TryParse(SoBuoi,out number))
+            {
+                visibilitySoBuoiPopup = "Visible";
+                return false;
+            }
+            else
+            {
+                visibilitySoBuoiPopup = "Collapsed";
+                return true;
+            }
         }
 
         public bool daDuyet=false;
+
+        public void duyet()
+        {
+            int thang = Global.Ins.filterNumber(SelectedThang);
+            int nam = Global.Ins.filterNumber(SelectedNam);
+                DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan = Global.Ins.NhanVien.id;
+                DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().NgayLap = DateTime.Now;
+                DataProvider.Ins.DB.SaveChanges();
+                btnDuyetContent = "Đã được duyệt";
+                btnDuyetBackground = "#f0fff0";
+                btnDuyetForeground = "#119111";
+                loadTable();
+                dialogIcon = "CheckCircleOutline";
+                ThongBao = "Lưu thay đổi thành công";
+                cancelVisibility = "Collapsed";
+                DialogOpen = true;           
+        }
 
         #endregion
         public QLLuongThuong_ViewModel()
@@ -441,27 +502,41 @@ namespace MasterSalesDemo.ViewModel
                     DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGTHUONG.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().MaMucThuong = maMucThuong;
                     DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGTHUONG.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienThuong = DataProvider.Ins.DB.MUCTHUONGs.Where(x => x.id == maMucThuong).First().TienThuong;
                     DataProvider.Ins.DB.SaveChanges();
-                    DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().SoBuoi = SoBuoi;
-                    DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienLamThem = SoBuoi * DataProvider.Ins.DB.THAMSOes.Where(x => x.id == "HeSoLamThem").First().GiaTri;
+                    DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().SoBuoi = int.Parse(SoBuoi);
+                    DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienLamThem = int.Parse(SoBuoi) * DataProvider.Ins.DB.THAMSOes.Where(x => x.id == "HeSoLamThem").First().GiaTri;
                     DataProvider.Ins.DB.SaveChanges();
                     loadTable();
+                    dialogIcon = "CheckCircleOutline";
+                    ThongBao = "Lưu thay đổi thành công";
+                    cancelVisibility = "Collapsed";
+                    DialogOpen = true;
                 }
                 luuThayDoiEnabled = false;
             });
             duyetCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                int thang = Global.Ins.filterNumber(SelectedThang);
-                int nam = Global.Ins.filterNumber(SelectedNam);
+            int thang = Global.Ins.filterNumber(SelectedThang);
+            int nam = Global.Ins.filterNumber(SelectedNam);
                 if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan == null && Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
                 {
-                    DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan = Global.Ins.NhanVien.id;
-                    DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().NgayLap = DateTime.Now;
-                    DataProvider.Ins.DB.SaveChanges();
-                    btnDuyetContent = "Đã được duyệt";
-                    btnDuyetBackground = "#f0fff0";
-                    btnDuyetForeground = "#119111";
-                    loadTable();
+                    dialogIcon = "AlertCircleOutline";
+                    ThongBao = "Xác nhận duyệt";
+                    cancelVisibility = "Visible";
+                    DialogOpen = true;
                 }
+
+            });
+            DialogOK = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                if (ThongBao == "Xác nhận duyệt")
+                {
+                    duyet();
+                }
+                DialogOpen = false;
+            });
+            DialogCancel = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                DialogOpen = false;
             });
         }
     }

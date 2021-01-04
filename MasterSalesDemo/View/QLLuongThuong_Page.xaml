@@ -34,9 +34,10 @@
             <materialDesign:DialogHost.DialogContent>
                 <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
                     <StackPanel Orientation="Vertical" Margin="15">
-                        <materialDesign:PackIcon Kind="CheckCircleOutline" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="{Binding dialogIcon}" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
                         <TextBlock FontSize="18" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Cancel" Command="{Binding DialogCancel}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4,4,8,4" VerticalAlignment="Center" Visibility="{Binding cancelVisibility}"/>
                             <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
@@ -81,6 +82,7 @@
                     <ComboBox
   materialDesign:HintAssist.Hint="Chọn phòng ban"
   IsEditable="False" 
+                        IsEnabled="{Binding chonPhongBanEnabled}"
   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                         FontSize="16" Margin="0,10,16,0" ItemsSource="{Binding ListPhongBan, Mode=TwoWay}" SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay}">
                         <i:Interaction.Triggers>
@@ -141,7 +143,7 @@
                         Margin="0,10,0,0"
   ToolTip="Dành cho kế toán: Duyệt bảng lương"  Padding="16,0" Background="{Binding btnDuyetBackground}" BorderBrush="{Binding btnDuyetBackground}"  Foreground="{Binding btnDuyetForeground}" Command="{Binding duyetCommand}"/>
                 </StackPanel>
-                <Grid Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="10" Background="White">
+                <materialDesign:Card Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="10" Background="White">
                     <DataGrid
                         Background="White"
   Margin="8, 8 ,8, 8"
@@ -233,8 +235,8 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                </Grid>
-                <Grid Margin="8,8,8,16" Grid.Row="1" Grid.Column="10" Grid.RowSpan="7" Grid.ColumnSpan="3" VerticalAlignment="Top">
+                </materialDesign:Card>
+                <materialDesign:Card Margin="8,8,8,16" Grid.Row="1" Grid.Column="10" Grid.RowSpan="7" Grid.ColumnSpan="3" VerticalAlignment="Top">
                     <StackPanel Background="White" >
                         <StackPanel Margin="16,16,16,16">
                             <materialDesign:Card 
@@ -256,7 +258,7 @@
                             </ComboBox>
                             <TextBlock Margin="0,32,0,0" Text="Số buổi làm thêm" FontSize="14" FontWeight="Bold" Foreground="Gray" />
                             <DockPanel LastChildFill="True">
-                                <materialDesign:PopupBox DockPanel.Dock="Right" Visibility="{Binding visibilitySoBuoiPopup}"  VerticalAlignment="Center" PopupContent="{Binding SoBuoiError}" Margin="8,0,4,0" >
+                                <materialDesign:PopupBox DockPanel.Dock="Right" Visibility="{Binding visibilitySoBuoiPopup}"  VerticalAlignment="Center" PopupContent=" Vui lòng nhập số nguyên " Margin="8,0,4,0" >
 
                                     <materialDesign:PopupBox.ToggleContent>
                                         <materialDesign:PackIcon Foreground="Red" Kind="Error" />
@@ -283,7 +285,7 @@
 
                         </StackPanel>
                     </StackPanel>
-                </Grid>
+                </materialDesign:Card>
                 </Grid>
         </materialDesign:DialogHost>
     </Grid>
