@@ -25,10 +25,8 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+
+
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.75*"/>
@@ -60,13 +58,13 @@
             <TextBox Text="{Binding HoTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên nhân viên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="10,0,10.6,0.4" />
         </Grid>
 
-        <Grid Margin="29.6,20.4,0,79" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="199">
+        <Grid Margin="30,20.4,0,79" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="438">
             <StackPanel Visibility="{Binding VisibilityNgayketthuc}" Orientation="Horizontal" Margin="15,0,0,0">
-                <DatePicker Width="182" materialDesign:HintAssist.Hint="Ngày sinh"
+                <DatePicker Width="396" materialDesign:HintAssist.Hint="Ngày sinh"
                             HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding NgaySinh,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,7,30,7.2" >
+                            SelectedDateFormat="Short" Margin="0,20,30,20.2" >
                     <!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectedDateChanged">
                                     <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
@@ -116,15 +114,19 @@
                 </ComboBox.SelectedItem>
             </ComboBox>
         </Grid>
-        <Grid Margin="80,0,30,10" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="5">
-            <Button Command="{Binding ThemNhanVienCommand}" CommandParameter="{Binding ElementName=ThemNhanVienWindow}"
+        <Grid Margin="80,0,30,10" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3">
+            <Button Command="{Binding ThemNhanVienCommand}" 
                         Style="{StaticResource MaterialDesignFlatAccentBgButton}" IsDefault="True"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
                          Content="Thêm" Height="48" FontSize="20" Margin="0,5" >
             </Button>
         </Grid>
 
+        <Grid Margin="0,0,10,0" Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="1">
+            <Button VerticalAlignment="Stretch" Command="{Binding InitNVCommand}" Padding="0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"  Content="{materialDesign:PackIcon Kind=RotateLeft, Size=32}"  Margin="0,0,0,16" Height="50" FontSize="20"/>
 
-
+        </Grid>
 
     </Grid>
 </Window>
