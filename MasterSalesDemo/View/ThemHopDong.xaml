@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MasterSalesDemo.View"
         mc:Ignorable="d"
-        Title="ThemHopDong" Height="600" Width="1000"
+        Title="ThemHopDong" Height="600" Width="1200"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -100,13 +100,13 @@
             </ComboBox>
         </Grid>
 
-        <Grid Margin="20,9.2,0,59.2" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="467">
-            <DatePicker x:Name="startDate" Width="427" materialDesign:HintAssist.Hint="Từ ngày"
-                            HorizontalAlignment="Right"
+        <Grid Margin="20,9.2,0,59.2" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="548">
+            <DatePicker x:Name="startDate" Width="528" materialDesign:HintAssist.Hint="Từ ngày"
+                            HorizontalAlignment="Left"
                            
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,24,30,24" >
+                            SelectedDateFormat="Short" Margin="10,24,0,24" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedDateChanged">
                         <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
@@ -117,7 +117,7 @@
             </DatePicker>
         </Grid>
 
-        <Grid Margin="20,10,0,58.4" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="467" >
+        <Grid Margin="20,10,0,58.4" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="567" >
             <DatePicker x:Name="Ngayketthuc" Width="427" materialDesign:HintAssist.Hint="Ngày kết thúc"
                             HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
@@ -131,7 +131,7 @@
         <Grid Margin="8,4,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5">
             <ComboBox Foreground="Black" Height="Auto" ItemsSource="{Binding ListLoaiHopDong}" DisplayMemberPath="TenLoaiHD"
                       FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
-                      materialDesign:HintAssist.Hint="Loại hợp đồng" Margin="16,0,0,0">
+                      materialDesign:HintAssist.Hint="Loại hợp đồng" Margin="16,21,10.4,21.2">
                 <ComboBox.Width>
                     <Binding ElementName="TenLoaiHD" Path="ActualWidth"/>
                 </ComboBox.Width>
@@ -141,12 +141,13 @@
                     </Binding>
                 </ComboBox.SelectedItem>
             </ComboBox>
+
         </Grid>
 
         <Grid Margin="8,4,0,8" Grid.Row="2" Grid.Column="5">
             <Button Padding="0"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
                             Command="{Binding OpenLoaiHopDongCommand}" IsEnabled="True"
-                             CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Margin="0,0,16,0"     >
+                             CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Margin="0,18,37.4,17.2"     >
                 <materialDesign:PackIcon Kind="Add"/>
             </Button>
         </Grid>
@@ -154,22 +155,30 @@
         <Grid Margin="8,8,8,8" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="6" Grid.RowSpan="6">
             <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="8,0">
                 <ListView ItemsSource="{Binding ListHopDong, Mode=TwoWay,
-                    UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Thycute,
+                    UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItemHopDong,
                     Mode=TwoWay}" FontSize="16">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding LOAIHOPDONG.TenLoaiHD }"></GridViewColumn>
-                            <GridViewColumn Header="Tên hợp đồng" DisplayMemberBinding="{Binding NHANVIEN.HoTen }"></GridViewColumn>
-                            <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding NgayHD}"></GridViewColumn>
-                            <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding NgayKT }"></GridViewColumn>
+                            <GridViewColumn Header="Tên hợp đồng" DisplayMemberBinding="{Binding LOAIHOPDONG.TenLoaiHD }"></GridViewColumn>
+                            <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding NHANVIEN.HoTen }"></GridViewColumn>
+                            <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding NgayHD,StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                            <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding NgayKT,StringFormat='dd/MM/yyyy' }"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
         </Grid>
-        <Grid Margin="25,8,8,0" Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="3">
-            <Button  Command="{Binding ThemHopDongCommand}" Content="Thêm hợp đồng" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
+        <Grid Margin="25,8,8,0" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3">
+            <Button  Command="{Binding ThemHopDongCommand}" 
+                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
+                     Content="Thêm hợp đồng" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
         </Grid>
+        <Grid Margin="25,8,8,0" Grid.Row="10" Grid.Column="5" Grid.ColumnSpan="1">
+            <Button VerticalAlignment="Stretch" Command="{Binding InitHDCommand}" Padding="0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"  Content="{materialDesign:PackIcon Kind=RotateLeft, Size=32}"  Margin="0,0,0,16" Height="50" FontSize="20"/>
+
+        </Grid>
+
 
     </Grid>
 </Window>

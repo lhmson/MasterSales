@@ -263,7 +263,7 @@ namespace MasterSalesDemo.ViewModel
             bool validTen = false;
             CHUCVU chucvu = getChucVubyMaNV(nv.MaChucVu);
             TRINHDO trinhdo = getTrinhdobyMaNV(nv.MaTrinhDo);
-            if (SelectedPhongBan == null || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
+            if (SelectedPhongBan == null || SelectedPhongBan=="Tất cả" || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
                 validPhongBan = true;
 
             if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
@@ -387,6 +387,8 @@ namespace MasterSalesDemo.ViewModel
             ListPhongBan = new ObservableCollection<string>();
             foreach (var pb in _listPhongBan)
                 ListPhongBan.Add(pb.TenPhong);
+
+            ListPhongBan.Add("Tất cả");
         }
 
         #endregion

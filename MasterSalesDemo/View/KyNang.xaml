@@ -44,7 +44,7 @@
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                   Padding="8" Margin="0,0,0,4">
-                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">KỸ NĂNG</TextBlock>
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">QUẢN LÝ KỸ NĂNG</TextBlock>
             </materialDesign:Card>
         </Grid>
 
@@ -93,15 +93,21 @@
         </Grid>
 
         <Grid Margin="8,8,8,0" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
-            <Button  Command="{Binding ThemKyNangCommand}" Content="Thêm" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
+            <Button  Command="{Binding ThemKyNangCommand}" 
+                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                     Content="Thêm" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
         </Grid>
 
         <Grid Margin="8,8,8,0" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2">
-            <Button  Command="{Binding SuaKyNangCommand}" Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
+            <Button  Command="{Binding SuaKyNangCommand}" 
+                       CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                     Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
         </Grid>
 
         <Grid Margin="8,8,8,0" Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="2">
-            <Button  Command="{Binding XoaKyNangCommand}" Content="Xóa" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
+            <Button  Command="{Binding XoaKyNangCommand}" 
+                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                     Content="Xóa" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
         </Grid>
 
     </Grid>

@@ -48,7 +48,7 @@
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                   Padding="8" Margin="0,0,0,4">
-                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">THÊM DIỆN HỢP ĐỒNG</TextBlock>
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">DIỆN HỢP ĐỒNG</TextBlock>
             </materialDesign:Card>
         </Grid>
 
@@ -100,8 +100,7 @@
         <Grid Margin="8,8,8,8" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="6" Grid.RowSpan="6">
             <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="8,0">
                 <ListView ItemsSource="{Binding ListLoaiHopDong, Mode=TwoWay,
-                    UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItemLoaiHopDong,
-                    Mode=TwoWay}" FontSize="16">
+                    UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItemLoaiHopDong, Mode=TwoWay}" FontSize="16">
                     <ListView.View>
                         <GridView>
                             <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding MaNCC}"></GridViewColumn>-->
@@ -113,16 +112,17 @@
                 </ListView>
             </ScrollViewer>
         </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2">
-            <Button Command="{Binding ThemLoaiHopDongCommand}" Content="Thêm" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
+        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2">
+            <Button Command="{Binding ThemLoaiHopDongCommand}" 
+              CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
+            Content="Thêm" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
+            
         </Grid>
         
-        <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2">
-            <Button  Command="{Binding SuaLoaiHopDongCommand}" Content="Sửa" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
-        </Grid>
-
         <Grid Margin="8,8,8,0" Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="2">
-            <Button  Command="{Binding XoaLoaiHopDongCommand}" Content="Xóa" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
+            <Button  Command="{Binding SuaLoaiHopDongCommand}" 
+                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                     Content="Sửa" FontSize="16" Height="40" Margin="0,0,16,0"></Button>
         </Grid>
 
     </Grid>
