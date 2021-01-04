@@ -91,6 +91,13 @@ namespace MasterSalesDemo.ViewModel
             set { _SelectedPhongBan = value; OnPropertyChanged(); }
         }
 
+        private string _Avatar;
+        public string Avatar
+        {
+            get { return _Avatar; }
+            set { _Avatar = value; OnPropertyChanged(); }
+        }
+
         private string _ContentCommand;
         public string ContentCommand
         {
@@ -195,6 +202,11 @@ namespace MasterSalesDemo.ViewModel
             PHONGBAN phongban = chucvu.PHONGBAN;
             ChucVu = chucvu.TenChucVu + " - " + phongban.TenPhong;
             NHANVIEN nv = Global.Ins.getNhanVienbyMaNV(SelectedNhanVien.MaNV);
+            if (nv.GioiTinh.ToLower().Contains("nam"))
+                Avatar = "/Images/Male.jpg";
+            else
+                Avatar = "/Images/Female.jpg";
+
             HanHopDong = "";
             HOPDONG hopdong = Global.Ins.getHopDongbyMaNV(SelectedNhanVien.MaNV);
             if (hopdong != null)
@@ -261,6 +273,7 @@ namespace MasterSalesDemo.ViewModel
         public QLLichSu_ViewModel()
         {
             #region Load Database
+            Avatar = "";
             ContentCommand = "Chuyển chức vụ";
             LoadSourceComboBoxPhongBan();
             _ListThongTinNhanVien = new ObservableCollection<ThongTinNhanVien>();
