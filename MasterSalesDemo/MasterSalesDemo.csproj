@@ -48,6 +48,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -151,6 +152,12 @@
     </ApplicationDefinition>
     <Compile Include="ChuyenChucVu.xaml.cs">
       <DependentUpon>ChuyenChucVu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DatOnline_Window.xaml.cs">
+      <DependentUpon>DatOnline_Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GiaHanHD_Window.xaml.cs">
+      <DependentUpon>GiaHanHD_Window.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\DatabaseCheck.cs" />
     <Compile Include="Helper\Global.cs" />
@@ -269,11 +276,25 @@
     <Compile Include="BanHang_PrintPreview.xaml.cs">
       <DependentUpon>BanHang_PrintPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ThemGioHang_Window.xaml.cs">
+      <DependentUpon>ThemGioHang_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ChuyenChucVu_ViewModel.cs" />
+    <Compile Include="ViewModel\DatOnline_ViewModel.cs" />
+    <Compile Include="ViewModel\GiaHanHD_ViewModel.cs" />
+    <Compile Include="ViewModel\DanhGiaKyNang_ViewModel.cs" />
     <Compile Include="ViewModel\QLKhachHang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLichSu_ViewModel.cs" />
     <Compile Include="ViewModel\QLKiNang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLuongThuong_ViewModel.cs" />
+    <Compile Include="ViewModel\ThemGioHang.cs" />
+    <Compile Include="ViewModel\SuaDanhGia_ViewModel.cs" />
+    <Compile Include="View\DanhGiaKyNang.xaml.cs">
+      <DependentUpon>DanhGiaKyNang.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KyNang.xaml.cs">
+      <DependentUpon>KyNang.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\QLKhachHang_Page.xaml.cs">
       <DependentUpon>QLKhachHang_Page.xaml</DependentUpon>
     </Compile>
@@ -285,6 +306,21 @@
     </Compile>
     <Compile Include="View\QLKiNang_Page.xaml.cs">
       <DependentUpon>QLKiNang_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SuaDanhGiaKN.xaml.cs">
+      <DependentUpon>SuaDanhGiaKN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ThemHopDong.xaml.cs">
+      <DependentUpon>ThemHopDong.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ThemLoaiHopDong.xaml.cs">
+      <DependentUpon>ThemLoaiHopDong.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ThemNhanVien.xaml.cs">
+      <DependentUpon>ThemNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TrinhDo.xaml.cs">
+      <DependentUpon>TrinhDo.xaml</DependentUpon>
     </Compile>
     <Compile Include="XuatHang_PrintPreview.xaml.cs">
       <DependentUpon>XuatHang_PrintPreview.xaml</DependentUpon>
@@ -359,6 +395,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DatOnline_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaHanHD_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NhapHang_PrintPreview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -366,6 +410,18 @@
     <Page Include="BanHang_PrintPreview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemGioHang_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DanhGiaKyNang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KyNang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\QLKhachHang_Page.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -382,6 +438,26 @@
     <Page Include="View\QLKiNang_Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SuaDanhGiaKN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ThemHopDong.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ThemLoaiHopDong.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ThemNhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TrinhDo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XuatHang_PrintPreview.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -560,6 +636,13 @@
     <Resource Include="Images\PhiHanhGia.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Contract.jpg" />
+    <Resource Include="Images\ChuyenChucVu.jpg" />
+    <Resource Include="Images\Shopping.jpg" />
+    <Resource Include="Images\LAPTOP.jpg" />
+    <Resource Include="Images\Online.jpg" />
+    <Resource Include="Images\Male.jpg" />
+    <Resource Include="Images\Female.jpg" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>

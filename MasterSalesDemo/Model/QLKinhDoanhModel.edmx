@@ -317,7 +317,7 @@
           <Property Name="TraLoi" Type="nvarchar" MaxLength="1000" />
           <Property Name="isDeleted" Type="bit" />
         </EntityType>
-        <Association Name="FK__BANGLAMTH__MaPho__47DBAE45">
+        <Association Name="FK__BANGLAMTH__MaPho__5AEE82B9">
           <End Role="PHONGBAN" Type="Self.PHONGBAN" Multiplicity="0..1" />
           <End Role="BANGLAMTHEM" Type="Self.BANGLAMTHEM" Multiplicity="*" />
           <ReferentialConstraint>
@@ -329,7 +329,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BANGLAMTH__MaTrg__45F365D3">
+        <Association Name="FK__BANGLAMTH__MaTrg__59063A47">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="BANGLAMTHEM" Type="Self.BANGLAMTHEM" Multiplicity="*" />
           <ReferentialConstraint>
@@ -341,7 +341,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BANGLUONG__MaKeT__5BE2A6F2">
+        <Association Name="FK__BANGLUONG__MaKeT__6EF57B66">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="BANGLUONGTL" Type="Self.BANGLUONGTL" Multiplicity="*" />
           <ReferentialConstraint>
@@ -353,7 +353,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BANGLUONG__MaPho__5DCAEF64">
+        <Association Name="FK__BANGLUONG__MaPho__70DDC3D8">
           <End Role="PHONGBAN" Type="Self.PHONGBAN" Multiplicity="0..1" />
           <End Role="BANGLUONGTL" Type="Self.BANGLUONGTL" Multiplicity="*" />
           <ReferentialConstraint>
@@ -365,7 +365,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BANGTHUON__MaPho__4D94879B">
+        <Association Name="FK__BANGTHUON__MaPho__60A75C0F">
           <End Role="PHONGBAN" Type="Self.PHONGBAN" Multiplicity="0..1" />
           <End Role="BANGTHUONG" Type="Self.BANGTHUONG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -377,7 +377,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BANGTHUON__MaTrg__4BAC3F29">
+        <Association Name="FK__BANGTHUON__MaTrg__5EBF139D">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="BANGTHUONG" Type="Self.BANGTHUONG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -389,7 +389,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CHUCVU__MaPhongB__2A4B4B5E">
+        <Association Name="FK__CHUCVU__MaPhongB__3D5E1FD2">
           <End Role="PHONGBAN" Type="Self.PHONGBAN" Multiplicity="1" />
           <End Role="CHUCVU" Type="Self.CHUCVU" Multiplicity="*" />
           <ReferentialConstraint>
@@ -401,7 +401,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_BANGLA__MaLam__5070F446">
+        <Association Name="FK__CT_BANGLA__MaLam__6383C8BA">
           <End Role="BANGLAMTHEM" Type="Self.BANGLAMTHEM" Multiplicity="0..1" />
           <End Role="CT_BANGLAMTHEM" Type="Self.CT_BANGLAMTHEM" Multiplicity="*" />
           <ReferentialConstraint>
@@ -413,7 +413,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_BANGLAM__MaNV__5165187F">
+        <Association Name="FK__CT_BANGLAM__MaNV__6477ECF3">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="CT_BANGLAMTHEM" Type="Self.CT_BANGLAMTHEM" Multiplicity="*" />
           <ReferentialConstraint>
@@ -425,7 +425,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_BANGLU__MaLuo__60A75C0F">
+        <Association Name="FK__CT_BANGLU__MaLuo__73BA3083">
           <End Role="BANGLUONGTL" Type="Self.BANGLUONGTL" Multiplicity="0..1" />
           <End Role="CT_BANGLUONGTL" Type="Self.CT_BANGLUONGTL" Multiplicity="*" />
           <ReferentialConstraint>
@@ -437,7 +437,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_BANGLUO__MaNV__619B8048">
+        <Association Name="FK__CT_BANGLUO__MaNV__74AE54BC">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="CT_BANGLUONGTL" Type="Self.CT_BANGLUONGTL" Multiplicity="*" />
           <ReferentialConstraint>
@@ -449,7 +449,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_BANGTH__MaMuc__5812160E">
+        <Association Name="FK__CT_BANGTH__MaMuc__6B24EA82">
           <End Role="MUCTHUONG" Type="Self.MUCTHUONG" Multiplicity="0..1" />
           <End Role="CT_BANGTHUONG" Type="Self.CT_BANGTHUONG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -461,7 +461,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_BANGTH__MaThu__5629CD9C">
+        <Association Name="FK__CT_BANGTH__MaThu__693CA210">
           <End Role="BANGTHUONG" Type="Self.BANGTHUONG" Multiplicity="0..1" />
           <End Role="CT_BANGTHUONG" Type="Self.CT_BANGTHUONG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -473,7 +473,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_BANGTHU__MaNV__571DF1D5">
+        <Association Name="FK__CT_BANGTHU__MaNV__6A30C649">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="CT_BANGTHUONG" Type="Self.CT_BANGTHUONG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -485,7 +485,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_HOADON__MaHD__01142BA1">
+        <Association Name="FK__CT_HOADON__MaHD__14270015">
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="0..1" />
           <End Role="CT_HOADON" Type="Self.CT_HOADON" Multiplicity="*" />
           <ReferentialConstraint>
@@ -497,7 +497,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_HOADON__MaMH__02084FDA">
+        <Association Name="FK__CT_HOADON__MaMH__151B244E">
           <End Role="MATHANG" Type="Self.MATHANG" Multiplicity="0..1" />
           <End Role="CT_HOADON" Type="Self.CT_HOADON" Multiplicity="*" />
           <ReferentialConstraint>
@@ -509,7 +509,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_PHIEUD__MaPhi__787EE5A0">
+        <Association Name="FK__CT_PHIEUD__MaPhi__0B91BA14">
           <End Role="PHIEUDATHANG" Type="Self.PHIEUDATHANG" Multiplicity="0..1" />
           <End Role="CT_PHIEUDATHANG" Type="Self.CT_PHIEUDATHANG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -521,7 +521,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_PHIEUDA__MaMH__797309D9">
+        <Association Name="FK__CT_PHIEUDA__MaMH__0C85DE4D">
           <End Role="MATHANG" Type="Self.MATHANG" Multiplicity="0..1" />
           <End Role="CT_PHIEUDATHANG" Type="Self.CT_PHIEUDATHANG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -533,7 +533,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DANHGIAKY__MaKyN__4316F928">
+        <Association Name="FK__DANHGIAKY__MaKyN__5629CD9C">
           <End Role="KYNANG" Type="Self.KYNANG" Multiplicity="1" />
           <End Role="DANHGIAKYNANG" Type="Self.DANHGIAKYNANG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -545,7 +545,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DANHGIAKYN__MaNV__4222D4EF">
+        <Association Name="FK__DANHGIAKYN__MaNV__5535A963">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="1" />
           <End Role="DANHGIAKYNANG" Type="Self.DANHGIAKYNANG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -557,7 +557,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HOADON__MaKH__7D439ABD">
+        <Association Name="FK__HOADON__MaKH__10566F31">
           <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
           <ReferentialConstraint>
@@ -569,7 +569,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HOADON__MaNV__7E37BEF6">
+        <Association Name="FK__HOADON__MaNV__114A936A">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
           <ReferentialConstraint>
@@ -581,7 +581,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HOADON__MaPhieuD__7C4F7684">
+        <Association Name="FK__HOADON__MaPhieuD__0F624AF8">
           <End Role="PHIEUDATHANG" Type="Self.PHIEUDATHANG" Multiplicity="0..1" />
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
           <ReferentialConstraint>
@@ -593,7 +593,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HOPDONG__MaLoaiH__3A81B327">
+        <Association Name="FK__HOPDONG__MaLoaiH__4D94879B">
           <End Role="LOAIHOPDONG" Type="Self.LOAIHOPDONG" Multiplicity="1" />
           <End Role="HOPDONG" Type="Self.HOPDONG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -605,7 +605,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HOPDONG__MaNV__398D8EEE">
+        <Association Name="FK__HOPDONG__MaNV__4CA06362">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="1" />
           <End Role="HOPDONG" Type="Self.HOPDONG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -617,7 +617,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LICHSUCHU__MaChu__33D4B598">
+        <Association Name="FK__LICHSUCHU__MaChu__46E78A0C">
           <End Role="CHUCVU" Type="Self.CHUCVU" Multiplicity="1" />
           <End Role="LICHSUCHUCVU" Type="Self.LICHSUCHUCVU" Multiplicity="*" />
           <ReferentialConstraint>
@@ -629,7 +629,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LICHSUCHUC__MaNV__32E0915F">
+        <Association Name="FK__LICHSUCHUC__MaNV__45F365D3">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="1" />
           <End Role="LICHSUCHUCVU" Type="Self.LICHSUCHUCVU" Multiplicity="*" />
           <ReferentialConstraint>
@@ -641,7 +641,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MATHANG__MaNCC__71D1E811">
+        <Association Name="FK__MATHANG__MaNCC__04E4BC85">
           <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
           <End Role="MATHANG" Type="Self.MATHANG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -653,7 +653,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MATHANG__MaNhomM__72C60C4A">
+        <Association Name="FK__MATHANG__MaNhomM__05D8E0BE">
           <End Role="NHOMMATHANG" Type="Self.NHOMMATHANG" Multiplicity="0..1" />
           <End Role="MATHANG" Type="Self.MATHANG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -665,7 +665,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NHANVIEN__MaChuc__2F10007B">
+        <Association Name="FK__NHANVIEN__MaChuc__4222D4EF">
           <End Role="CHUCVU" Type="Self.CHUCVU" Multiplicity="1" />
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -677,7 +677,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NHANVIEN__MaTrin__2E1BDC42">
+        <Association Name="FK__NHANVIEN__MaTrin__412EB0B6">
           <End Role="TRINHDO" Type="Self.TRINHDO" Multiplicity="1" />
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -689,7 +689,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PHANQUYEN__MaChu__09A971A2">
+        <Association Name="FK__PHANQUYEN__MaChu__1CBC4616">
           <End Role="CHUCNANG" Type="Self.CHUCNANG" Multiplicity="1" />
           <End Role="PHANQUYEN" Type="Self.PHANQUYEN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -701,7 +701,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PHANQUYEN__MaChu__0A9D95DB">
+        <Association Name="FK__PHANQUYEN__MaChu__1DB06A4F">
           <End Role="CHUCVU" Type="Self.CHUCVU" Multiplicity="1" />
           <End Role="PHANQUYEN" Type="Self.PHANQUYEN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -713,7 +713,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PHIEUDATHA__MaKH__75A278F5">
+        <Association Name="FK__PHIEUDATHA__MaKH__08B54D69">
           <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
           <End Role="PHIEUDATHANG" Type="Self.PHIEUDATHANG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -725,7 +725,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PHONGBAN__MaTrgP__300424B4">
+        <Association Name="FK__PHONGBAN__MaTrgP__4316F928">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="PHONGBAN" Type="Self.PHONGBAN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -737,7 +737,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TAIKHOAN__MaNV__06CD04F7">
+        <Association Name="FK__TAIKHOAN__MaNV__19DFD96B">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -749,7 +749,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TuVanKH__MaKH__6D0D32F4">
+        <Association Name="FK__TuVanKH__MaKH__00200768">
           <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
           <End Role="TuVanKH" Type="Self.TuVanKH" Multiplicity="*" />
           <ReferentialConstraint>
@@ -791,151 +791,151 @@
           <EntitySet Name="THAMSO" EntityType="Self.THAMSO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TRINHDO" EntityType="Self.TRINHDO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TuVanKH" EntityType="Self.TuVanKH" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__BANGLAMTH__MaPho__47DBAE45" Association="Self.FK__BANGLAMTH__MaPho__47DBAE45">
+          <AssociationSet Name="FK__BANGLAMTH__MaPho__5AEE82B9" Association="Self.FK__BANGLAMTH__MaPho__5AEE82B9">
             <End Role="PHONGBAN" EntitySet="PHONGBAN" />
             <End Role="BANGLAMTHEM" EntitySet="BANGLAMTHEM" />
           </AssociationSet>
-          <AssociationSet Name="FK__BANGLAMTH__MaTrg__45F365D3" Association="Self.FK__BANGLAMTH__MaTrg__45F365D3">
+          <AssociationSet Name="FK__BANGLAMTH__MaTrg__59063A47" Association="Self.FK__BANGLAMTH__MaTrg__59063A47">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="BANGLAMTHEM" EntitySet="BANGLAMTHEM" />
           </AssociationSet>
-          <AssociationSet Name="FK__BANGLUONG__MaKeT__5BE2A6F2" Association="Self.FK__BANGLUONG__MaKeT__5BE2A6F2">
+          <AssociationSet Name="FK__BANGLUONG__MaKeT__6EF57B66" Association="Self.FK__BANGLUONG__MaKeT__6EF57B66">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="BANGLUONGTL" EntitySet="BANGLUONGTL" />
           </AssociationSet>
-          <AssociationSet Name="FK__BANGLUONG__MaPho__5DCAEF64" Association="Self.FK__BANGLUONG__MaPho__5DCAEF64">
+          <AssociationSet Name="FK__BANGLUONG__MaPho__70DDC3D8" Association="Self.FK__BANGLUONG__MaPho__70DDC3D8">
             <End Role="PHONGBAN" EntitySet="PHONGBAN" />
             <End Role="BANGLUONGTL" EntitySet="BANGLUONGTL" />
           </AssociationSet>
-          <AssociationSet Name="FK__BANGTHUON__MaPho__4D94879B" Association="Self.FK__BANGTHUON__MaPho__4D94879B">
+          <AssociationSet Name="FK__BANGTHUON__MaPho__60A75C0F" Association="Self.FK__BANGTHUON__MaPho__60A75C0F">
             <End Role="PHONGBAN" EntitySet="PHONGBAN" />
             <End Role="BANGTHUONG" EntitySet="BANGTHUONG" />
           </AssociationSet>
-          <AssociationSet Name="FK__BANGTHUON__MaTrg__4BAC3F29" Association="Self.FK__BANGTHUON__MaTrg__4BAC3F29">
+          <AssociationSet Name="FK__BANGTHUON__MaTrg__5EBF139D" Association="Self.FK__BANGTHUON__MaTrg__5EBF139D">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="BANGTHUONG" EntitySet="BANGTHUONG" />
           </AssociationSet>
-          <AssociationSet Name="FK__CHUCVU__MaPhongB__2A4B4B5E" Association="Self.FK__CHUCVU__MaPhongB__2A4B4B5E">
+          <AssociationSet Name="FK__CHUCVU__MaPhongB__3D5E1FD2" Association="Self.FK__CHUCVU__MaPhongB__3D5E1FD2">
             <End Role="PHONGBAN" EntitySet="PHONGBAN" />
             <End Role="CHUCVU" EntitySet="CHUCVU" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_BANGLA__MaLam__5070F446" Association="Self.FK__CT_BANGLA__MaLam__5070F446">
+          <AssociationSet Name="FK__CT_BANGLA__MaLam__6383C8BA" Association="Self.FK__CT_BANGLA__MaLam__6383C8BA">
             <End Role="BANGLAMTHEM" EntitySet="BANGLAMTHEM" />
             <End Role="CT_BANGLAMTHEM" EntitySet="CT_BANGLAMTHEM" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_BANGLAM__MaNV__5165187F" Association="Self.FK__CT_BANGLAM__MaNV__5165187F">
+          <AssociationSet Name="FK__CT_BANGLAM__MaNV__6477ECF3" Association="Self.FK__CT_BANGLAM__MaNV__6477ECF3">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="CT_BANGLAMTHEM" EntitySet="CT_BANGLAMTHEM" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_BANGLU__MaLuo__60A75C0F" Association="Self.FK__CT_BANGLU__MaLuo__60A75C0F">
+          <AssociationSet Name="FK__CT_BANGLU__MaLuo__73BA3083" Association="Self.FK__CT_BANGLU__MaLuo__73BA3083">
             <End Role="BANGLUONGTL" EntitySet="BANGLUONGTL" />
             <End Role="CT_BANGLUONGTL" EntitySet="CT_BANGLUONGTL" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_BANGLUO__MaNV__619B8048" Association="Self.FK__CT_BANGLUO__MaNV__619B8048">
+          <AssociationSet Name="FK__CT_BANGLUO__MaNV__74AE54BC" Association="Self.FK__CT_BANGLUO__MaNV__74AE54BC">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="CT_BANGLUONGTL" EntitySet="CT_BANGLUONGTL" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_BANGTH__MaMuc__5812160E" Association="Self.FK__CT_BANGTH__MaMuc__5812160E">
+          <AssociationSet Name="FK__CT_BANGTH__MaMuc__6B24EA82" Association="Self.FK__CT_BANGTH__MaMuc__6B24EA82">
             <End Role="MUCTHUONG" EntitySet="MUCTHUONG" />
             <End Role="CT_BANGTHUONG" EntitySet="CT_BANGTHUONG" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_BANGTH__MaThu__5629CD9C" Association="Self.FK__CT_BANGTH__MaThu__5629CD9C">
+          <AssociationSet Name="FK__CT_BANGTH__MaThu__693CA210" Association="Self.FK__CT_BANGTH__MaThu__693CA210">
             <End Role="BANGTHUONG" EntitySet="BANGTHUONG" />
             <End Role="CT_BANGTHUONG" EntitySet="CT_BANGTHUONG" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_BANGTHU__MaNV__571DF1D5" Association="Self.FK__CT_BANGTHU__MaNV__571DF1D5">
+          <AssociationSet Name="FK__CT_BANGTHU__MaNV__6A30C649" Association="Self.FK__CT_BANGTHU__MaNV__6A30C649">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="CT_BANGTHUONG" EntitySet="CT_BANGTHUONG" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_HOADON__MaHD__01142BA1" Association="Self.FK__CT_HOADON__MaHD__01142BA1">
+          <AssociationSet Name="FK__CT_HOADON__MaHD__14270015" Association="Self.FK__CT_HOADON__MaHD__14270015">
             <End Role="HOADON" EntitySet="HOADON" />
             <End Role="CT_HOADON" EntitySet="CT_HOADON" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_HOADON__MaMH__02084FDA" Association="Self.FK__CT_HOADON__MaMH__02084FDA">
+          <AssociationSet Name="FK__CT_HOADON__MaMH__151B244E" Association="Self.FK__CT_HOADON__MaMH__151B244E">
             <End Role="MATHANG" EntitySet="MATHANG" />
             <End Role="CT_HOADON" EntitySet="CT_HOADON" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_PHIEUD__MaPhi__787EE5A0" Association="Self.FK__CT_PHIEUD__MaPhi__787EE5A0">
+          <AssociationSet Name="FK__CT_PHIEUD__MaPhi__0B91BA14" Association="Self.FK__CT_PHIEUD__MaPhi__0B91BA14">
             <End Role="PHIEUDATHANG" EntitySet="PHIEUDATHANG" />
             <End Role="CT_PHIEUDATHANG" EntitySet="CT_PHIEUDATHANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_PHIEUDA__MaMH__797309D9" Association="Self.FK__CT_PHIEUDA__MaMH__797309D9">
+          <AssociationSet Name="FK__CT_PHIEUDA__MaMH__0C85DE4D" Association="Self.FK__CT_PHIEUDA__MaMH__0C85DE4D">
             <End Role="MATHANG" EntitySet="MATHANG" />
             <End Role="CT_PHIEUDATHANG" EntitySet="CT_PHIEUDATHANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__DANHGIAKY__MaKyN__4316F928" Association="Self.FK__DANHGIAKY__MaKyN__4316F928">
+          <AssociationSet Name="FK__DANHGIAKY__MaKyN__5629CD9C" Association="Self.FK__DANHGIAKY__MaKyN__5629CD9C">
             <End Role="KYNANG" EntitySet="KYNANG" />
             <End Role="DANHGIAKYNANG" EntitySet="DANHGIAKYNANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__DANHGIAKYN__MaNV__4222D4EF" Association="Self.FK__DANHGIAKYN__MaNV__4222D4EF">
+          <AssociationSet Name="FK__DANHGIAKYN__MaNV__5535A963" Association="Self.FK__DANHGIAKYN__MaNV__5535A963">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="DANHGIAKYNANG" EntitySet="DANHGIAKYNANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__HOADON__MaKH__7D439ABD" Association="Self.FK__HOADON__MaKH__7D439ABD">
+          <AssociationSet Name="FK__HOADON__MaKH__10566F31" Association="Self.FK__HOADON__MaKH__10566F31">
             <End Role="KHACHHANG" EntitySet="KHACHHANG" />
             <End Role="HOADON" EntitySet="HOADON" />
           </AssociationSet>
-          <AssociationSet Name="FK__HOADON__MaNV__7E37BEF6" Association="Self.FK__HOADON__MaNV__7E37BEF6">
+          <AssociationSet Name="FK__HOADON__MaNV__114A936A" Association="Self.FK__HOADON__MaNV__114A936A">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="HOADON" EntitySet="HOADON" />
           </AssociationSet>
-          <AssociationSet Name="FK__HOADON__MaPhieuD__7C4F7684" Association="Self.FK__HOADON__MaPhieuD__7C4F7684">
+          <AssociationSet Name="FK__HOADON__MaPhieuD__0F624AF8" Association="Self.FK__HOADON__MaPhieuD__0F624AF8">
             <End Role="PHIEUDATHANG" EntitySet="PHIEUDATHANG" />
             <End Role="HOADON" EntitySet="HOADON" />
           </AssociationSet>
-          <AssociationSet Name="FK__HOPDONG__MaLoaiH__3A81B327" Association="Self.FK__HOPDONG__MaLoaiH__3A81B327">
+          <AssociationSet Name="FK__HOPDONG__MaLoaiH__4D94879B" Association="Self.FK__HOPDONG__MaLoaiH__4D94879B">
             <End Role="LOAIHOPDONG" EntitySet="LOAIHOPDONG" />
             <End Role="HOPDONG" EntitySet="HOPDONG" />
           </AssociationSet>
-          <AssociationSet Name="FK__HOPDONG__MaNV__398D8EEE" Association="Self.FK__HOPDONG__MaNV__398D8EEE">
+          <AssociationSet Name="FK__HOPDONG__MaNV__4CA06362" Association="Self.FK__HOPDONG__MaNV__4CA06362">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="HOPDONG" EntitySet="HOPDONG" />
           </AssociationSet>
-          <AssociationSet Name="FK__LICHSUCHU__MaChu__33D4B598" Association="Self.FK__LICHSUCHU__MaChu__33D4B598">
+          <AssociationSet Name="FK__LICHSUCHU__MaChu__46E78A0C" Association="Self.FK__LICHSUCHU__MaChu__46E78A0C">
             <End Role="CHUCVU" EntitySet="CHUCVU" />
             <End Role="LICHSUCHUCVU" EntitySet="LICHSUCHUCVU" />
           </AssociationSet>
-          <AssociationSet Name="FK__LICHSUCHUC__MaNV__32E0915F" Association="Self.FK__LICHSUCHUC__MaNV__32E0915F">
+          <AssociationSet Name="FK__LICHSUCHUC__MaNV__45F365D3" Association="Self.FK__LICHSUCHUC__MaNV__45F365D3">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="LICHSUCHUCVU" EntitySet="LICHSUCHUCVU" />
           </AssociationSet>
-          <AssociationSet Name="FK__MATHANG__MaNCC__71D1E811" Association="Self.FK__MATHANG__MaNCC__71D1E811">
+          <AssociationSet Name="FK__MATHANG__MaNCC__04E4BC85" Association="Self.FK__MATHANG__MaNCC__04E4BC85">
             <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
             <End Role="MATHANG" EntitySet="MATHANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__MATHANG__MaNhomM__72C60C4A" Association="Self.FK__MATHANG__MaNhomM__72C60C4A">
+          <AssociationSet Name="FK__MATHANG__MaNhomM__05D8E0BE" Association="Self.FK__MATHANG__MaNhomM__05D8E0BE">
             <End Role="NHOMMATHANG" EntitySet="NHOMMATHANG" />
             <End Role="MATHANG" EntitySet="MATHANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__NHANVIEN__MaChuc__2F10007B" Association="Self.FK__NHANVIEN__MaChuc__2F10007B">
+          <AssociationSet Name="FK__NHANVIEN__MaChuc__4222D4EF" Association="Self.FK__NHANVIEN__MaChuc__4222D4EF">
             <End Role="CHUCVU" EntitySet="CHUCVU" />
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
           </AssociationSet>
-          <AssociationSet Name="FK__NHANVIEN__MaTrin__2E1BDC42" Association="Self.FK__NHANVIEN__MaTrin__2E1BDC42">
+          <AssociationSet Name="FK__NHANVIEN__MaTrin__412EB0B6" Association="Self.FK__NHANVIEN__MaTrin__412EB0B6">
             <End Role="TRINHDO" EntitySet="TRINHDO" />
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
           </AssociationSet>
-          <AssociationSet Name="FK__PHANQUYEN__MaChu__09A971A2" Association="Self.FK__PHANQUYEN__MaChu__09A971A2">
+          <AssociationSet Name="FK__PHANQUYEN__MaChu__1CBC4616" Association="Self.FK__PHANQUYEN__MaChu__1CBC4616">
             <End Role="CHUCNANG" EntitySet="CHUCNANG" />
             <End Role="PHANQUYEN" EntitySet="PHANQUYEN" />
           </AssociationSet>
-          <AssociationSet Name="FK__PHANQUYEN__MaChu__0A9D95DB" Association="Self.FK__PHANQUYEN__MaChu__0A9D95DB">
+          <AssociationSet Name="FK__PHANQUYEN__MaChu__1DB06A4F" Association="Self.FK__PHANQUYEN__MaChu__1DB06A4F">
             <End Role="CHUCVU" EntitySet="CHUCVU" />
             <End Role="PHANQUYEN" EntitySet="PHANQUYEN" />
           </AssociationSet>
-          <AssociationSet Name="FK__PHIEUDATHA__MaKH__75A278F5" Association="Self.FK__PHIEUDATHA__MaKH__75A278F5">
+          <AssociationSet Name="FK__PHIEUDATHA__MaKH__08B54D69" Association="Self.FK__PHIEUDATHA__MaKH__08B54D69">
             <End Role="KHACHHANG" EntitySet="KHACHHANG" />
             <End Role="PHIEUDATHANG" EntitySet="PHIEUDATHANG" />
           </AssociationSet>
-          <AssociationSet Name="FK__PHONGBAN__MaTrgP__300424B4" Association="Self.FK__PHONGBAN__MaTrgP__300424B4">
+          <AssociationSet Name="FK__PHONGBAN__MaTrgP__4316F928" Association="Self.FK__PHONGBAN__MaTrgP__4316F928">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="PHONGBAN" EntitySet="PHONGBAN" />
           </AssociationSet>
-          <AssociationSet Name="FK__TAIKHOAN__MaNV__06CD04F7" Association="Self.FK__TAIKHOAN__MaNV__06CD04F7">
+          <AssociationSet Name="FK__TAIKHOAN__MaNV__19DFD96B" Association="Self.FK__TAIKHOAN__MaNV__19DFD96B">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
           </AssociationSet>
-          <AssociationSet Name="FK__TuVanKH__MaKH__6D0D32F4" Association="Self.FK__TuVanKH__MaKH__6D0D32F4">
+          <AssociationSet Name="FK__TuVanKH__MaKH__00200768" Association="Self.FK__TuVanKH__MaKH__00200768">
             <End Role="KHACHHANG" EntitySet="KHACHHANG" />
             <End Role="TuVanKH" EntitySet="TuVanKH" />
           </AssociationSet>

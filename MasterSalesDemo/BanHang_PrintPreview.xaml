@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MasterSalesDemo"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="550"
+      d:DesignHeight="450" d:DesignWidth="800"
         
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -43,7 +43,7 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Margin="5">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Siêu thị: " FontSize="20" Margin="5"/>
+                            <TextBlock Text="Công ty kinh doanh: " FontSize="20" Margin="5"/>
                             <TextBlock Text="Master Sales" FontSize="20" Margin="5" FontStyle="Italic"/>
                         </StackPanel>
                     </Grid>
@@ -52,6 +52,9 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Người lập báo cáo:" FontSize="16" Margin="5"/>
                             <TextBlock Text="{Binding TenNhanVien}" FontSize="16" Margin="5" FontWeight="DemiBold"/>
+
+                            <TextBlock Text="Khách hàng:" FontSize="16" Margin="30,5,5,5"/>
+                            <TextBlock Text="{Binding TenKH}" FontSize="16" Margin="5" FontWeight="DemiBold"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -93,12 +96,12 @@
                           ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontSize="14">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="90" Header="STT" DisplayMemberBinding="{Binding STT}"/>
+                                <GridViewColumn Width="70" Header="STT" DisplayMemberBinding="{Binding STT}"/>
                                 <GridViewColumn Width="120" Header="Tên Mặt Hàng" DisplayMemberBinding="{Binding MatHang}"/>
-                                <GridViewColumn Width="100" Header="Đơn Vị" DisplayMemberBinding="{Binding DonVi}"/>
+                                <GridViewColumn Width="70" Header="Đơn Vị" DisplayMemberBinding="{Binding DonVi}"/>
                                 <GridViewColumn Width="100" Header="Đơn Giá" DisplayMemberBinding="{Binding DonGia}"/>
                                 <GridViewColumn Width="100" Header="Số Lượng" DisplayMemberBinding="{Binding SoLuong}"/>
-                                <GridViewColumn Width="200" Header="Thành Tiền" DisplayMemberBinding="{Binding ThanhTien}"/>
+                                <GridViewColumn Width="120" Header="Thành Tiền" DisplayMemberBinding="{Binding ThanhTien}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

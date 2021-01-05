@@ -40,17 +40,14 @@ namespace MasterSalesDemo.ViewModel
                 {
                     if (item.TenDangNhap == UserName && item.MatKhau == Password)
                     {
-                        //Gan static TaiKhoanSuDung
                         TaiKhoanSuDung = item;
-                        Global.Ins.setNhanVien(TaiKhoanSuDung.NHANVIEN);
+                        Global.Ins.setNhanVien(item.NHANVIEN);
                         p.Close();
                         return;
                     }
 
                 }
                 MessageBox.Show("Tài khoản không hợp lệ!");
-              
-                //CheckLogin(p);
             });
 
             CloseWindowCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => {
