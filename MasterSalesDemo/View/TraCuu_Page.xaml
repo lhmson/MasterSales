@@ -108,7 +108,7 @@
                 <Grid Margin="50,0,40,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="5">
                     <ListView x:Name="ThongTinNhanVienListView" ItemsSource="{Binding ListThongTinNhanVien, Mode=TwoWay}" SelectionMode="Single"
                               HorizontalAlignment="Stretch" FontSize="16" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              HorizontalContentAlignment="Stretch" Margin="8,0" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay}">
+                              HorizontalContentAlignment="Stretch" Margin="8,0,7.4,9.6" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="70" Header="STT" DisplayMemberBinding="{Binding STT}"/>

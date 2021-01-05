@@ -44,7 +44,7 @@
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                   Padding="8" Margin="0,0,0,4">
-                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">TRÌNH ĐỘ</TextBlock>
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">QUẢN LÝ TRÌNH ĐỘ</TextBlock>
             </materialDesign:Card>
         </Grid>
 
@@ -80,7 +80,7 @@
 
         <Grid Margin="8,8,8,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="5">
             <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="8,0">
-                <ListView ItemsSource="{Binding ListTrinhDo, Mode=TwoWay,
+                <ListView ItemsSource="{Binding TrinhDo, Mode=TwoWay,
                     UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItemTrinhDo,
                     Mode=TwoWay}" FontSize="16">
                     <ListView.View>
@@ -93,11 +93,15 @@
         </Grid>
         
         <Grid Margin="8,8,8,0" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3">
-            <Button  Command="{Binding ThemTrinhDoCommand}" Content="Thêm trình độ" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
+            <Button  Command="{Binding ThemTrinhDoCommand}" 
+                       CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                     Content="Thêm trình độ" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
         </Grid>
         
         <Grid Margin="8,8,8,0" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="3">
-            <Button  Command="{Binding EditNCCCommand}" Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
+            <Button  Command="{Binding EditNCCCommand}" 
+                       CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                     Content="Lưu thay đổi" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
         </Grid>
 
     </Grid>

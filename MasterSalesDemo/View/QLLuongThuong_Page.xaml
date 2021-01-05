@@ -127,7 +127,7 @@
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,8,0">
-                    <Button
+                    <Button Command="{Binding nhapExcel}"
                                                 VerticalAlignment="Stretch"
                    Content="{materialDesign:PackIcon Upload}"
                         Margin="0,10,8,0"
@@ -136,12 +136,13 @@
                                                 VerticalAlignment="Stretch"
   Content="{materialDesign:PackIcon Download}"
                         Margin="0,10,8,0"
-  ToolTip="Xuất ra file excel" Width="48" Padding="0" />
+  ToolTip="Xuất ra file excel" Width="48" Padding="0" Command="{Binding xuatExcel}" />
                     <Button
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
                         VerticalAlignment="Stretch"
-  Content="{Binding btnDuyetContent}"
+  Content="{Binding btnDuyetContent}" 
                         Margin="0,10,0,0"
-  ToolTip="Dành cho kế toán: Duyệt bảng lương"  Padding="16,0" Background="{Binding btnDuyetBackground}" BorderBrush="{Binding btnDuyetBackground}"  Foreground="{Binding btnDuyetForeground}" Command="{Binding duyetCommand}"/>
+  ToolTip="Dành cho kế toán: Duyệt bảng lương"  Padding="16,0"  Command="{Binding duyetCommand}"/>
                 </StackPanel>
                 <materialDesign:Card Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="10" Background="White">
                     <DataGrid
@@ -238,7 +239,7 @@
                 </materialDesign:Card>
                 <materialDesign:Card Margin="8,8,8,16" Grid.Row="1" Grid.Column="10" Grid.RowSpan="7" Grid.ColumnSpan="3" VerticalAlignment="Top">
                     <StackPanel Background="White" >
-                        <StackPanel Margin="16,16,16,16">
+                        <StackPanel Margin="16,16,16,32">
                             <materialDesign:Card 
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
