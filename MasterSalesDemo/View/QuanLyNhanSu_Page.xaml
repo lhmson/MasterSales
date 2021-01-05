@@ -274,9 +274,9 @@
                                     </ListView.ItemContainerStyle>
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Header="Nhóm quyền" DisplayMemberBinding="{Binding TenNhomQuyen}" Width="200" />
+                                            <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding TenNhomQuyen}" Width="200" />
 
-                                            <GridViewColumn Header="Nhập hàng" >
+                                            <GridViewColumn Header="Tuyển dụng" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -286,7 +286,7 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Kiểm duyệt nhập hàng" >
+                                            <GridViewColumn Header="Lương thưởng" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -296,7 +296,7 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Bán hàng" >
+                                            <GridViewColumn Header="Lịch sử làm việc" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -306,7 +306,7 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Kiểm duyệt xuất hàng"  >
+                                            <GridViewColumn Header="Kỹ năng"  >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -316,7 +316,7 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
                                             
-                                            <GridViewColumn Header="Tra cứu kho" >
+                                            <GridViewColumn Header="Tra cứu" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -326,7 +326,7 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Báo cáo doanh số" >
+                                            <GridViewColumn Header="Bán hàng" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -336,7 +336,7 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Báo cáo tồn kho" >
+                                            <GridViewColumn Header="Khách hàng" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -346,7 +346,7 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Quản lí nhân sự" >
+                                            <GridViewColumn Header="Báo cáo doanh số" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -356,6 +356,25 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
+                                            <GridViewColumn Header="Thay đổi quy định" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkQLNS}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Header="Quản lý nhân sự" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkQLNS}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
