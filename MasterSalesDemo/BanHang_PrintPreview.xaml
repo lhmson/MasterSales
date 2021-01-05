@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MasterSalesDemo"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="350"
+      d:DesignHeight="450" d:DesignWidth="800"
         
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -52,6 +52,9 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Người lập báo cáo:" FontSize="16" Margin="5"/>
                             <TextBlock Text="{Binding TenNhanVien}" FontSize="16" Margin="5" FontWeight="DemiBold"/>
+
+                            <TextBlock Text="Khách hàng:" FontSize="16" Margin="30,5,5,5"/>
+                            <TextBlock Text="{Binding TenKH}" FontSize="16" Margin="5" FontWeight="DemiBold"/>
                         </StackPanel>
                     </Grid>
                 </Grid>

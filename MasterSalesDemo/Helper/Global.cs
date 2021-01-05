@@ -240,6 +240,13 @@ namespace MasterSalesDemo.Helper
             DataProvider.Ins.DB.LICHSUCHUCVUs.Add(lichsu);
             updateLichSu(nhanvien);
             DataProvider.Ins.DB.SaveChanges();
+
+            //TH đặc biệt cho chuyển 1 chức trưởng phòng
+            if (nhanvien.CHUCVU.isTrgPB??false)
+            {
+                nhanvien.CHUCVU.PHONGBAN.MaTrgPB = nhanvien.id;
+                DataProvider.Ins.DB.SaveChanges();
+            }
         }
 
         public MATHANG getMatHangbyMaMH(string MaMH)
