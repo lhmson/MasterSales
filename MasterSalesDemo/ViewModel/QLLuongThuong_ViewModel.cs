@@ -16,6 +16,13 @@ using System.Windows.Input;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using MasterSalesDemo.Helper;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Net.Mail;
+using System.Data.Entity.Migrations;
+using System.ComponentModel;
+using System.Windows.Controls;
+using System.Runtime.Remoting;
 
 namespace MasterSalesDemo.ViewModel
 {
@@ -139,18 +146,6 @@ namespace MasterSalesDemo.ViewModel
             get { return _btnDuyetContent; }
             set { _btnDuyetContent = value; OnPropertyChanged(); }
         }
-        private string _btnDuyetBackground;
-        public string btnDuyetBackground
-        {
-            get { return _btnDuyetBackground; }
-            set { _btnDuyetBackground = value; OnPropertyChanged(); }
-        }
-        private string _btnDuyetForeground;
-        public string btnDuyetForeground
-        {
-            get { return _btnDuyetForeground; }
-            set { _btnDuyetForeground = value; OnPropertyChanged(); }
-        }
         private string _luuThayDoiVisibility;
         public string luuThayDoiVisibility
         {
@@ -200,14 +195,16 @@ namespace MasterSalesDemo.ViewModel
         public ICommand duyetCommand { get; set; }
         public ICommand DialogOK { get; set; }
         public ICommand DialogCancel { get; set; }
+        public ICommand xuatExcel { get; set; }
+        public ICommand nhapExcel { get; set; }
         #endregion
         #region Functions
         public void loadData()
         {
-            ListPhongBan = Global.Ins.getAllPhongBan();
-            SelectedPhongBan = Global.Ins.NhanVien.CHUCVU.PHONGBAN.id;
-            SelectedTenPhongBan = Global.Ins.NhanVien.CHUCVU.PHONGBAN.TenPhong;
-            _PBNhanVien = Global.Ins.NhanVien.CHUCVU.PHONGBAN;
+            ListPhongBan = Helper.Global.Ins.getAllPhongBan();
+            SelectedPhongBan = Helper.Global.Ins.NhanVien.CHUCVU.PHONGBAN.id;
+            SelectedTenPhongBan = Helper.Global.Ins.NhanVien.CHUCVU.PHONGBAN.TenPhong;
+            _PBNhanVien = Helper.Global.Ins.NhanVien.CHUCVU.PHONGBAN;
             ListNam = new ObservableCollection<string>();
             ListThang = new ObservableCollection<string>();
             for (int i = 4; i >= 0; i--)
@@ -233,17 +230,17 @@ namespace MasterSalesDemo.ViewModel
             visibilitySoBuoiPopup = "Collapsed";
             luuThayDoiVisibility = "Collapsed";
             chonPhongBanEnabled = false;
-            if (Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
+            if (Helper.Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
                 chonPhongBanEnabled = true;
             loadTable();
         }
         public void loadTable()
         {
-            ObservableCollection<NHANVIEN> _listNV = Global.Ins.getAllNhanVienbyMaPhongBan(SelectedPhongBan);
+            ObservableCollection<NHANVIEN> _listNV = Helper.Global.Ins.getAllNhanVienbyMaPhongBan(SelectedPhongBan);
             BangLuongThuong = new ObservableCollection<DongLuongThuong>();
             int i = 1;
-            int thang = Global.Ins.filterNumber(SelectedThang);
-            int nam = Global.Ins.filterNumber(SelectedNam);
+            int thang = Helper.Global.Ins.filterNumber(SelectedThang);
+            int nam = Helper.Global.Ins.filterNumber(SelectedNam);
             foreach (var item in _listNV)
                 if (item.isDeleted == false)
                 {
@@ -260,7 +257,7 @@ namespace MasterSalesDemo.ViewModel
                     {
                         BANGLAMTHEM temp = new BANGLAMTHEM()
                         {
-                            id = Global.Ins.autoGenerateBangLamThem(),
+                            id = Helper.Global.Ins.autoGenerateBangLamThem(),
                             MaTrgPB = item.CHUCVU.PHONGBAN.MaTrgPB,
                             NgayLap = DateTime.Now,
                             Thang = thang,
@@ -276,7 +273,7 @@ namespace MasterSalesDemo.ViewModel
                     {
                         CT_BANGLAMTHEM tempp = new CT_BANGLAMTHEM()
                         {
-                            id = Global.Ins.autoGenerateCTBangLamThem(),
+                            id = Helper.Global.Ins.autoGenerateCTBangLamThem(),
                             MaLamThem = DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && SelectedPhongBan == x.MaPhong).First().id,
                             MaNV = item.id,
                             SoBuoi = 0,
@@ -293,7 +290,7 @@ namespace MasterSalesDemo.ViewModel
                     {
                         BANGTHUONG temp = new BANGTHUONG()
                         {
-                            id = Global.Ins.autoGenerateBangThuong(),
+                            id = Helper.Global.Ins.autoGenerateBangThuong(),
                             MaTrgPB = item.CHUCVU.PHONGBAN.MaTrgPB,
                             NgayLap = DateTime.Now,
                             Thang = thang,
@@ -308,7 +305,7 @@ namespace MasterSalesDemo.ViewModel
                     {
                         CT_BANGTHUONG tempp = new CT_BANGTHUONG()
                         {
-                            id = Global.Ins.autoGenerateCTBangThuong(),
+                            id = Helper.Global.Ins.autoGenerateCTBangThuong(),
                             MaThuong = DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).First().id,
                             MaNV = item.id,
                             MaMucThuong = DataProvider.Ins.DB.MUCTHUONGs.First().id,
@@ -325,7 +322,7 @@ namespace MasterSalesDemo.ViewModel
                     {
                         BANGLUONGTL temp = new BANGLUONGTL()
                         {
-                            id = Global.Ins.autoGenerateBangLuongTL(),
+                            id = Helper.Global.Ins.autoGenerateBangLuongTL(),
                             MaKeToan = null,
                             NgayLap = DateTime.Now,
                             Thang = thang,
@@ -344,7 +341,7 @@ namespace MasterSalesDemo.ViewModel
                         decimal phucap = item.CHUCVU.PhuCap ?? 0;
                         CT_BANGLUONGTL tempp = new CT_BANGLUONGTL()
                         {
-                            id = Global.Ins.autoGenerateCTBangLuongTL(),
+                            id = Helper.Global.Ins.autoGenerateCTBangLuongTL(),
                             MaLuongTL = DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().id,
                             MaNV = item.id,
                             LuongCB = luongcb,
@@ -368,22 +365,16 @@ namespace MasterSalesDemo.ViewModel
             if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).Count() > 0 && DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan != null)
             {
                 btnDuyetContent = "Đã được duyệt";
-                btnDuyetBackground = "#f0fff0";
-                btnDuyetForeground = "#119111";
                 daDuyet = true;
             }
-            else if (Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
+            else if (Helper.Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
             {
                 btnDuyetContent = "Duyệt bảng lương";
-                btnDuyetBackground = "#119111";
-                btnDuyetForeground = "#FFFFFF";
                 daDuyet = false;
             }
             else
             {
                 btnDuyetContent = "Đang chờ duyệt";
-                btnDuyetBackground = "#f0fff0";
-                btnDuyetForeground = "#119111";
                 daDuyet = false;
             }
             if (i == 1 || daDuyet)
@@ -400,7 +391,7 @@ namespace MasterSalesDemo.ViewModel
         }
         public void loadThongTin()
         {
-            if (Global.Ins.NhanVien.id == DataProvider.Ins.DB.PHONGBANs.Where(x=>x.id==SelectedPhongBan).First().MaTrgPB && !daDuyet)
+            if (Helper.Global.Ins.NhanVien.id == DataProvider.Ins.DB.PHONGBANs.Where(x=>x.id==SelectedPhongBan).First().MaTrgPB && !daDuyet)
             {
                 suaThongTinEnabled = true;
                 luuThayDoiVisibility = "Visible";
@@ -412,7 +403,7 @@ namespace MasterSalesDemo.ViewModel
             }
             if (SelectedNhanVien != null)
             {
-                int thang = Global.Ins.filterNumber(SelectedThang);
+                int thang = Helper.Global.Ins.filterNumber(SelectedThang);
                 TTTenNV = SelectedNhanVien.TenNV;
                 SelectedMucDo = DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGTHUONG.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().MUCTHUONG.TenMucThuong;
                 SoBuoi = (DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().SoBuoi ?? 0).ToString();
@@ -439,14 +430,12 @@ namespace MasterSalesDemo.ViewModel
 
         public void duyet()
         {
-            int thang = Global.Ins.filterNumber(SelectedThang);
-            int nam = Global.Ins.filterNumber(SelectedNam);
-                DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan = Global.Ins.NhanVien.id;
+            int thang = Helper.Global.Ins.filterNumber(SelectedThang);
+            int nam = Helper.Global.Ins.filterNumber(SelectedNam);
+                DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan = Helper.Global.Ins.NhanVien.id;
                 DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().NgayLap = DateTime.Now;
                 DataProvider.Ins.DB.SaveChanges();
                 btnDuyetContent = "Đã được duyệt";
-                btnDuyetBackground = "#f0fff0";
-                btnDuyetForeground = "#119111";
                 loadTable();
                 dialogIcon = "CheckCircleOutline";
                 ThongBao = "Lưu thay đổi thành công";
@@ -497,13 +486,14 @@ namespace MasterSalesDemo.ViewModel
             {
                 if (dataCheck())
                 {
-                    int thang = Global.Ins.filterNumber(SelectedThang);
+                    int thang = Helper.Global.Ins.filterNumber(SelectedThang);
+                    int nam = Helper.Global.Ins.filterNumber(SelectedNam);
                     String maMucThuong = DataProvider.Ins.DB.MUCTHUONGs.Where(x => x.TenMucThuong == SelectedMucDo).First().id;
-                    DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGTHUONG.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().MaMucThuong = maMucThuong;
-                    DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGTHUONG.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienThuong = DataProvider.Ins.DB.MUCTHUONGs.Where(x => x.id == maMucThuong).First().TienThuong;
+                    DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGTHUONG.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().MaMucThuong = maMucThuong;
+                    DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGTHUONG.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienThuong = DataProvider.Ins.DB.MUCTHUONGs.Where(x => x.id == maMucThuong).First().TienThuong;
                     DataProvider.Ins.DB.SaveChanges();
-                    DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().SoBuoi = int.Parse(SoBuoi);
-                    DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienLamThem = int.Parse(SoBuoi) * DataProvider.Ins.DB.THAMSOes.Where(x => x.id == "HeSoLamThem").First().GiaTri;
+                    DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().SoBuoi = int.Parse(SoBuoi);
+                    DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienLamThem = int.Parse(SoBuoi) * DataProvider.Ins.DB.THAMSOes.Where(x => x.id == "HeSoLamThem").First().GiaTri;
                     DataProvider.Ins.DB.SaveChanges();
                     loadTable();
                     dialogIcon = "CheckCircleOutline";
@@ -515,9 +505,9 @@ namespace MasterSalesDemo.ViewModel
             });
             duyetCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-            int thang = Global.Ins.filterNumber(SelectedThang);
-            int nam = Global.Ins.filterNumber(SelectedNam);
-                if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan == null && Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
+            int thang = Helper.Global.Ins.filterNumber(SelectedThang);
+            int nam = Helper.Global.Ins.filterNumber(SelectedNam);
+                if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan == null && Helper.Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
                 {
                     dialogIcon = "AlertCircleOutline";
                     ThongBao = "Xác nhận duyệt";
@@ -534,9 +524,8 @@ namespace MasterSalesDemo.ViewModel
                 }
                 DialogOpen = false;
             });
-            DialogCancel = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            xuatExcel = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                DialogOpen = false;
             });
         }
     }
