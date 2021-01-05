@@ -32,12 +32,19 @@ namespace MasterSalesDemo.ViewModel
             get { return _SelectedMatHang; }
             set { _SelectedMatHang = value; OnPropertyChanged(); }
         }
-
+        
         private string _MaHD;
         public string MaHD
         {
             get { return _MaHD; }
             set { _MaHD = value; OnPropertyChanged(); }
+        }
+
+        private string _IconModal;
+        public string IconModal
+        {
+            get { return _IconModal; }
+            set { _IconModal = value; OnPropertyChanged(); }
         }
 
         private string _MaPhieuDH;
@@ -117,6 +124,7 @@ namespace MasterSalesDemo.ViewModel
         #region
         public void LoadDatabase()
         {
+            IconModal = "CheckCircleOutline";
             DialogOpen = false;
             MaHD = "";
             TongTien = "0";
@@ -155,7 +163,7 @@ namespace MasterSalesDemo.ViewModel
                 int stt = ListMatHang.Count + 1;
                 int sl = Global.Ins.SoLuongMua;
                 decimal thanhtien = sl * res.DonGia??0;
-                ListMatHangMua mh = new ListMatHangMua(stt + "", res.id, res.TenMH, res.DonVi, res.DonGia + "", sl + "", thanhtien + "");
+                ListMatHangMua mh = new ListMatHangMua(stt + "", res.id, res.TenMH, res.DonVi, res.DonGia?.ToString("0,000"), sl + "", thanhtien.ToString("0,000")) ;
                 ListMatHang.Add(mh);
             }
         }
@@ -166,7 +174,8 @@ namespace MasterSalesDemo.ViewModel
             if (Global.Ins.isThemThanhCong)
             {
                 DialogOpen = true;
-                ThongBao = "Thêm mặt hàng " + Global.Ins.TenMH + " vào giỏ hàng thành công";
+                IconModal = "PackageVariantClosed";
+                ThongBao = "Đã thêm thành công " + Global.Ins.SoLuongMua + " " + Global.Ins.TenMH + " vào giỏ hàng thành công";
                 addGioHang();
                 Global.Ins.isThemThanhCong = false;
             }
@@ -191,19 +200,27 @@ namespace MasterSalesDemo.ViewModel
             double res = 0;
             foreach (var item in ListMatHang)
                 res += Double.Parse(item.ThanhTien);
-            TongTien = res + "";
+            TongTien = res.ToString("0,000");
+            if (res == 0 || TongTien == "0,000")
+                TongTien = "0";
         }
         public void TaoHoaDon()
         {
             if (String.IsNullOrWhiteSpace(MaHD))
             {
-                System.Windows.MessageBox.Show("Bạn chưa tạo mã hóa đơn");
+                //System.Windows.MessageBox.Show("Bạn chưa tạo mã hóa đơn");
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Bạn chưa tạo mã hóa đơn";
                 return;
             }
 
             if (ListMatHang.Count == 0)
             {
-                System.Windows.MessageBox.Show("Không thể tạo một hóa đơn rỗng");
+                //System.Windows.MessageBox.Show("Không thể tạo một hóa đơn rỗng");
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Không thể tạo một hóa đơn rỗng";
                 return;
             }
 
@@ -245,12 +262,13 @@ namespace MasterSalesDemo.ViewModel
             }
             if (CreateReport)
             {
-                BanHang_PrintPreview_ViewModel vm = new BanHang_PrintPreview_ViewModel(hd.id, Global.Ins.NhanVien.HoTen, hd.ThanhTien + "", ListMatHang, TenKhachHang);
+                BanHang_PrintPreview_ViewModel vm = new BanHang_PrintPreview_ViewModel(hd.id, Global.Ins.NhanVien.HoTen, hd.ThanhTien?.ToString("0,000"), ListMatHang, TenKhachHang);
                 BanHang_PrintPreview print = new BanHang_PrintPreview(vm);
                 print.Show();
             }
 
             DialogOpen = true;
+            IconModal = "CheckCircleOutline";
             ThongBao = "Tạo hóa đơn thành công";
             LoadDatabase();
         }
@@ -273,7 +291,9 @@ namespace MasterSalesDemo.ViewModel
                 {
                     int stt = ListMatHang.Count + 1;
                     MATHANG mh = ctphdh.MATHANG;
-                    ListMatHangMua mhmua = new ListMatHangMua(stt+"",mh.id,mh.TenMH,mh.DonVi,mh.DonGia+"",ctphdh.SLDat+"",ctphdh.TongTien+"");
+                    string dongia = double.Parse(mh.DonGia.ToString()).ToString("0,000");
+                    string tongtien = double.Parse(ctphdh.TongTien.ToString()).ToString("0,000");
+                    ListMatHangMua mhmua = new ListMatHangMua(stt+"",mh.id,mh.TenMH,mh.DonVi,dongia,ctphdh.SLDat+"",tongtien);
                     ListMatHang.Add(mhmua);
                 }
             TinhTien();
@@ -285,6 +305,7 @@ namespace MasterSalesDemo.ViewModel
             window.ShowDialog();
             if (Global.Ins.isXuLy)
             {
+                IconModal = "CheckCircleOutline";
                 DialogOpen = true;
                 ThongBao = "Xác nhận xử lý phiếu đặt hàng thàng công";
                 BindingPhieuDHOnline();
@@ -303,12 +324,14 @@ namespace MasterSalesDemo.ViewModel
             KHACHHANG kh = findKhachHangbySDT(SDT);
             if (kh == null)
             {
+                IconModal = "CloseCircle";
                 DialogOpen = true;
                 ThongBao = "Không tìm thấy khách hàng tương ứng";
                 return;
             }
 
             DialogOpen = true;
+            IconModal = "CheckCircleOutline";
             ThongBao = "Xác thực thành công!";
             TenKhachHang = kh.TenKH;
         }
