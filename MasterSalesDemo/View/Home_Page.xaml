@@ -56,9 +56,80 @@
                 <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">TRANG CHỦ</TextBlock>
             </materialDesign:Card>
         </Grid>
-        <Grid Margin="12,0" Grid.Row="3" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="3">
+        <Grid Margin="20,0,20,20" Grid.Row="3" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="3">
             <materialDesign:Card>
-                <TextBlock Text="{Binding SL_PhieuNhap}" FontSize="128" FontWeight="ExtraBlack" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DD000000"></TextBlock>
+                <materialDesign:Flipper
+  Style="{DynamicResource  MaterialDesignCardFlipper}">
+                    <materialDesign:Flipper.FrontContent>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Image Source="/Images/Male.jpg"></Image>
+                            <StackPanel Margin="0,-50,0,80" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Margin="0,-30,0,0" FontSize="22" HorizontalAlignment="Center">Lê Sơn</TextBlock>
+                                <TextBlock FontSize="22">Trưởng phòng nhân sự</TextBlock>
+                                <Button FontSize="25" Height="50" Style="{StaticResource MaterialDesignRaisedButton}" Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 4 0 0">
+                                   Đổi mật khẩu
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Flipper.FrontContent>
+                    <materialDesign:Flipper.BackContent>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.15*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone Mode="Accent" Padding="6" Margin="0 -20 0 0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button  Style="{StaticResource MaterialDesignToolForegroundButton}" Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                            HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="ArrowLeft" HorizontalAlignment="Right" />
+                                    </Button>
+                                    <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">
+                                            THÔNG TIN TÀI KHOẢN
+                                    </TextBlock>
+                                </StackPanel>
+                            </materialDesign:ColorZone>
+                            <Grid Grid.Row="1" Margin="0 -20 0 0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                </Grid.RowDefinitions>
+                                <TextBox Height="60" Width="200"
+          materialDesign:HintAssist.Hint="Tài khoản"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                                    admin
+                                </TextBox>
+                                <TextBox
+          Grid.Row="1"
+          materialDesign:HintAssist.Hint="Mật khẩu mới"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                                    *****
+                                </TextBox>
+
+                                <TextBox
+          Grid.Row="2"
+          materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                                    *****
+                                </TextBox>
+
+                                <Button Grid.Row="3" Content="Xác nhận" Style="{DynamicResource MaterialDesignRaisedLightButton}">
+                                    
+                                </Button>
+                  
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Flipper.BackContent>
+                </materialDesign:Flipper>
             </materialDesign:Card>
         </Grid>
         <Grid Margin="8,8,8,0" Grid.Row="2" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="3" >
@@ -71,7 +142,7 @@
                 </materialDesign:Card.Background>
 
                 <TextBlock TextAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF" FontSize="24" Margin="100,0">
-                            Số phiếu mua hàng chưa duyệt
+                            Tài khoản 
                 </TextBlock>
             </materialDesign:Card>
         </Grid>

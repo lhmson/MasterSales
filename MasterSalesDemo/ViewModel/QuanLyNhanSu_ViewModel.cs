@@ -654,10 +654,7 @@ namespace MasterSalesDemo.ViewModel
                     foreach (var item in ListPhanQuyen)
                         if (item.EnabledCheckBox == true)
                             return false;
-                if (VisibilityOfEdit == Visibility.Visible)
-                    return false;
-
-                return true;
+                return false;
             },
                 (p) =>
                 {
@@ -696,6 +693,9 @@ namespace MasterSalesDemo.ViewModel
             // show elements used for editing
             EditNguoiDungCommand = new RelayCommand<object>((p) =>
             {
+                if (VisibilityOfListPhanQuyen != Visibility.Visible)
+                    return false;
+
                 if (VisibilityOfAdd == Visibility.Visible)
                     return false;
                 if (VisibilityOfTenNhomQuyen == Visibility.Visible)
@@ -746,6 +746,8 @@ namespace MasterSalesDemo.ViewModel
 
             DeleteNguoiDungKCommand = new RelayCommand<object>((p) =>
             {
+                if (VisibilityOfListPhanQuyen != Visibility.Visible)
+                    return false;
                 if (VisibilityOfAdd == Visibility.Visible || VisibilityOfEdit == Visibility.Visible) return false;
                 if (VisibilityOfTenNhomQuyen == Visibility.Visible)
                     return false;
