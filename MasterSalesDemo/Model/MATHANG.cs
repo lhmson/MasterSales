@@ -29,6 +29,7 @@ namespace MasterSalesDemo.Model
         public string MaNhomMH { get; set; }
         public Nullable<decimal> DonGia { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+        public string MoTa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_HOADON> CT_HOADON { get; set; }
