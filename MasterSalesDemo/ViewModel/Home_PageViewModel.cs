@@ -6,158 +6,187 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using MasterSalesDemo.Helper;
+using MasterSalesDemo.Model;
+using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace MasterSalesDemo.ViewModel
 {
     public class Home_PageViewModel : BaseViewModel
     {
-        //#region Variables
+        #region Variables
+        public TAIKHOAN taikhoan { get; set; }
 
-        //private string _SL_SoMo;
-        //public string SL_SoMo { get => _SL_SoMo; set { _SL_SoMo = value; OnPropertyChanged(); } }
+        private string _TenNhanVien;
+        public string TenNhanVien { get => _TenNhanVien; set { _TenNhanVien = value; OnPropertyChanged(); } }
 
-        //private string _SL_PhieuGui;
-        //public string SL_PhieuGui { get => _SL_PhieuGui; set { _SL_PhieuGui = value; OnPropertyChanged(); } }
+        private string _TaiKhoan;
+        public string TaiKhoan { get => _TaiKhoan; set { _TaiKhoan = value; OnPropertyChanged(); } }
 
-        //private string _SL_PhieuRut;
-        //public string SL_PhieuRut { get => _SL_PhieuRut; set { _SL_PhieuRut = value; OnPropertyChanged(); } }
+        private string _MatKhau;
+        public string MatKhau { get => _MatKhau; set { _MatKhau = value; OnPropertyChanged(); } }
 
-        //private string _TongThu;
-        //public string TongThu { get => _TongThu; set { _TongThu = value; OnPropertyChanged(); } }
+        private string _MatKhauMoi;
+        public string MatKhauMoi { get => _MatKhauMoi; set { _MatKhauMoi = value; OnPropertyChanged(); } }
 
-        //private string _TongChi;
-        //public string TongChi { get => _TongChi; set { _TongChi = value; OnPropertyChanged(); } }
-        //#endregion
+        private string _XacNhanMatKhau;
+        public string XacNhanMatKhau { get => _XacNhanMatKhau; set { _XacNhanMatKhau = value; OnPropertyChanged(); } }
 
-        //#region Functions made by Sanhcutedeptraivodoi
+        private string _ChucVu;
+        public string ChucVu { get => _ChucVu; set { _ChucVu = value; OnPropertyChanged(); } }
 
-        //public void Tinh_SoMo()
-        //{
-        //    ObservableCollection<SOTIETKIEM> list_STK = new ObservableCollection<SOTIETKIEM>(DataProvider.Ins.DB.SOTIETKIEMs);
-        //    int count = 0;
+        private bool _DialogOpen;
+        public bool DialogOpen
+        {
+            get { return _DialogOpen; }
+            set { _DialogOpen = value; OnPropertyChanged(); }
+        }
 
-        //    foreach (var item in list_STK)
-        //        if (item.NgayMoSo.ToString("dd-MM-yyyy") == DateTime.Today.ToString("dd-MM-yyyy"))
-        //            count++;
+        private string _ThongBao;
+        public string ThongBao
+        {
+            get { return _ThongBao; }
+            set { _ThongBao = value; OnPropertyChanged(); }
+        }
 
-        //    SL_SoMo = count.ToString();
-        //}
-
-        //public void Tinh_SoPhieuGui_TongThu()
-        //{
-        //    ObservableCollection<PHIEUGUI> list_PhieuGui = new ObservableCollection<PHIEUGUI>(DataProvider.Ins.DB.PHIEUGUIs);
-        //    int count = 0;
-        //    decimal sum = 0;
-
-        //    foreach (var item in list_PhieuGui)
-        //        if (item.NgayGui.ToString("dd-MM-yyyy") == DateTime.Today.ToString("dd-MM-yyyy"))
-        //        {
-        //            sum += item.SoTienGui;
-        //            count++;
-        //        }
-        //    ObservableCollection<SOTIETKIEM> list_STK = new ObservableCollection<SOTIETKIEM>(DataProvider.Ins.DB.SOTIETKIEMs);
-        //    foreach (var item in list_STK)
-        //        if (item.NgayMoSo.ToString("dd-MM-yyyy") == DateTime.Today.ToString("dd-MM-yyyy"))
-        //        {
-        //            sum += item.SoTienGuiBanDau;
-        //        }
-
-        //    if (sum < 1000)
-        //    {
-        //        TongThu = sum.ToString();
-        //    }
-        //    else
-        //    {
-        //        TongThu = sum.ToString("0,000");
-        //    }
-        //    SL_PhieuGui = count.ToString();
-        //}
-
-        //public void Tinh_SoPhieuRut_TongChi()
-        //{
-        //    ObservableCollection<PHIEURUT> list_PhieuRut = new ObservableCollection<PHIEURUT>(DataProvider.Ins.DB.PHIEURUTs);
-        //    int count = 0;
-        //    decimal sum = 0;
-
-        //    foreach (var item in list_PhieuRut)
-        //        if (item.NgayRut.ToString("dd-MM-yyyy") == DateTime.Today.ToString("dd-MM-yyyy"))
-        //        {
-        //            count++;
-        //            sum += item.SoTienRut;
-        //        }
-
-        //    if (sum < 1000)
-        //    {
-        //        TongChi = sum.ToString();
-        //    }
-        //    else
-        //    {
-        //        TongChi = sum.ToString("0,000");
-        //    }
-        //    SL_PhieuRut = count.ToString();
-        //}
-
-        //#endregion
-
-        //public Home_PageViewModel()
-        //{
-        //    Tinh_SoMo();
-        //    Tinh_SoPhieuGui_TongThu();
-        //    Tinh_SoPhieuRut_TongChi();
-        //}
-
-        #region
-        private string _SL_PhieuNhap;
-        public string SL_PhieuNhap { get => _SL_PhieuNhap; set { _SL_PhieuNhap = value; OnPropertyChanged(); } }
-
-        private string _SL_PhieuDN;
-        public string SL_PhieuDN { get => _SL_PhieuDN; set { _SL_PhieuDN = value; OnPropertyChanged(); } }
-
-        private string _SL_HD;
-        public string SL_HD { get => _SL_HD; set { _SL_HD = value; OnPropertyChanged(); } }
+        private string _IconModal;
+        public string IconModal
+        {
+            get { return _IconModal; }
+            set { _IconModal = value; OnPropertyChanged(); }
+        }
         #endregion
 
-        //public void init_PhieuNhap()
-        //{
-        //    ObservableCollection<PHIEUNHAPKHO> list_phieu = new ObservableCollection<PHIEUNHAPKHO>(DataProvider.Ins.DB.PHIEUNHAPKHOes);
+        #region Icommands
+        public ICommand MatKhauCuCommand { get; set; }
+        public ICommand MatKhauMoiCommand { get; set; }
+        public ICommand XacNhanPasswordCommand { get; set; }
+        public ICommand XacNhanCommand { get; set; }
+        public ICommand DialogOK { get; set; }
+        #endregion
 
-        //    int count = 0;
+        #region
+        public PasswordBox pass1 { get; set; }
+        public PasswordBox pass2 { get; set; }
+        public PasswordBox pass3 { get; set; }
+        #endregion
+        #region Functions
+        public void initTaiKhoan()
+        {
+            MatKhau = MatKhauMoi = XacNhanMatKhau = "";
+            try
+            {
+                NHANVIEN nv = Global.Ins.NhanVien;
 
-        //    foreach (var item in list_phieu)
-        //        if (item.Duyet == 0)
-        //            count++;
-        //    SL_PhieuNhap = count + "";
-        //}
+                if (nv != null)
+                {
+                    taikhoan = nv.TAIKHOANs.Where(x => x.MaNV == nv.id).First();
+                    if (taikhoan == null)
+                        return;
+                    TaiKhoan = taikhoan.TenDangNhap;
+                    TenNhanVien = taikhoan.NHANVIEN.HoTen;
+                    ChucVu = taikhoan.NHANVIEN.CHUCVU.TenChucVu;
+                }
+            } 
+            catch (Exception E)
+            {
 
-        //public void init_PhieuXuat()
-        //{
-        //    ObservableCollection<PHIEUXUATKHO> list_phieu = new ObservableCollection<PHIEUXUATKHO>(DataProvider.Ins.DB.PHIEUXUATKHOes);
+            }
+        }
 
-        //    int count = 0;
+        public void DoiMatKhau()
+        {
+            if (taikhoan == null)
+                return;
+            if (taikhoan.MatKhau != MatKhau)
+            {
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Mật khẩu hiện tại không chính xác";
+                return;
+            }
+            if (MatKhauMoi == null || MatKhauMoi.Length < 6)
+            {
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Mật khẩu mới phải trên 6 ký tự";
+                return;
+            }
+            if (MatKhauMoi != XacNhanMatKhau)
+            {
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Mật khẩu mới không trùng khớp";
+                return;
+            }
 
-        //    foreach (var item in list_phieu)
-        //        if (item.TrangThai == 0)
-        //            count++;
-        //    SL_PhieuDN = count + "";
-        //}
+            ObservableCollection<TAIKHOAN> _listTK = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
+            foreach (var tk in _listTK)
+                if (tk.id == taikhoan.id)
+                {
+                    tk.MatKhau = MatKhauMoi;
+                    break;
+                }
+            DataProvider.Ins.DB.SaveChanges();
+            DialogOpen = true;
+            IconModal = "CheckCircleOutline";
+            ThongBao = "Đổi mật khẩu thành công";
+        }
+        public void ResetMK()
+        {
+            if (pass1 != null)
+            {
+                pass1.Password = "";
+            }
+            if (pass2 != null)
+            {
+                pass2.Password = "";
+            }
+            if (pass3 != null)
+            {
+                pass3.Password = "";
+            }
+        }
+        #endregion
 
-        //public void init_HoaDon()
-        //{
-        //    ObservableCollection<HOADON> list_hd = new ObservableCollection<HOADON>(DataProvider.Ins.DB.HOADONs);
+        public Home_PageViewModel()
+        {
+            initTaiKhoan();
 
-        //    int count = 0;
+            MatKhauCuCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
+            {
+                if (p == null)
+                    return;
+                MatKhau = p.Password;
+                pass1 = p;
+            });
 
-        //    foreach (var item in list_hd)
-        //        if (item.NgayLap.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy"))
-        //            count++;
+            MatKhauMoiCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
+            {
+                if (p == null)
+                    return;
+                MatKhauMoi = p.Password;
+                pass2 = p;
+            });
 
-        //    SL_HD = count + "";
-        //}
-        //public Home_PageViewModel()
-        //{
-        //    init_HoaDon();
-        //    init_PhieuNhap();
-        //    init_PhieuXuat();
-        //}
+            XacNhanPasswordCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
+            {
+                if (p == null)
+                    return;
+                XacNhanMatKhau = p.Password;
+                pass3 = p;
+            });
+
+            XacNhanCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
+            {
+                DoiMatKhau();
+                ResetMK();
+            });
+
+            DialogOK = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                DialogOpen = false;
+            });
+        }
     }
 }
