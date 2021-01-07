@@ -614,20 +614,6 @@ namespace MasterSalesDemo.ViewModel
             return "TK" + format((tmp + 1).ToString(), 5);
         }
 
-        //public int getNewID_NGUOIDUNG()
-        //{
-        //    ObservableCollection<TAIKHOAN> listNguoiDung = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
-
-        //    int max = 0;
-        //    foreach (var item in listNguoiDung)
-        //    {
-        //        int id = int.Parse(item.id);
-        //        if (id > max)
-        //            max = id;
-        //    }
-        //    return max + 1;
-        //}
-
         public QuanLyNhanSu_ViewModel()
         {
             Tat_ToolTip();
@@ -651,42 +637,22 @@ namespace MasterSalesDemo.ViewModel
             AddNguoiDungCommand = new RelayCommand<object>((p) =>
             {
                 if (VisibilityOfListPhanQuyen == Visibility.Visible)
+                {
                     foreach (var item in ListPhanQuyen)
                         if (item.EnabledCheckBox == true)
                             return false;
+                    return true;
+                }
                 return false;
             },
                 (p) =>
                 {
-                    if (VisibilityOfListPhanQuyen == Visibility.Hidden)
-                    {
-                        VisibilityOfAdd = Visibility.Visible;
-                        ResetCbxTenNhom();
-                        VisibilityOfEdit = Visibility.Hidden;
-                        VisibilityOfTenNhomQuyen = Visibility.Hidden;
-                        // reset value for textbox because these textbox still keep value if you are editing and then change to add
-                        ResetTextbox();
-                    }
-                    else
-                    {
-                        VisibilityOfAdd = Visibility.Hidden;
-                        VisibilityOfEdit = Visibility.Hidden;
-                        VisibilityOfTenNhomQuyen = Visibility.Visible;
-                        // Enable cho selectedPhanQuyen
-                        if (SelectedPhanQuyen != null)
-                        {
-                            BangPhanQuyen PQ = SelectedPhanQuyen;
-                            PQ.EnabledCheckBox = false;
-                            foreach (var pq in ListPhanQuyen)
-                                if (pq.TenNhomQuyen == PQ.TenNhomQuyen)
-                                {
-                                    ListPhanQuyen.Remove(pq);
-                                    ListPhanQuyen.Add(PQ);
-                                    SelectedPhanQuyen = PQ;
-                                    break;
-                                }
-                        }
-                    }
+                    ThemChucVu_Window win = new ThemChucVu_Window();
+                    win.ShowDialog();
+                    DialogOpen = true;
+                    ThongBao = "Thêm chức vụ thành công";
+                    LoadDataPhanQuyen();
+                    SelectedIndexCbb = 1;
                 }
             );
 
