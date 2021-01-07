@@ -193,7 +193,7 @@
 
                             <DataGridTextColumn
                                   FontSize="16"
-      Binding="{Binding LuongCB}"
+      Binding="{Binding LuongCB,StringFormat='#,##0;(#,##0)'}"
       >
                                 <DataGridTextColumn.Header>
                                     <TextBlock FontSize="16" Text="Lương Cơ Bản" />
@@ -201,7 +201,7 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn
                                   FontSize="16"
-      Binding="{Binding LuongPC}"
+      Binding="{Binding LuongPC,StringFormat='#,##0;(#,##0)'}"
       >
                                 <DataGridTextColumn.Header>
                                     <TextBlock FontSize="16" Text="Lương Phụ Cấp" />
@@ -209,7 +209,7 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn
                                   FontSize="16"
-      Binding="{Binding Thuong}"
+      Binding="{Binding Thuong,StringFormat='#,##0;(#,##0)'}"
       >
                                 <DataGridTextColumn.Header>
                                     <TextBlock FontSize="16" Text="Thưởng" />
@@ -217,7 +217,7 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn
                                   FontSize="16"
-      Binding="{Binding LuongNG}"
+      Binding="{Binding LuongNG,StringFormat='#,##0;(#,##0)'}"
       >
                                 <DataGridTextColumn.Header>
                                     <TextBlock FontSize="16" Text="Lương Ngoài Giờ" />
@@ -225,7 +225,7 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn
                                   FontSize="16"
-      Binding="{Binding LuongTL}"
+      Binding="{Binding LuongTL,StringFormat='#,##0;(#,##0)'}"
       >
                                 <DataGridTextColumn.Header>
                                     <TextBlock FontSize="16" Text="Lương Thực Lãnh" />

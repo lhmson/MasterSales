@@ -60,7 +60,7 @@
                             HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding SelectedStartDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,0,30,0" >
+                            SelectedDateFormat="Short" Margin="0,0,16,0" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectedDateChanged">
                                         <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
@@ -82,16 +82,12 @@
                                 </i:Interaction.Triggers>
 
                             </DatePicker>
-                            <materialDesign:PopupBox Visibility="{Binding VisibilityDatePickerPopup}"  VerticalAlignment="Center" Margin="5" PopupContent="{Binding PopupContent}" >
+                            <materialDesign:PopupBox Visibility="{Binding VisibilityDatePickerPopup}"  VerticalAlignment="Center" Margin="5,8,5,5" PopupContent="{Binding PopupContent}" >
 
                                 <materialDesign:PopupBox.ToggleContent>
                                     <materialDesign:PackIcon Foreground="Red" Kind="Error" />
                                 </materialDesign:PopupBox.ToggleContent>
                             </materialDesign:PopupBox>
-                            <Button Style="{StaticResource MaterialDesignRaisedButton}" 
-                                HorizontalAlignment="Center"
-                                Content="In báo cáo"
-                                Width="150" Height="35" Command="{Binding PrintTableCommand}"/>
                         </StackPanel>
                         <StackPanel Visibility="{Binding VisibilityChonNam}" Orientation="Horizontal" Margin="20,0,0,0">
                             <ComboBox Width="200" materialDesign:HintAssist.Hint="Chọn năm" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
@@ -109,14 +105,29 @@
                             <StackPanel
                                     Orientation="Horizontal"
                                     Margin="2">
-                                <ComboBox Width="200" materialDesign:HintAssist.Hint="Chế độ xem" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  ItemsSource="{Binding ListCheDoXem}" KeyboardNavigation.TabIndex="1" Text ="{Binding CbxCheDoXem}" SelectedItem="{Binding SelectedCheDoXem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" >
+
+ 
+                                <ComboBox Width="180" materialDesign:HintAssist.Hint="Loại báo cáo" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  ItemsSource="{Binding ListLoaiBaoCao}" KeyboardNavigation.TabIndex="1" SelectedItem="{Binding SelectedLoaiBaoCao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" Margin="0,0,16,0" >
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding CheDoXemChangedCommand}"/>
+                                            <i:InvokeCommandAction Command="{Binding LoaiBaoCaoChangedCommand}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </ComboBox>
+                                <ComboBox Width="200" materialDesign:HintAssist.Hint="Chế độ xem" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  ItemsSource="{Binding ListCheDoXem, Mode=TwoWay}"  SelectedItem="{Binding SelectedCheDoXem, Mode=TwoWay }" Margin="0,0,24,0" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding    CheDoXemChangedCommand}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                                <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                                HorizontalAlignment="Center"
+                                Content="In báo cáo"
+                                Width="150" Height="35" Command="{Binding PrintTableCommand}" Margin="0,8,0,0"/>
+
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -160,11 +171,27 @@
                                             <ListView.View>
                                                 <GridView>
                                                     <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"/>
-                                                    <GridViewColumn  Header="Mã hàng" DisplayMemberBinding="{Binding MaMH}"/>
+                                                    <GridViewColumn  Header="Mã mặt hàng" DisplayMemberBinding="{Binding MaMH}"/>
                                                     <GridViewColumn  Header="Tên hàng" DisplayMemberBinding="{Binding TenHang}"/>
-                                                    <GridViewColumn  Header="Tổng thu (VND)" DisplayMemberBinding="{Binding TongThu, StringFormat='#,##0;(#,##0)'}"/>
-                                                    <GridViewColumn Header="Tổng chi (VND)" DisplayMemberBinding="{Binding TongChi, StringFormat='#,##0;(#,##0)'}"/>
-                                                    <GridViewColumn  Header="Chênh lệch (VND)" DisplayMemberBinding="{Binding ChenhLech, StringFormat='#,##0;#,##0'}"/>
+                                                    <GridViewColumn  Header="Số lượng" DisplayMemberBinding="{Binding SoLuong}"/>
+                                                    <GridViewColumn  Header="Tổng tiền" DisplayMemberBinding="{Binding TongTien, StringFormat='#,##0;(#,##0)'}"/>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                        <TextBlock Grid.Row="1" FontStyle="Italic" Opacity="0.5" HorizontalAlignment="Right" Margin="0,0,15,0">* báo cáo không bao gồm ngày hôm nay</TextBlock>
+                                    </Grid>
+                                    <Grid  Visibility="{Binding VisibilityBangNam}"  Grid.Row="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="10*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <ListView  Grid.Row="0" FontSize="18" ItemsSource="{Binding BaoCaoNam}" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Single" VerticalAlignment="Top">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}" />
+                                                    <GridViewColumn  Header="Tháng" DisplayMemberBinding="{Binding Thang}" Width="150"/>
+                                                    <GridViewColumn  Header="Doanh Thu" DisplayMemberBinding="{Binding DoanhThu,StringFormat='#,##0;(#,##0)'}" Width="230"/>
+                                                    <GridViewColumn  Header="Được mua nhiều nhất" DisplayMemberBinding="{Binding MuaNhieu}"/>
                                                 </GridView>
                                             </ListView.View>
                                         </ListView>
@@ -173,12 +200,12 @@
                                     <StackPanel Visibility="{Binding VisibilityChart}">
                                         <TextBlock Text="{Binding DoanhThuCaNam}"  Margin="16,26,0,26"/>
                                         <Grid>
-                                            <chart:SfChart Header="Biểu đồ thống kê doanh thu siêu thị MasterStore" Height="420" Margin="0,0,16,0">
+                                            <chart:SfChart Header="Biểu đồ thống kê doanh thu chuỗi cửa hàng MasterSales" Height="420" Margin="0,0,16,0">
                                                 <chart:SfChart.PrimaryAxis>
                                                     <chart:CategoryAxis PlotOffset="90" Header="{Binding YearHeader}"/>
                                                 </chart:SfChart.PrimaryAxis>
                                                 <chart:SfChart.SecondaryAxis>
-                                                    <chart:NumericalAxis Maximum="{Binding Maximum}" Header="Doanh thu (VNĐ)"/>
+                                                    <chart:NumericalAxis  Header="Doanh thu (VNĐ)"/>
                                                 </chart:SfChart.SecondaryAxis>
                                                 <chart:LineSeries ShowTooltip="True" EnableAnimation="True" Label="Doanh Thu" ItemsSource="{Binding ChartData}" XBindingPath="Month" YBindingPath="Thu" FontSize="24">
                                                 </chart:LineSeries>
