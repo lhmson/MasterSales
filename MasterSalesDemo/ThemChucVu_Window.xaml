@@ -1,0 +1,152 @@
+﻿<Window x:Class="MasterSalesDemo.ThemChucVu_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MasterSalesDemo"
+        mc:Ignorable="d"
+        
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="18"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        ResizeMode="NoResize"
+        WindowStyle="ThreeDBorderWindow"
+        WindowStartupLocation="CenterScreen"
+        Icon="./Images/PhiHanhGia.jpg"
+        
+        DataContext="{StaticResource ThemChucVuVM}"
+        
+        Name="ThemChucVuWindow"
+        Height="500" Width="900">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="411*"/>
+            <ColumnDefinition Width="119*"/>
+            <ColumnDefinition Width="64*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+     
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <Button Background="{StaticResource PrimaryHueDarkBrush}" Name="titleBtn" Content="THÊM CHỨC VỤ"></Button>
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <materialDesign:Card Grid.Row="1" Width="500" Height="400" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                    <Grid >
+                        <Grid.Resources>
+                            <Style TargetType="Grid">
+                                <Setter Property="Margin" Value="15 5"></Setter>
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" materialDesign:HintAssist.Hint="Tên chức vụ"
+                             Text="{Binding TenChucVu}"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"/>
+                            <CheckBox Grid.Column="1" IsChecked="{Binding TruongPhong, Mode=TwoWay}"  Style="{StaticResource MaterialDesignCheckBox}" 
+                                      Content="Trưởng phòng" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <TextBox materialDesign:HintAssist.Hint="Phụ cấp"
+                             Text="{Binding PhuCap}"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="1" Command="{Binding XacNhanCommand}" CommandParameter="{Binding ElementName=ThemChucVuWindow}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True"
+                        Width="120" Content="XÁC NHẬN" Margin="4,0,0,0">
+                            </Button>
+                            <Button Grid.Column="0" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ThemChucVuWindow}"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                        Width="120" Content="THOÁT" Margin="0,0,4,0">
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="2" >
+                            <ComboBox x:Name="cbbQuyDin1" materialDesign:HintAssist.Hint="Chọn phòng ban"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding ListPhongBan}"
+                          SelectedItem="{Binding SelectedPhongBan}"
+                                      IsEnabled="{Binding EnablePB}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectionChangePBCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Grid.Row="3" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="0 0 0 0 ">
+                                <TextBox materialDesign:HintAssist.Hint="Tên phòng ban"
+                             Text="{Binding TenPhongBan}"
+                                         IsEnabled="{Binding EnableTenPB}"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <ToggleButton 
+                                    Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+                                    IsChecked="{Binding IsCheckedToggle}"
+                                    Command="{Binding ClickToggleCommand}">
+                                </ToggleButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Image Source="/Images/ThemChucVu.jpg" VerticalAlignment="Center" HorizontalAlignment="Center" Width="340"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <materialDesign:DialogHost IsOpen="{Binding DialogOpen}" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                <materialDesign:DialogHost.DialogContent>
+                    <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical" Margin="15">
+                            <materialDesign:PackIcon Kind="{Binding IconModal}" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
+                            <TextBlock FontSize="20" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:DialogHost.DialogContent>
+            </materialDesign:DialogHost>
+        </Grid>
+    </Grid>
+</Window>

@@ -147,18 +147,18 @@
                 <materialDesign:Card Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="10" Background="White">
                     <DataGrid
                         Background="White"
-  Margin="8, 8 ,8, 8"
+                        Margin="8, 8 ,8, 8"
                         SelectionMode="Single"
                         SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay}"
-  ItemsSource="{Binding BangLuongThuong, Mode=TwoWay}"
-  CanUserSortColumns="True"
-                       CanUserReorderColumns="False"
+                        ItemsSource="{Binding BangLuongThuong, Mode=TwoWay}"
+                        CanUserSortColumns="True"
+                        CanUserReorderColumns="False"
                         IsReadOnly ="True"
                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
-  CanUserAddRows="False"
-  AutoGenerateColumns="False"
-  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
-  materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="8">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged" >
                                 <i:InvokeCommandAction Command="{Binding nhanVienSelectionChangedCommand}" />
