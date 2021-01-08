@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MasterSalesDemo"
+             xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
         
@@ -44,7 +45,7 @@
                     <Grid Grid.Row="0" Margin="5">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Tên Đơn vị: " FontSize="20" Margin="5"/>
-                            <TextBlock Text="Siêu thị MasterStore" FontSize="20" Margin="5,5,5,4.6" FontStyle="Italic"/>
+                            <TextBlock Text="Hệ thống cửa hàng MasterSales" FontSize="20" Margin="5,5,5,4.6" FontStyle="Italic"/>
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="1" Margin="5"/>
@@ -79,31 +80,61 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="5">
-                        <TextBlock Text="BÁO CÁO THU CHI" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="BÁO CÁO DOANH SỐ" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                        <StackPanel Visibility="{Binding KhoangTGVisibility}" Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Từ ngày: " FontSize="35" FontWeight="Bold" Margin="0,0,10,0"></TextBlock>
                             <TextBlock Text="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}"  FontSize="35" FontWeight="Bold" Margin="0,0,20,0"/>
                             <TextBlock Text="Đến ngày: " FontSize="35" FontWeight="Bold" Margin="0,0,10,0"></TextBlock>
                             <TextBlock Text="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}"  FontSize="35" FontWeight="Bold"/>
                         </StackPanel>
+                        <StackPanel Visibility="{Binding HangNamVisibility}" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Năm: " FontSize="35" FontWeight="Bold" Margin="0,0,10,0"></TextBlock>
+                            <TextBlock Text="{Binding Nam}"  FontSize="35" FontWeight="Bold" Margin="0,0,20,0"/>
+                        </StackPanel>
                         <Rectangle Fill="Black" Height="1" Margin="10 5" Opacity="0.5"/>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1" Margin="5">
-                    <ListView x:Name="listViewReport" ItemsSource="{Binding ListBaoCaoDoanhSo}"
-                          HorizontalContentAlignment="Stretch"
-                          ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontSize="18">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"/>
-                                <GridViewColumn  Header="Mã hàng" DisplayMemberBinding="{Binding MaMH}"/>
-                                <GridViewColumn  Header="Tên hàng" DisplayMemberBinding="{Binding TenHang}"/>
-                                <GridViewColumn  Header="Tổng thu (VND)" DisplayMemberBinding="{Binding TongThu, StringFormat='#,##0;(#,##0)'}"/>
-                                <GridViewColumn Header="Tổng chi (VND)" DisplayMemberBinding="{Binding TongChi, StringFormat='#,##0;(#,##0)'}"/>
-                                <GridViewColumn  Header="Chênh lệch (VND)" DisplayMemberBinding="{Binding ChenhLech, StringFormat='#,##0;#,##0'}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <Grid  Visibility="{Binding VisibilityBang}"  Grid.Row="0">
+                        <ListView  Grid.Row="0" FontSize="18" ItemsSource="{Binding BaoCao}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Top">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"/>
+                                    <GridViewColumn  Header="Mã mặt hàng" DisplayMemberBinding="{Binding MaMH}"/>
+                                    <GridViewColumn  Header="Tên hàng" DisplayMemberBinding="{Binding TenHang}"/>
+                                    <GridViewColumn  Header="Số lượng" DisplayMemberBinding="{Binding SoLuong}"/>
+                                    <GridViewColumn  Header="Tổng tiền" DisplayMemberBinding="{Binding TongTien, StringFormat='#,##0;(#,##0)'}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                    <Grid  Visibility="{Binding VisibilityBangNam}"  Grid.Row="0">
+                        <ListView  Grid.Row="0" FontSize="18" ItemsSource="{Binding BaoCaoNam}" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Single" VerticalAlignment="Top">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}" />
+                                    <GridViewColumn  Header="Tháng" DisplayMemberBinding="{Binding Thang}" Width="150"/>
+                                    <GridViewColumn  Header="Doanh Thu" DisplayMemberBinding="{Binding DoanhThu,StringFormat='#,##0;(#,##0)'}" Width="230"/>
+                                    <GridViewColumn  Header="Được mua nhiều nhất" DisplayMemberBinding="{Binding MuaNhieu}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                    <StackPanel Visibility="{Binding VisibilityChart}" Margin="0,0,0,16">
+                        <TextBlock Text="{Binding DoanhThuCaNam}"  Margin="16,26,0,26"/>
+                        <Grid>
+                            <chart:SfChart Header="Biểu đồ thống kê doanh thu chuỗi cửa hàng MasterSales" Height="420" Margin="0,0,16,0">
+                                <chart:SfChart.PrimaryAxis>
+                                    <chart:CategoryAxis PlotOffset="90" Header="{Binding YearHeader}"/>
+                                </chart:SfChart.PrimaryAxis>
+                                <chart:SfChart.SecondaryAxis>
+                                    <chart:NumericalAxis  Header="Doanh thu (VNĐ)"/>
+                                </chart:SfChart.SecondaryAxis>
+                                <chart:LineSeries ShowTooltip="True" EnableAnimation="True" Label="Doanh Thu" ItemsSource="{Binding ChartData}" XBindingPath="Month" YBindingPath="Thu" FontSize="24">
+                                </chart:LineSeries>
+                            </chart:SfChart>
+                        </Grid>
+                    </StackPanel>
                 </Grid>
                 
             </Grid>

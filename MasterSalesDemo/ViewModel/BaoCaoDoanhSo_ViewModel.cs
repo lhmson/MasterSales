@@ -84,8 +84,18 @@ namespace MasterSalesDemo.ViewModel
         private int _SelectedYear;
         public int SelectedYear { get => _SelectedYear; set { _SelectedYear = value; OnPropertyChanged(); } }
         private string _TenNhanVien;
+        private bool _DialogOpen;
+        public bool DialogOpen { get => _DialogOpen; set { _DialogOpen = value; OnPropertyChanged(); } }
+        private string _Notify;
+        public string Notify { get => _Notify; set { _Notify = value; OnPropertyChanged(); } }
+        private void notifyKhongCoThongTin()
+        {
+            DialogOpen = true;
+            Notify = "Vui lòng chọn thông tin hợp lệ trước khi in";
+        }
         public BaoCaoDoanhSo_ViewModel()
         {
+            DialogOpen = false;
             ListCheDoXem = new ObservableCollection<string>();
             ListLoaiBaoCao = new ObservableCollection<string>();
             ListLoaiBaoCao.Add("Khoảng thời gian");
@@ -146,16 +156,48 @@ namespace MasterSalesDemo.ViewModel
                     LoadChart();
             });
             PrintTableCommand = new RelayCommand<object>((q) =>
-            {
-                //if (BaoCao.Count == 0)
-                //    return false;
+            {             
                 return true;
             },
                 (q) =>
                 {
-                    //BaoCaoDoanhSo_PrintPreview_ViewModel printPreviewBaoCaoDoanhSo = new BaoCaoDoanhSo_PrintPreview_ViewModel(BaoCao, SelectedStartDate, SelectedEndDate, "*insert nguoi tao here");
-                    //BaoCaoDoanhSo_PrintPreview PrintPreviewWindow = new BaoCaoDoanhSo_PrintPreview(printPreviewBaoCaoDoanhSo);
-                    //PrintPreviewWindow.ShowDialog();
+                    if (SelectedLoaiBaoCao=="Khoảng thời gian")
+                    {
+                        if (BaoCao.Count()<1)
+                            notifyKhongCoThongTin();
+                        else
+                        {
+                            BaoCaoDoanhSo_PrintPreview_ViewModel printPreviewBaoCaoDoanhSo = new BaoCaoDoanhSo_PrintPreview_ViewModel(SelectedStartDate,SelectedEndDate,BaoCao);
+                            BaoCaoDoanhSo_PrintPreview PrintPreviewWindow = new BaoCaoDoanhSo_PrintPreview(printPreviewBaoCaoDoanhSo);
+                            PrintPreviewWindow.ShowDialog();
+                        }
+                    }
+                    else if (SelectedLoaiBaoCao=="Hằng năm")
+                    {
+                        if (SelectedCheDoXem == "Bảng")
+                        {
+                            if (BaoCaoNam.Count() < 1)
+                                notifyKhongCoThongTin();
+                            else
+                            {
+                                BaoCaoDoanhSo_PrintPreview_ViewModel printPreviewBaoCaoDoanhSo = new BaoCaoDoanhSo_PrintPreview_ViewModel(SelectedYear, BaoCaoNam);
+                                BaoCaoDoanhSo_PrintPreview PrintPreviewWindow = new BaoCaoDoanhSo_PrintPreview(printPreviewBaoCaoDoanhSo);
+                                PrintPreviewWindow.ShowDialog();
+                            }
+                        }
+                        else if (SelectedCheDoXem == "Biểu đồ đường")
+                        {
+                            if (ChartData.Count() < 1)
+                                notifyKhongCoThongTin();
+                            else
+                            {
+                                BaoCaoDoanhSo_PrintPreview_ViewModel printPreviewBaoCaoDoanhSo = new BaoCaoDoanhSo_PrintPreview_ViewModel(SelectedYear, DoanhThuCaNam, ChartData);
+                                BaoCaoDoanhSo_PrintPreview PrintPreviewWindow = new BaoCaoDoanhSo_PrintPreview(printPreviewBaoCaoDoanhSo);
+                                PrintPreviewWindow.ShowDialog();
+                            }
+                        }
+
+                    }
                 }
             );
             CheDoXemChangedCommand = new RelayCommand<object>((p) => { return true; },
