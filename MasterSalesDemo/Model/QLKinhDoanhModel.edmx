@@ -210,6 +210,7 @@
           <Property Name="MaNhomMH" Type="varchar" MaxLength="20" />
           <Property Name="DonGia" Type="money" />
           <Property Name="isDeleted" Type="bit" />
+          <Property Name="MoTa" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="MUCTHUONG">
           <Key>
@@ -1372,6 +1373,7 @@
           <NavigationProperty Name="CT_PHIEUDATHANG" Relationship="QLKinhDoanhModel.FK__CT_PHIEUDA__MaMH__797309D9" FromRole="MATHANG" ToRole="CT_PHIEUDATHANG" />
           <NavigationProperty Name="NHACUNGCAP" Relationship="QLKinhDoanhModel.FK__MATHANG__MaNCC__71D1E811" FromRole="MATHANG" ToRole="NHACUNGCAP" />
           <NavigationProperty Name="NHOMMATHANG" Relationship="QLKinhDoanhModel.FK__MATHANG__MaNhomM__72C60C4A" FromRole="MATHANG" ToRole="NHOMMATHANG" />
+          <Property Name="MoTa" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MUCTHUONG">
           <Key>
@@ -2172,6 +2174,7 @@
           <EntitySetMapping Name="MATHANGs">
             <EntityTypeMapping TypeName="QLKinhDoanhModel.MATHANG">
               <MappingFragment StoreEntitySet="MATHANG">
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="MaNhomMH" ColumnName="MaNhomMH" />

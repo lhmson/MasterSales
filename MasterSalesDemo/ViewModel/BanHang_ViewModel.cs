@@ -32,12 +32,19 @@ namespace MasterSalesDemo.ViewModel
             get { return _SelectedMatHang; }
             set { _SelectedMatHang = value; OnPropertyChanged(); }
         }
-
+        
         private string _MaHD;
         public string MaHD
         {
             get { return _MaHD; }
             set { _MaHD = value; OnPropertyChanged(); }
+        }
+
+        private string _IconModal;
+        public string IconModal
+        {
+            get { return _IconModal; }
+            set { _IconModal = value; OnPropertyChanged(); }
         }
 
         private string _MaPhieuDH;
@@ -47,6 +54,19 @@ namespace MasterSalesDemo.ViewModel
             set { _MaPhieuDH = value; OnPropertyChanged(); }
         }
 
+        private string _SDT;
+        public string SDT
+        {
+            get { return _SDT; }
+            set { _SDT = value; OnPropertyChanged(); }
+        }
+
+        private string _TenKhachHang;
+        public string TenKhachHang
+        {
+            get { return _TenKhachHang; }
+            set { _TenKhachHang = value; OnPropertyChanged(); }
+        }
         private bool _CreateReport;
         public bool CreateReport
         {
@@ -98,11 +118,13 @@ namespace MasterSalesDemo.ViewModel
         public ICommand ThemGioHangCommand { get; set; }
         public ICommand BoRaGioHangCommand { get; set; }
         public ICommand DialogOK { get; set; }
+        public ICommand CheckSDTCommand { get; set; }
         #endregion
 
         #region
         public void LoadDatabase()
         {
+            IconModal = "CheckCircleOutline";
             DialogOpen = false;
             MaHD = "";
             TongTien = "0";
@@ -111,6 +133,8 @@ namespace MasterSalesDemo.ViewModel
             ListMatHang = new ObservableCollection<ListMatHangMua>();
             SelectedMatHang = null;
             CreateReport = false;
+            SDT = TenKhachHang = "";
+            MaPhieuDH = "";
         }
         public void addGioHang()
         {
@@ -139,7 +163,7 @@ namespace MasterSalesDemo.ViewModel
                 int stt = ListMatHang.Count + 1;
                 int sl = Global.Ins.SoLuongMua;
                 decimal thanhtien = sl * res.DonGia??0;
-                ListMatHangMua mh = new ListMatHangMua(stt + "", res.id, res.TenMH, res.DonVi, res.DonGia + "", sl + "", thanhtien + "");
+                ListMatHangMua mh = new ListMatHangMua(stt + "", res.id, res.TenMH, res.DonVi, res.DonGia?.ToString("0,000"), sl + "", thanhtien.ToString("0,000")) ;
                 ListMatHang.Add(mh);
             }
         }
@@ -150,7 +174,8 @@ namespace MasterSalesDemo.ViewModel
             if (Global.Ins.isThemThanhCong)
             {
                 DialogOpen = true;
-                ThongBao = "Thêm mặt hàng " + Global.Ins.TenMH + " vào giỏ hàng thành công";
+                IconModal = "PackageVariantClosed";
+                ThongBao = "Đã thêm thành công " + Global.Ins.SoLuongMua + " " + Global.Ins.TenMH + " vào giỏ hàng thành công";
                 addGioHang();
                 Global.Ins.isThemThanhCong = false;
             }
@@ -175,19 +200,27 @@ namespace MasterSalesDemo.ViewModel
             double res = 0;
             foreach (var item in ListMatHang)
                 res += Double.Parse(item.ThanhTien);
-            TongTien = res + "";
+            TongTien = res.ToString("0,000");
+            if (res == 0 || TongTien == "0,000")
+                TongTien = "0";
         }
         public void TaoHoaDon()
         {
             if (String.IsNullOrWhiteSpace(MaHD))
             {
-                System.Windows.MessageBox.Show("Bạn chưa tạo mã hóa đơn");
+                //System.Windows.MessageBox.Show("Bạn chưa tạo mã hóa đơn");
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Bạn chưa tạo mã hóa đơn";
                 return;
             }
 
             if (ListMatHang.Count == 0)
             {
-                System.Windows.MessageBox.Show("Không thể tạo một hóa đơn rỗng");
+                //System.Windows.MessageBox.Show("Không thể tạo một hóa đơn rỗng");
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Không thể tạo một hóa đơn rỗng";
                 return;
             }
 
@@ -206,7 +239,9 @@ namespace MasterSalesDemo.ViewModel
             if (!String.IsNullOrWhiteSpace(MaPhieuDH))
                 hd.MaPhieuDH = MaPhieuDH;
             PHIEUDATHANG pdh = Global.Ins.getPhieuDHbyMaPhieu(MaPhieuDH);
-            pdh.TrangThai = 1;
+
+            if (pdh != null)
+                pdh.TrangThai = 1;
   
             DataProvider.Ins.DB.HOADONs.Add(hd);
             DataProvider.Ins.DB.SaveChanges();
@@ -227,12 +262,13 @@ namespace MasterSalesDemo.ViewModel
             }
             if (CreateReport)
             {
-                BanHang_PrintPreview_ViewModel vm = new BanHang_PrintPreview_ViewModel(hd.id, Global.Ins.NhanVien.HoTen, hd.ThanhTien + "", ListMatHang);
+                BanHang_PrintPreview_ViewModel vm = new BanHang_PrintPreview_ViewModel(hd.id, Global.Ins.NhanVien.HoTen, hd.ThanhTien?.ToString("0,000"), ListMatHang, TenKhachHang);
                 BanHang_PrintPreview print = new BanHang_PrintPreview(vm);
                 print.Show();
             }
 
             DialogOpen = true;
+            IconModal = "CheckCircleOutline";
             ThongBao = "Tạo hóa đơn thành công";
             LoadDatabase();
         }
@@ -243,13 +279,21 @@ namespace MasterSalesDemo.ViewModel
             if (Global.Ins.PhieuDHXuLY == null)
                 return;
             PHIEUDATHANG pdh = Global.Ins.PhieuDHXuLY;
+            if (pdh.KHACHHANG != null)
+            {
+                SDT = pdh.KHACHHANG.SDT;
+                TenKhachHang = pdh.KHACHHANG.TenKH;
+            }
+
             ObservableCollection<CT_PHIEUDATHANG> _listCTPDH = new ObservableCollection<CT_PHIEUDATHANG>(DataProvider.Ins.DB.CT_PHIEUDATHANG);
             foreach (var ctphdh in _listCTPDH)
                 if (ctphdh.MaPhieuDH ==pdh.id)
                 {
                     int stt = ListMatHang.Count + 1;
                     MATHANG mh = ctphdh.MATHANG;
-                    ListMatHangMua mhmua = new ListMatHangMua(stt+"",mh.id,mh.TenMH,mh.DonVi,mh.DonGia+"",ctphdh.SLDat+"",ctphdh.TongTien+"");
+                    string dongia = double.Parse(mh.DonGia.ToString()).ToString("0,000");
+                    string tongtien = double.Parse(ctphdh.TongTien.ToString()).ToString("0,000");
+                    ListMatHangMua mhmua = new ListMatHangMua(stt+"",mh.id,mh.TenMH,mh.DonVi,dongia,ctphdh.SLDat+"",tongtien);
                     ListMatHang.Add(mhmua);
                 }
             TinhTien();
@@ -261,10 +305,35 @@ namespace MasterSalesDemo.ViewModel
             window.ShowDialog();
             if (Global.Ins.isXuLy)
             {
+                IconModal = "CheckCircleOutline";
                 DialogOpen = true;
                 ThongBao = "Xác nhận xử lý phiếu đặt hàng thàng công";
                 BindingPhieuDHOnline();
             }
+        }
+        public KHACHHANG findKhachHangbySDT(string sdt)
+        {
+            ObservableCollection<KHACHHANG> _listKH = new ObservableCollection<KHACHHANG>(DataProvider.Ins.DB.KHACHHANGs);
+            foreach (var kh in _listKH)
+                if (kh.SDT == sdt)
+                    return kh;
+            return null;
+        }
+        public void CheckSDT()
+        {
+            KHACHHANG kh = findKhachHangbySDT(SDT);
+            if (kh == null)
+            {
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Không tìm thấy khách hàng tương ứng";
+                return;
+            }
+
+            DialogOpen = true;
+            IconModal = "CheckCircleOutline";
+            ThongBao = "Xác thực thành công!";
+            TenKhachHang = kh.TenKH;
         }
         #endregion
         public BanHang_ViewModel()
@@ -302,6 +371,10 @@ namespace MasterSalesDemo.ViewModel
 
             XemDatOnlineCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 XuLyPhieuOnline();
+            });
+
+            CheckSDTCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                CheckSDT();
             });
         }
     }

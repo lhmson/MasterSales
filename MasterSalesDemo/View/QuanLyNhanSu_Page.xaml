@@ -255,10 +255,10 @@
                           HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectedItem="{Binding SelectedItemNguoiDung, Mode=TwoWay}" FontSize="18" SelectionMode="Single" Margin="9,0,8,0">
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Width="150" Header="Tên đăng nhập" DisplayMemberBinding="{Binding TenDangNhap}" />
-                                            <GridViewColumn Width="150" Header="Mật khẩu" DisplayMemberBinding="{Binding MatKhau}"/>
-                                            <GridViewColumn Width="260" Header="Họ tên" DisplayMemberBinding="{Binding HoTen}"/>
-                                            <GridViewColumn Header="Chức vụ (nhóm quyền)" DisplayMemberBinding="{Binding TenNhom}"/>
+                                            <GridViewColumn Width="150" Header="Họ tên" DisplayMemberBinding="{Binding HoTen}" />
+                                            <GridViewColumn Width="150" Header="Tên đăng nhập" DisplayMemberBinding="{Binding TaiKhoan}"/>
+                                            <GridViewColumn Width="260" Header="Mật khẩu" DisplayMemberBinding="{Binding MatKhau}"/>
+                                            <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding ChucVu}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
@@ -274,49 +274,49 @@
                                     </ListView.ItemContainerStyle>
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Header="Nhóm quyền" DisplayMemberBinding="{Binding TenNhomQuyen}" Width="200" />
+                                            <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding TenNhomQuyen}" Width="200" />
 
-                                            <GridViewColumn Header="Nhập hàng" >
+                                            <GridViewColumn Header="Tuyển dụng" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <CheckBox HorizontalAlignment="Center" IsChecked ="{Binding chkNhapHang}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                            <CheckBox HorizontalAlignment="Center" IsChecked ="{Binding chkTuyenDung}" IsEnabled="{Binding EnabledCheckBox}"/>
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Kiểm duyệt nhập hàng" >
+                                            <GridViewColumn Header="Lương thưởng" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <CheckBox HorizontalAlignment="Center" IsChecked ="{Binding chkKiemDuyetNhapHang}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                            <CheckBox HorizontalAlignment="Center" IsChecked ="{Binding chkLuongThuong}" IsEnabled="{Binding EnabledCheckBox}"/>
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Bán hàng" >
+                                            <GridViewColumn Header="Lịch sử làm việc" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <CheckBox IsChecked ="{Binding chkBanHang}" IsEnabled="{Binding EnabledCheckBox}" />
+                                                            <CheckBox IsChecked ="{Binding chkLichSu}" IsEnabled="{Binding EnabledCheckBox}" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Kiểm duyệt xuất hàng"  >
+                                            <GridViewColumn Header="Đào tạo"  >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <CheckBox IsChecked ="{Binding chkKiemDuyetXuatHang}" IsEnabled="{Binding EnabledCheckBox}" />
+                                                            <CheckBox IsChecked ="{Binding chkDaoTao}" IsEnabled="{Binding EnabledCheckBox}" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
                                             
-                                            <GridViewColumn Header="Tra cứu kho" >
+                                            <GridViewColumn Header="Tra cứu" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -326,36 +326,55 @@
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Báo cáo doanh số" >
+                                            <GridViewColumn Header="Bán hàng" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <CheckBox IsChecked ="{Binding chkBCDS}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                            <CheckBox IsChecked ="{Binding chkBanHang}" IsEnabled="{Binding EnabledCheckBox}"/>
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Báo cáo tồn kho" >
+                                            <GridViewColumn Header="Khách hàng" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <CheckBox IsChecked ="{Binding chkBCTK}" IsEnabled="{Binding EnabledCheckBox}" />
+                                                            <CheckBox IsChecked ="{Binding chkKhachHang}" IsEnabled="{Binding EnabledCheckBox}" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
-                                            <GridViewColumn Header="Quản lí nhân sự" >
+                                            <GridViewColumn Header="Báo cáo" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <CheckBox IsChecked ="{Binding chkQLNS}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                            <CheckBox IsChecked ="{Binding chkBaoCao}" IsEnabled="{Binding EnabledCheckBox}"/>
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
+                                            <GridViewColumn Header="Phân quyền" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkPhanQuyen}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Header="Thay đổi quy định" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <CheckBox IsChecked ="{Binding chkThayDoiQD}" IsEnabled="{Binding EnabledCheckBox}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

@@ -25,7 +25,7 @@ namespace MasterSalesDemo.ViewModel
             this.STT = stt + "";
             this.MaSo = ma;
             this.KhachHang = kh;
-            this.TongTien = tien + "";
+            this.TongTien = tien.ToString("0,000");
             this.NgayDat = ngaydat?.ToString("dd/MM/yyyy");
         }
     }
