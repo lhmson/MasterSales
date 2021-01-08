@@ -649,9 +649,9 @@
     <Resource Include="Images\Shopping.jpg" />
     <Resource Include="Images\LAPTOP.jpg" />
     <Resource Include="Images\Online.jpg" />
-    <Resource Include="Images\Male.jpg" />
     <Resource Include="Images\Female.jpg" />
     <Resource Include="Images\ThemChucVu.jpg" />
+    <Resource Include="Images\Male.png" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>

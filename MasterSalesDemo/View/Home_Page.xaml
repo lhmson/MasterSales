@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:MasterSalesDemo.View"
+            xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="628" d:DesignWidth="1372"
       
@@ -29,11 +30,11 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition />
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -41,7 +42,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -54,74 +55,103 @@
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                   Padding="8">
-                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">TRANG CHỦ</TextBlock>
+                <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">TRANG CHỦ</TextBlock>
             </materialDesign:Card>
         </Grid>
-        <Grid Margin="20,0,20,20" Grid.Row="3" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="3">
+        <materialDesign:Card Background="White" Margin="8,20,8,20" Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Grid.ColumnSpan="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <DockPanel >
+                <materialDesign:Card  DockPanel.Dock="Top"
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                  Padding="8">
+                    <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">TỔNG QUAN</TextBlock>
+                </materialDesign:Card>
+                <DockPanel >
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="64,32,32,32" HorizontalAlignment="Left">
+                        <StackPanel HorizontalAlignment="Left" Margin="0,0,64,0">
+                            <TextBlock FontWeight="SemiBold" FontSize="18" Margin="0,0,0,8" TextAlignment="Left" Text="Doanh Thu 7 Ngày Qua" />
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBlock Foreground="{DynamicResource PrimaryHueDarkBrush}"  FontSize="24" FontWeight="Bold"   Text="{Binding DoanhThu, StringFormat='#,##0;(#,##0)'}" />
+                                <TextBlock  Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="24" FontWeight="Bold"   Text=" VNĐ" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel  HorizontalAlignment="Left" Margin="0,0,0,0">
+                            <TextBlock FontWeight="SemiBold" Margin="0,0,0,8"   FontSize="18" TextAlignment="Left" Text="Số hóa đơn trong ngày" />
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBlock Foreground="{DynamicResource PrimaryHueDarkBrush}"  FontSize="24" FontWeight="Bold"   Text="{Binding SoHoaDon, StringFormat='#,##0;(#,##0)'}" />
+                                <TextBlock  Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="24" FontWeight="Bold"   Text=" đơn" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <chart:SfChart Margin="32,16,32,32" >
+                            <chart:SfChart.PrimaryAxis>
+                            <chart:CategoryAxis PlotOffset="90"/>
+                        </chart:SfChart.PrimaryAxis>
+                            <chart:SfChart.SecondaryAxis>
+                            <chart:NumericalAxis LabelFormat="#,##0;(#,##0)" />
+                        </chart:SfChart.SecondaryAxis>
+                            <chart:LineSeries ShowTooltip="True" EnableAnimation="True" Label="Doanh Thu" ItemsSource="{Binding ChartData}" XBindingPath="Date" YBindingPath="Thu" FontSize="24">
+                            </chart:LineSeries>
+                        </chart:SfChart>
+                    </DockPanel>
+            </DockPanel>
+        </materialDesign:Card>
+        <Grid Margin="20" Grid.Row="1" Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="3">
             <materialDesign:DialogHost IsOpen="{Binding DialogOpen}" BorderBrush="{DynamicResource MaterialDesignDivider}">
                 <materialDesign:DialogHost.DialogContent>
                     <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Vertical" Margin="15">
-                            <materialDesign:PackIcon Kind="{Binding IconModal}" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
-                            <TextBlock FontSize="20" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Center"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Kind="{Binding IconModal}" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Stretch"/>
+                            <TextBlock FontSize="20" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Stretch"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Stretch"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
                 </materialDesign:DialogHost.DialogContent>
-                <materialDesign:Card>
-                    <materialDesign:Flipper
-                 Style="{DynamicResource  MaterialDesignCardFlipper}">
+                <materialDesign:Card HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <materialDesign:Flipper HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,-38,0,0" Padding="0,0,0,0"  >
                         <materialDesign:Flipper.FrontContent>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <Image Source="/Images/Male.jpg"></Image>
-                                <StackPanel Margin="0,-50,0,80" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Margin="0,-30,0,0" FontSize="22" HorizontalAlignment="Center" Text="{Binding TenNhanVien}"></TextBlock>
-                                    <TextBlock FontSize="22" Text="{Binding ChucVu}"></TextBlock>
-                                    <Button FontSize="25" Height="50" Style="{StaticResource MaterialDesignRaisedButton}" Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 4 0 0">
+                                <materialDesign:ColorZone HorizontalAlignment="Stretch" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="1"
+        Mode="PrimaryLight"
+        VerticalAlignment="Stretch">
+                                    <Image Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Images/Male.png"></Image>
+                                </materialDesign:ColorZone>
+                                <StackPanel  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <TextBlock Margin="0,32,0,8"   FontSize="32" HorizontalAlignment="Center" Text="{Binding TenNhanVien}"></TextBlock>
+                                    <TextBlock HorizontalAlignment="Center" Margin="0,0,0,48" FontSize="22" Text="{Binding ChucVu}"></TextBlock>
+                                    <Button Margin="0,0,0,56" HorizontalAlignment="Center"  FontSize="22" Height="50" Style="{StaticResource MaterialDesignRaisedButton}" Command="{x:Static materialDesign:Flipper.FlipCommand}" >
                                         Đổi mật khẩu
                                     </Button>
                                 </StackPanel>
                             </Grid>
                         </materialDesign:Flipper.FrontContent>
                         <materialDesign:Flipper.BackContent>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.15*"/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <materialDesign:ColorZone Mode="Accent" Padding="6" Margin="0 -20 0 0">
+                            <DockPanel>
+                                <materialDesign:ColorZone DockPanel.Dock="Top" Mode="Accent" Padding="6" Margin="0,-32, 0, 0">
                                     <StackPanel Orientation="Horizontal">
-                                        <Button  Style="{StaticResource MaterialDesignToolForegroundButton}" Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                        <Button VerticalAlignment="Stretch" Margin="8,0,0,0" Style="{StaticResource MaterialDesignToolForegroundButton}" Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                             HorizontalAlignment="Left">
                                             <materialDesign:PackIcon Kind="ArrowLeft" HorizontalAlignment="Right" />
                                         </Button>
-                                        <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">
+                                        <TextBlock FontSize="16" Margin="16 0 0 0" VerticalAlignment="Center">
                                             THÔNG TIN TÀI KHOẢN
                                         </TextBlock>
                                     </StackPanel>
                                 </materialDesign:ColorZone>
-                                <Grid Grid.Row="1" Margin="0 -20 0 0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="70"/>
-                                        <RowDefinition Height="70"/>
-                                        <RowDefinition Height="70"/>
-                                        <RowDefinition Height="70"/>
-                                        <RowDefinition Height="70"/>
-                                        <RowDefinition Height="70"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBox Grid.Row="0" Height="70" Width="200"
+                                <StackPanel Margin="32" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                    <TextBox  Margin="0,0,0,16"
           materialDesign:HintAssist.Hint="Tài khoản"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 10 0 0">
+          materialDesign:HintAssist.IsFloating="True">
                                         admin
                                     </TextBox>
-                                    <PasswordBox Grid.Row="1" x:Name="FloatingPasswordBox1" materialDesign:HintAssist.Hint="Mật khẩu cũ"
+                                    <PasswordBox Margin="0,0,0,16" x:Name="FloatingPasswordBox1" materialDesign:HintAssist.Hint="Mật khẩu cũ"
                                          Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PasswordChanged">
@@ -131,7 +161,7 @@
                                         </i:Interaction.Triggers>
                                     </PasswordBox>
 
-                                    <PasswordBox Grid.Row="2" x:Name="FloatingPasswordBox2" materialDesign:HintAssist.Hint="Mật khẩu mới"
+                                    <PasswordBox Margin="0,0,0,16" x:Name="FloatingPasswordBox2" materialDesign:HintAssist.Hint="Mật khẩu mới"
                                          Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PasswordChanged">
@@ -141,7 +171,7 @@
                                         </i:Interaction.Triggers>
                                     </PasswordBox>
 
-                                    <PasswordBox Grid.Row="3" x:Name="FloatingPasswordBox3" materialDesign:HintAssist.Hint="Xác nhận mật khẩu"
+                                    <PasswordBox Margin="0,0,0,16" x:Name="FloatingPasswordBox3" materialDesign:HintAssist.Hint="Xác nhận mật khẩu"
                                          Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PasswordChanged">
@@ -150,71 +180,17 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </PasswordBox>
-                                    <Button Command="{Binding XacNhanCommand}" Grid.Row="4" Content="Xác nhận" Style="{DynamicResource MaterialDesignRaisedButton}">
-
+                                    <Button Margin="0,32,0,0" FontSize="16" HorizontalAlignment="Stretch"   Style="{StaticResource MaterialDesignRaisedButton}" Command="{Binding XacNhanCommand}" >
+                                        Lưu thay đổi
                                     </Button>
 
-                                </Grid>
-                            </Grid>
+                                    </StackPanel>
+                            </DockPanel>
                         </materialDesign:Flipper.BackContent>
                     </materialDesign:Flipper>
                 </materialDesign:Card>
             </materialDesign:DialogHost>
         </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="2" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="3" >
-            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5">
-                <materialDesign:Card.Background>
-                    <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
-                        <GradientStop Color="{StaticResource Primary300}" Offset="0"/>
-                        <GradientStop Color="{StaticResource Primary900}" Offset="1"/>
-                    </LinearGradientBrush>
-                </materialDesign:Card.Background>
-
-                <TextBlock TextAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF" FontSize="24" Margin="100,0">
-                            Tài khoản 
-                </TextBlock>
-            </materialDesign:Card>
-        </Grid>
-        <Grid Margin="12,0" Grid.Row="3" Grid.RowSpan="4" Grid.Column="5" Grid.ColumnSpan="3">
-            <materialDesign:Card>
-                <TextBlock Text="{Binding SL_PhieuDN}" FontSize="128" FontWeight="ExtraBlack" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DD000000"></TextBlock>
-            </materialDesign:Card>
-        </Grid>
-
-        <Grid Margin="8,8,8,0" Grid.Row="2" Grid.RowSpan="1" Grid.Column="5" Grid.ColumnSpan="3" >
-            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5">
-                <materialDesign:Card.Background>
-                    <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
-                        <GradientStop Color="{StaticResource Primary300}" Offset="0"/>
-                        <GradientStop Color="{StaticResource Primary900}" Offset="1"/>
-                    </LinearGradientBrush>
-                </materialDesign:Card.Background>
-                
-                <TextBlock TextAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF" FontSize="24" Margin="64,0">
-                            Số phiếu đề nghị xuất hàng chưa duyệt
-                </TextBlock>
-            </materialDesign:Card>
-        </Grid>
-        <Grid Margin="12,0" Grid.Row="3" Grid.RowSpan="4" Grid.Column="9" Grid.ColumnSpan="3">
-            <materialDesign:Card>
-                <TextBlock Text="{Binding SL_HD}" FontSize="128" FontWeight="ExtraBlack" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DD000000"></TextBlock>
-            </materialDesign:Card>
-        </Grid>
-        <Grid Margin="8,8,8,0" Grid.Row="2" Grid.RowSpan="1" Grid.Column="9" Grid.ColumnSpan="3" >
-            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5">
-                <materialDesign:Card.Background>
-                    <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
-                        <GradientStop Color="{StaticResource Primary300}" Offset="0"/>
-                        <GradientStop Color="{StaticResource Primary900}" Offset="1"/>
-                    </LinearGradientBrush>
-                </materialDesign:Card.Background>
-
-                <TextBlock TextAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DDFFFFFF" FontSize="24" Margin="150,0">
-                            Số hóa đơn trong ngày
-                </TextBlock>
-
-            </materialDesign:Card>
-        </Grid>
-
+   
     </Grid>
 </Page>
