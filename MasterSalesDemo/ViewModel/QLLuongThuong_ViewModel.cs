@@ -749,7 +749,8 @@ namespace MasterSalesDemo.ViewModel
                                 LuongNG = int.Parse(LuongNG),
                                 LuongTL = int.Parse(LuongTL),
                             };
-                            // add thêm cái chi tiết bảng thưởng ở đây nha. 
+                            // add thêm cái chi tiết bảng thưởng,.. bảng gì gì đó ở đây nha. tại vì m load cái BangLuongThuong từ những cái bảng khác :v 
+                            //nên lúc add từ file excel vào thì t mới add trong List<bảnglươngthuong> thôi chứ chưa add dữ liệu vào các bảng cần thiết của database
                             BangLuongThuong.Add(dongLuongThuong);
                             a++;
                         }
