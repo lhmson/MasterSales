@@ -23,4 +23,5 @@
     <viewmodel:DatOnline_ViewModel x:Key="DatOnlineVM"></viewmodel:DatOnline_ViewModel>
     <viewmodel:DanhGiaKyNang_ViewModel x:Key="DanhGiaKyNangVM"></viewmodel:DanhGiaKyNang_ViewModel>
     <viewmodel:SuaDanhGia_ViewModel x:Key="SuaDanhGiaVM"></viewmodel:SuaDanhGia_ViewModel>
+    <viewmodel:ThemChucVu_ViewModel x:Key="ThemChucVuVM"></viewmodel:ThemChucVu_ViewModel>
 </ResourceDictionary>

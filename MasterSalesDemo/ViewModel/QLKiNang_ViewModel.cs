@@ -121,7 +121,10 @@ namespace MasterSalesDemo.ViewModel
         {
             TenKyNang = "";
             KyNang = new ObservableCollection<KYNANG>(DataProvider.Ins.DB.KYNANGs);
-            ListKyNang = new ObservableCollection<KYNANG>(DataProvider.Ins.DB.KYNANGs);
+
+            ListKyNang = new ObservableCollection<KYNANG>(DataProvider.Ins.DB.KYNANGs);            
+            ListKyNang.Clear();
+            LoadSourceListKyNang();
         }
 
         #endregion
@@ -132,15 +135,11 @@ namespace MasterSalesDemo.ViewModel
         {
             TenTrinhDo = "";
             TrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
-            ListTrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
         }
 
         #endregion
 
         #region Trình độ
-
-        private ObservableCollection<TRINHDO> _ListTrinhDo;
-        public ObservableCollection<TRINHDO> ListTrinhDo { get => _ListTrinhDo; set { _ListTrinhDo = value; OnPropertyChanged(); } }
 
         private ObservableCollection<TRINHDO> _TrinhDo;
         public ObservableCollection<TRINHDO> TrinhDo { get => _TrinhDo; set { _TrinhDo = value; OnPropertyChanged(); } }
@@ -333,11 +332,14 @@ namespace MasterSalesDemo.ViewModel
 
         public void ThemNhanVienVaoList(NHANVIEN nv)
         {
+            if (nv.isDeleted==true)
+                return;
+
             bool validPhongBan = false;
             bool validTen = false;
             CHUCVU chucvu = getChucVubyMaNV(nv.MaChucVu);
             TRINHDO trinhdo = getTrinhdobyMaNV(nv.MaTrinhDo);
-            if (SelectedPhongBan == null || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
+            if (SelectedPhongBan == null || SelectedPhongBan=="Tất cả" || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
                 validPhongBan = true;
 
             if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
@@ -461,6 +463,8 @@ namespace MasterSalesDemo.ViewModel
             ListPhongBan = new ObservableCollection<string>();
             foreach (var pb in _listPhongBan)
                 ListPhongBan.Add(pb.TenPhong);
+
+            ListPhongBan.Add("Tất cả");
         }
 
         #endregion
@@ -521,6 +525,15 @@ namespace MasterSalesDemo.ViewModel
             display_CTKN();
         }
 
+        public void LoadSourceListKyNang()
+        {
+            ObservableCollection<KYNANG> _listKynang = new ObservableCollection<KYNANG>(DataProvider.Ins.DB.KYNANGs);
+
+            foreach (var kn in _listKynang)
+                if (kn.isDeleted == false)
+                    ListKyNang.Add(kn);
+        }
+
         public QLKiNang_ViewModel()
         {
             InitKyNang();
@@ -536,12 +549,11 @@ namespace MasterSalesDemo.ViewModel
 
             #region đóng mở window
 
-            OpenKyNangCommand = new AppCommand<object>((p) =>
+           OpenKyNangCommand = new AppCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                InitKyNang();
                 KyNang window = new KyNang();
                 window.ShowDialog();
             });
@@ -551,12 +563,13 @@ namespace MasterSalesDemo.ViewModel
                 return true;
             }, (p) =>
             {
-                InitTrinhDo();
                 TrinhDo window = new TrinhDo();
                 window.ShowDialog();
             });
 
             CloseWindowCommand = new RelayCommand<object>((p) => { return p == null ? false : true; }, (p) => {
+                InitKyNang();
+                InitTrinhDo();
                 var exit = p as Window;
                 exit.Close();
             });
@@ -590,9 +603,11 @@ namespace MasterSalesDemo.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
                 TrinhDo.Add(trinhdo);
                 TrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
-                ListTrinhDo.Add(trinhdo);
+                TrinhDo.Add(trinhdo);
                 InitTrinhDo();
                 MessageBox.Show("Thêm thành công");
+                var exit = p as Window;
+                exit.Close();
             });
 
             #endregion
@@ -627,6 +642,8 @@ namespace MasterSalesDemo.ViewModel
                 ListKyNang.Add(kynang);
                 InitKyNang();
                 MessageBox.Show("Thêm thành công");
+                var exit = p as Window;
+                exit.Close();
             });
 
             #endregion
@@ -646,6 +663,8 @@ namespace MasterSalesDemo.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
                 InitKyNang();
                 MessageBox.Show("Bạn lưu thành công");
+                var exit = p as Window;
+                exit.Close();
             });
             #endregion
 
@@ -750,7 +769,8 @@ namespace MasterSalesDemo.ViewModel
                 ListKyNang.Remove(kynang);
                 //InitKyNang();
                 MessageBox.Show("Bạn đã xóa thành công");
-
+                var exit = p as Window;
+                exit.Close();
             });
 
             #endregion

@@ -62,9 +62,9 @@ namespace MasterSalesDemo.ViewModel
         public ICommand SuaThongTinNhanVienCommand { get; set; }
         public ICommand OpenThemNhanVienCommand { get; set; }
         public ICommand SuaLoaiHopDongCommand { get; set; }
-        public ICommand XoaLoaiHopDongCommand { get; set; }
 
-        //public ICommand ThayDoiTrinhDo { get; set; }
+        public ICommand InitNVCommand { get; set; }
+        public ICommand InitHDCommand { get; set; }
 
         #region nhân viên
 
@@ -171,13 +171,14 @@ namespace MasterSalesDemo.ViewModel
 
         #endregion
 
+
         #region init thêm hợp đồng
 
-        void InitThemHopDong()
+        public void InitThemHopDong()
         {
-            TenLoaiHD = "";
-            NhanVien = null;
+            SelectedItemLoaiHopDong = null;
             SelectedStartDate = DateTime.Now;
+            SelectedEndDate = SelectedStartDate;
             ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
         }
 
@@ -185,7 +186,7 @@ namespace MasterSalesDemo.ViewModel
 
         #region init Thêm loại hợp đồng
 
-        void InitThemLoaiHopDong ()
+        public void InitThemLoaiHopDong ()
         {
             TenLoaiHD = "";
             ThoiHan = 0;
@@ -199,9 +200,6 @@ namespace MasterSalesDemo.ViewModel
 
         private string _TenTrinhDo;
         public string TenTrinhDo { get => _TenTrinhDo; set { _TenTrinhDo = value; OnPropertyChanged(); } }
-
-        private ObservableCollection<TRINHDO> _ListTrinhDo;
-        public ObservableCollection<TRINHDO> ListTrinhDo { get => _ListTrinhDo; set { _ListTrinhDo = value; OnPropertyChanged(); } }
 
         private ObservableCollection<TRINHDO> _TrinhDo;
         public ObservableCollection<TRINHDO> TrinhDo { get => _TrinhDo; set { _TrinhDo = value; OnPropertyChanged(); } }
@@ -360,6 +358,8 @@ namespace MasterSalesDemo.ViewModel
             ListPhongBan = new ObservableCollection<string>();
             foreach (var pb in _listPhongBan)
                 ListPhongBan.Add(pb.TenPhong);
+
+            ListPhongBan.Add("Tất cả");
         }
 
         #endregion
@@ -437,11 +437,14 @@ namespace MasterSalesDemo.ViewModel
 
         public void ThemNhanVienVaoList(NHANVIEN nv)
         {
+            if (nv.isDeleted == true)
+                return;
+
             bool validPhongBan = false;
             bool validTen = false;
             CHUCVU chucvu = getChucVubyMaNV(nv.MaChucVu);
             TRINHDO trinhdo = getTrinhdobyMaNV(nv.MaTrinhDo);
-            if (SelectedPhongBan == null || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
+            if (SelectedPhongBan == null || SelectedPhongBan=="Tất cả" || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
                 validPhongBan = true;
 
             if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
@@ -475,11 +478,12 @@ namespace MasterSalesDemo.ViewModel
                 OnPropertyChanged();
                 // NCC_NotNull = _SelectedItemTrinhDo != null;
 
-                if (SelectedItemLoaiHopDong != null)
+                if (SelectedItemHopDong != null)
                 {
-                    TenLoaiHD = SelectedItemHopDong.LOAIHOPDONG.TenLoaiHD;
-                    HoTen = SelectedItemHopDong.NHANVIEN.HoTen;
-                  
+                    //SelectedItemNhanVien = SelectedItemHopDong.NHANVIEN;
+                    //SelectedItemLoaiHopDong = SelectedItemHopDong.LOAIHOPDONG;
+                    //SelectedStartDate = SelectedItemHopDong.NgayHD.Value;
+                    //SelectedEndDate = SelectedItemHopDong.NgayKT.Value;
                 }
             }
         }
@@ -505,7 +509,6 @@ namespace MasterSalesDemo.ViewModel
             LoadSourceComboBoxPhongBan();
 
             TrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
-            ListTrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
 
             ListGioiTinh = new List<string>() { "Nam", "Nữ" };
 
@@ -524,7 +527,6 @@ namespace MasterSalesDemo.ViewModel
                 return true;
             }, (p) =>
             {
-                InitThemLoaiHopDong();
                 ThemLoaiHopDong window = new ThemLoaiHopDong();
                 window.ShowDialog();
             });
@@ -534,9 +536,9 @@ namespace MasterSalesDemo.ViewModel
                 return true;
             }, (p) =>
             {
-                InitThemHopDong();
                 ThemHopDong window = new ThemHopDong();
                 window.ShowDialog();
+   
             });
 
             OpenThemNhanVienCommand = new AppCommand<object>((p) =>
@@ -544,13 +546,15 @@ namespace MasterSalesDemo.ViewModel
                 return true;
             }, (p) =>
             {
-                InitNhanVien();
                 ThemNhanVien window = new ThemNhanVien();
                 window.Closed += ThemNhanVienWindow_Closed;
                 window.ShowDialog();
             });
 
             CloseWindowCommand = new RelayCommand<object>((p) => { return p == null ? false : true; }, (p) => {
+                InitThemHopDong();
+                InitNhanVien();
+                InitThemLoaiHopDong();
                 var exit = p as Window;
                 exit.Close();
             });
@@ -592,6 +596,8 @@ namespace MasterSalesDemo.ViewModel
                 ThemNhanVienVaoList(nhanvien);
                 InitNhanVien();
                 MessageBox.Show("Thêm thành công");
+                var exit = p as Window;
+                exit.Close();
             });
 
             #endregion
@@ -629,6 +635,22 @@ namespace MasterSalesDemo.ViewModel
 
             #endregion
 
+            #region init nhân viên
+
+            InitNVCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
+                InitNhanVien();
+            });
+
+            #endregion
+
+            #region init hợp đồng
+
+            InitHDCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
+                InitThemHopDong();
+            });
+
+            #endregion
+
             #region thêm loại hợp đồng
 
             ThemLoaiHopDongCommand = new AppCommand<object>((p) =>
@@ -661,6 +683,8 @@ namespace MasterSalesDemo.ViewModel
                 ListLoaiHopDong.Add(loaihopdong);
                 InitThemLoaiHopDong();
                 MessageBox.Show("Thêm thành công");
+                var exit = p as Window;
+                exit.Close();
             });
 
             #endregion
@@ -682,32 +706,9 @@ namespace MasterSalesDemo.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
                 InitThemLoaiHopDong();
                 MessageBox.Show("Bạn lưu thành công");
-
             });
 
             #endregion
-
-            #region xóa loại hợp đồng
-
-            XoaLoaiHopDongCommand = new RelayCommand<object>((p) =>
-            {
-                if (SelectedItemLoaiHopDong == null)
-                    return false;
-                return true;
-
-            }, (p) =>
-            {
-                var loaihopdong = DataProvider.Ins.DB.LOAIHOPDONGs.Where(x => x.id == SelectedItemLoaiHopDong.id).SingleOrDefault();
-                SelectedItemLoaiHopDong.isDeleted = true;
-                DataProvider.Ins.DB.SaveChanges();
-                ListLoaiHopDong.Remove(loaihopdong);
-               // InitThemLoaiHopDong();
-                MessageBox.Show("Bạn đã xóa thành công");
-
-            });
-
-            #endregion
-
 
             #region thêm hợp đồng
 
@@ -736,7 +737,7 @@ namespace MasterSalesDemo.ViewModel
 
                 if (hd != null)
                 {
-                    if (hd.NgayKT < SelectedStartDate)
+                    if (hd.NgayKT.Value.Date <= SelectedStartDate.Date)
                     {
                         MessageBox.Show("Nhân viên còn hợp đồng");
                     }
@@ -749,6 +750,8 @@ namespace MasterSalesDemo.ViewModel
                         ListHopDong.Add(hopdong);
                         InitThemHopDong();
                         MessageBox.Show("Thêm thành công");
+                        var exit = p as Window;
+                        exit.Close();
                     }    
                 }  
             });

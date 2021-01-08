@@ -10,6 +10,23 @@ using System.Windows.Input;
 
 namespace MasterSalesDemo.ViewModel
 {
+    public class ThongTinNguoiDung
+    {
+        public TAIKHOAN _TaiKhoan { get; set; }
+        public string HoTen { get; set; }
+        public string TaiKhoan { get; set; }
+        public string MatKhau { get; set; }
+        public string ChucVu { get; set; }
+
+        public ThongTinNguoiDung(TAIKHOAN taikhoan)
+        {
+            _TaiKhoan = taikhoan;
+            HoTen = taikhoan.NHANVIEN.HoTen;
+            TaiKhoan = taikhoan.TenDangNhap;
+            MatKhau = taikhoan.MatKhau;
+            ChucVu = taikhoan.NHANVIEN.CHUCVU.TenChucVu;
+        }
+    }
     public class QuanLyNhanSu_ViewModel : BaseViewModel
     {
 
@@ -84,8 +101,8 @@ namespace MasterSalesDemo.ViewModel
         private string _ThongBao;
         public string ThongBao { get => _ThongBao; set { _ThongBao = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<TAIKHOAN> _ListNhanVien;
-        public ObservableCollection<TAIKHOAN> ListNhanVien
+        private ObservableCollection<ThongTinNguoiDung> _ListNhanVien;
+        public ObservableCollection<ThongTinNguoiDung> ListNhanVien
         {
             get => _ListNhanVien;
             set { _ListNhanVien = value; OnPropertyChanged(); }
@@ -105,8 +122,8 @@ namespace MasterSalesDemo.ViewModel
             set { _ListPhanQuyen = value; OnPropertyChanged(); }
         }
 
-        private TAIKHOAN _SelectedItemNguoiDung;
-        public TAIKHOAN SelectedItemNguoiDung
+        private ThongTinNguoiDung _SelectedItemNguoiDung;
+        public ThongTinNguoiDung SelectedItemNguoiDung
         {
             get => _SelectedItemNguoiDung;
             set { _SelectedItemNguoiDung = value; OnPropertyChanged(); }
@@ -320,13 +337,12 @@ namespace MasterSalesDemo.ViewModel
 
         private void LoadData()
         {
-            ObservableCollection<TAIKHOAN> ListNguoiDung = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
             ListNhomNguoiDung = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
+            ObservableCollection<TAIKHOAN> _listTaiKhoan = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
+            ListNhanVien = new ObservableCollection<ThongTinNguoiDung>();
 
-            var nhanvien = from ng_Dung in ListNguoiDung
-                           join nhom in ListNhomNguoiDung on ng_Dung.NHANVIEN.MaChucVu equals nhom.id
-                           select new TAIKHOAN(/*ng_Dung.TenDangNhap, ng_Dung.MatKhau, ng_Dung.HoTen, nhom.TenNhom*/);
-            ListNhanVien = new ObservableCollection<TAIKHOAN>(nhanvien);
+            foreach (var tk in _listTaiKhoan)
+                ListNhanVien.Add(new ThongTinNguoiDung(tk));
 
             VisibilityOfAdd = Visibility.Hidden;
             VisibilityOfEdit = Visibility.Hidden;
@@ -347,7 +363,7 @@ namespace MasterSalesDemo.ViewModel
 
             foreach (var nhom in ListNhomNguoiDung)
                 if (nhom.TenChucVu == TenNhom)
-                    return nhom.TenChucVu;
+                    return nhom.id;
             return ma;
         }
 
@@ -367,7 +383,7 @@ namespace MasterSalesDemo.ViewModel
             string res = "";
             foreach (var item in ngDung)
                 if (item.NHANVIEN.MaChucVu == maNhom)
-                    res += item.MaNV + "\n";
+                    res += item.NHANVIEN.HoTen + "\n";
             return res;
         }
 
@@ -598,20 +614,6 @@ namespace MasterSalesDemo.ViewModel
             return "TK" + format((tmp + 1).ToString(), 5);
         }
 
-        //public int getNewID_NGUOIDUNG()
-        //{
-        //    ObservableCollection<TAIKHOAN> listNguoiDung = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
-
-        //    int max = 0;
-        //    foreach (var item in listNguoiDung)
-        //    {
-        //        int id = int.Parse(item.id);
-        //        if (id > max)
-        //            max = id;
-        //    }
-        //    return max + 1;
-        //}
-
         public QuanLyNhanSu_ViewModel()
         {
             Tat_ToolTip();
@@ -635,51 +637,31 @@ namespace MasterSalesDemo.ViewModel
             AddNguoiDungCommand = new RelayCommand<object>((p) =>
             {
                 if (VisibilityOfListPhanQuyen == Visibility.Visible)
+                {
                     foreach (var item in ListPhanQuyen)
                         if (item.EnabledCheckBox == true)
                             return false;
-                if (VisibilityOfEdit == Visibility.Visible)
-                    return false;
-
-                return true;
+                    return true;
+                }
+                return false;
             },
                 (p) =>
                 {
-                    if (VisibilityOfListPhanQuyen == Visibility.Hidden)
-                    {
-                        VisibilityOfAdd = Visibility.Visible;
-                        ResetCbxTenNhom();
-                        VisibilityOfEdit = Visibility.Hidden;
-                        VisibilityOfTenNhomQuyen = Visibility.Hidden;
-                        // reset value for textbox because these textbox still keep value if you are editing and then change to add
-                        ResetTextbox();
-                    }
-                    else
-                    {
-                        VisibilityOfAdd = Visibility.Hidden;
-                        VisibilityOfEdit = Visibility.Hidden;
-                        VisibilityOfTenNhomQuyen = Visibility.Visible;
-                        // Enable cho selectedPhanQuyen
-                        if (SelectedPhanQuyen != null)
-                        {
-                            BangPhanQuyen PQ = SelectedPhanQuyen;
-                            PQ.EnabledCheckBox = false;
-                            foreach (var pq in ListPhanQuyen)
-                                if (pq.TenNhomQuyen == PQ.TenNhomQuyen)
-                                {
-                                    ListPhanQuyen.Remove(pq);
-                                    ListPhanQuyen.Add(PQ);
-                                    SelectedPhanQuyen = PQ;
-                                    break;
-                                }
-                        }
-                    }
+                    ThemChucVu_Window win = new ThemChucVu_Window();
+                    win.ShowDialog();
+                    DialogOpen = true;
+                    ThongBao = "Thêm chức vụ thành công";
+                    LoadDataPhanQuyen();
+                    SelectedIndexCbb = 1;
                 }
             );
 
             // show elements used for editing
             EditNguoiDungCommand = new RelayCommand<object>((p) =>
             {
+                if (VisibilityOfListPhanQuyen != Visibility.Visible)
+                    return false;
+
                 if (VisibilityOfAdd == Visibility.Visible)
                     return false;
                 if (VisibilityOfTenNhomQuyen == Visibility.Visible)
@@ -691,7 +673,7 @@ namespace MasterSalesDemo.ViewModel
 
                     if (VisibilityOfListNguoiDung == Visibility.Visible && SelectedItemNguoiDung != null) // Edit Nhóm người dùng
                     {
-                        if (SelectedItemNguoiDung.NHANVIEN.MaChucVu == "Ban quản lý  ") // edit later hihi
+                        if (SelectedItemNguoiDung._TaiKhoan.NHANVIEN.MaChucVu == "Ban quản lý  ") // edit later hihi
                         {
                             System.Windows.MessageBox.Show("Không thể sửa thông tin được cho nhóm Ban quản lý");
                             return;
@@ -730,6 +712,8 @@ namespace MasterSalesDemo.ViewModel
 
             DeleteNguoiDungKCommand = new RelayCommand<object>((p) =>
             {
+                if (VisibilityOfListPhanQuyen != Visibility.Visible)
+                    return false;
                 if (VisibilityOfAdd == Visibility.Visible || VisibilityOfEdit == Visibility.Visible) return false;
                 if (VisibilityOfTenNhomQuyen == Visibility.Visible)
                     return false;
@@ -742,7 +726,7 @@ namespace MasterSalesDemo.ViewModel
                         VisibilityOfEdit = Visibility.Hidden;
                         VisibilityOfAdd = Visibility.Hidden;
                         DialogResult kq = System.Windows.Forms.MessageBox.Show("Bạn chắc xóa người dùng này không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        var nguoiDung = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == SelectedItemNguoiDung.TenDangNhap).SingleOrDefault();
+                        var nguoiDung = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == SelectedItemNguoiDung._TaiKhoan.TenDangNhap).SingleOrDefault();
                         DataProvider.Ins.DB.TAIKHOANs.Remove(nguoiDung);
                         DataProvider.Ins.DB.SaveChanges();
                         if (kq == DialogResult.Yes)
@@ -750,7 +734,7 @@ namespace MasterSalesDemo.ViewModel
                             int length = ListNhanVien.Count();
                             for (int i = 0; i < length; i++)
                             {
-                                if (ListNhanVien[i].TenDangNhap == SelectedItemNguoiDung.TenDangNhap)
+                                if (ListNhanVien[i]._TaiKhoan.TenDangNhap == SelectedItemNguoiDung._TaiKhoan.TenDangNhap)
                                 {
                                     ListNhanVien.RemoveAt(i);
                                     break;
@@ -781,7 +765,7 @@ namespace MasterSalesDemo.ViewModel
 
                             }
                             else
-                                System.Windows.Forms.MessageBox.Show("Không thể xóa. Hãy xóa danh sách người dùng này để thực hiện: " + error);
+                                System.Windows.Forms.MessageBox.Show("Không thể xóa. Hãy xóa danh sách người dùng này để thực hiện: \n" + error);
                         }
                     }
                 }
@@ -837,7 +821,7 @@ namespace MasterSalesDemo.ViewModel
                         if (check_SuaNhanVien())
                         {
                             var temp = SelectedItemNguoiDung;
-                            var nguoiDung = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == SelectedItemNguoiDung.TenDangNhap).SingleOrDefault();
+                            var nguoiDung = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == SelectedItemNguoiDung._TaiKhoan.TenDangNhap).SingleOrDefault();
                             nguoiDung.MatKhau = MatKhau;
                             nguoiDung.NHANVIEN.MaChucVu = search_MaNhom(SelectedTenNhom);
                             //nguoiDung.HoTen = HoTen;
@@ -852,10 +836,10 @@ namespace MasterSalesDemo.ViewModel
                             int length = ListNhanVien.Count();
                             for (int i = 0; i < length; i++)
                             {
-                                if (ListNhanVien[i].TenDangNhap == SelectedItemNguoiDung.TenDangNhap)
+                                if (ListNhanVien[i]._TaiKhoan.TenDangNhap == SelectedItemNguoiDung._TaiKhoan.TenDangNhap)
                                 {
                                     ListNhanVien.RemoveAt(i);
-                                    ListNhanVien.Insert(i, nv);
+                                    ListNhanVien.Insert(i, new ThongTinNguoiDung(nv));
                                     break;
                                 }
                             }
@@ -889,15 +873,17 @@ namespace MasterSalesDemo.ViewModel
                         string maNhom = search_MaNhom(SelectedPhanQuyen.TenNhomQuyen);
 
                         Delete_PhanQuyen(maNhom);
-                        if (SelectedPhanQuyen.chkQLNS) Add_PhanQuyen(maNhom, "CN001");
-                        if (SelectedPhanQuyen.chkNhapHang) Add_PhanQuyen(maNhom, "CN002");
-                        if (SelectedPhanQuyen.chkKiemDuyetNhapHang) Add_PhanQuyen(maNhom, "CN003");
-                        if (SelectedPhanQuyen.chkBanHang) Add_PhanQuyen(maNhom, "CN004");
-                        if (SelectedPhanQuyen.chkKiemDuyetXuatHang) Add_PhanQuyen(maNhom, "CN005");
-                        if (SelectedPhanQuyen.chkTraCuu) Add_PhanQuyen(maNhom, "CN006");
-                        if (SelectedPhanQuyen.chkBCDS) Add_PhanQuyen(maNhom, "CN007");
-                        if (SelectedPhanQuyen.chkBCTK) Add_PhanQuyen(maNhom, "CN008");
-                        //System.Windows.Forms.MessageBox.Show("Chỉnh sửa quyền thành công cho nhóm " + SelectedPhanQuyen.TenNhomQuyen);
+
+                        if (SelectedPhanQuyen.chkTuyenDung) Add_PhanQuyen(maNhom, "CN001");
+                        if (SelectedPhanQuyen.chkLuongThuong) Add_PhanQuyen(maNhom, "CN002");
+                        if (SelectedPhanQuyen.chkLichSu) Add_PhanQuyen(maNhom, "CN003");
+                        if (SelectedPhanQuyen.chkDaoTao) Add_PhanQuyen(maNhom, "CN004");
+                        if (SelectedPhanQuyen.chkTraCuu) Add_PhanQuyen(maNhom, "CN005");
+                        if (SelectedPhanQuyen.chkBanHang) Add_PhanQuyen(maNhom, "CN006");
+                        if (SelectedPhanQuyen.chkKhachHang) Add_PhanQuyen(maNhom, "CN007");
+                        if (SelectedPhanQuyen.chkBaoCao) Add_PhanQuyen(maNhom, "CN008");
+                        if (SelectedPhanQuyen.chkPhanQuyen) Add_PhanQuyen(maNhom, "CN009");
+                        if (SelectedPhanQuyen.chkThayDoiQD) Add_PhanQuyen(maNhom, "CN010");
                         DialogOpen = true;
                         ThongBao = "Chỉnh sửa quyền thành công cho nhóm " + SelectedPhanQuyen.TenNhomQuyen;
                         BangPhanQuyen PQ = SelectedPhanQuyen;

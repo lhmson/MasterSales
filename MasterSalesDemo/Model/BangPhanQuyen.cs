@@ -11,20 +11,24 @@ namespace MasterSalesDemo.Model
     public class BangPhanQuyen
     {
         public string TenNhomQuyen { get; set; }
-        public bool chkNhapHang { get; set; }
-        public bool chkKiemDuyetNhapHang { get; set; }
-        public bool chkBanHang { get; set; }
-        public bool chkKiemDuyetXuatHang { get; set; }
+        public bool chkTuyenDung { get; set; }
+        public bool chkLuongThuong { get; set; }
+        public bool chkLichSu { get; set; }
+        public bool chkDaoTao { get; set; }
         public bool chkTraCuu { get; set; }
-        public bool chkBCDS { get; set; }
-        public bool chkBCTK { get; set; }
-        public bool chkQLNS { get; set; }
+        public bool chkNhanVien { get; set; }
+        public bool chkBanHang { get; set; }
+        public bool chkBaoCao { get; set; }
+        public bool chkKhachHang { get; set; }
+        public bool chkPhanQuyen { get; set; }
+        public bool chkThayDoiQD { get; set; }
         public bool EnabledCheckBox { get; set; }
 
         public BangPhanQuyen(string Ten, bool Enabled)
         {
 
-            chkNhapHang = chkKiemDuyetNhapHang = chkBanHang = chkTraCuu = chkBCDS = chkBCTK = chkKiemDuyetXuatHang = chkQLNS = false;
+            chkTuyenDung = chkLuongThuong = chkLichSu = chkDaoTao = chkTraCuu = chkNhanVien 
+                = chkBanHang = chkBaoCao = chkKhachHang = chkPhanQuyen = chkThayDoiQD = false;
             EnabledCheckBox = Enabled;
 
             ObservableCollection<PHANQUYEN> phanQuyen = new ObservableCollection<PHANQUYEN>(DataProvider.Ins.DB.PHANQUYENs);
@@ -40,28 +44,34 @@ namespace MasterSalesDemo.Model
                             switch (PQ.MaChucNang)
                             {
                                 case "CN001":
-                                    chkQLNS = true;
+                                    chkTuyenDung = true;
                                     break;
                                 case "CN002":
-                                    chkNhapHang = true;
+                                    chkLuongThuong = true;
                                     break;
                                 case "CN003":
-                                    chkKiemDuyetNhapHang = true;
+                                    chkLichSu = true;
                                     break;
                                 case "CN004":
-                                    chkBanHang = true;
+                                    chkDaoTao = true;
                                     break;
                                 case "CN005":
-                                    chkKiemDuyetXuatHang = true;
-                                    break;
-                                case "CN006":
                                     chkTraCuu = true;
                                     break;
+                                case "CN006":
+                                    chkBanHang = true;
+                                    break;
                                 case "CN007":
-                                    chkBCDS = true;
+                                    chkKhachHang = true;
                                     break;
                                 case "CN008":
-                                    chkBCTK = true;
+                                    chkBaoCao = true;
+                                    break;
+                                case "CN009":
+                                    chkPhanQuyen = true;
+                                    break;
+                                case "CN010":
+                                    chkThayDoiQD = true;
                                     break;
                             }
                         }

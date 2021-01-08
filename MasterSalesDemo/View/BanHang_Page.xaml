@@ -29,7 +29,7 @@
             <materialDesign:DialogHost.DialogContent>
                 <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
                     <StackPanel Orientation="Vertical" Margin="15">
-                        <materialDesign:PackIcon Kind="CheckCircleOutline" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="{Binding IconModal}" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
                         <TextBlock FontSize="20" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
@@ -122,8 +122,8 @@
                 </Grid>
 
                 <Grid Margin="8" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1">
-                    <Button Width="56" Content="{materialDesign:PackIcon ClipboardArrowDown}" ToolTip="Lấy thông tin tự động"
-                                        Command="{Binding CheckSDTCommand}" Margin="-150,19,0,0"/>
+                    <Button Width="56" Content="{materialDesign:PackIcon PhoneClassic}" ToolTip="Lấy thông tin tự động"
+                                        Command="{Binding CheckSDTCommand}" Margin="-170,19,0,0"/>
                 </Grid>
                 
                 <Grid Margin="32,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4">
@@ -143,7 +143,7 @@
 							 IsReadOnly="True"/>
                 </Grid>
 
-                <Grid Margin="32,0,40,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid Margin="32,0,70,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
                     <TextBox FontSize="20" materialDesign:HintAssist.Hint="SĐT"
 							 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
 							 Text="{Binding SDT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -206,7 +206,7 @@
                     <Button Command="{Binding BoRaGioHangCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Bỏ ra giỏ hàng" Height="60" FontSize="20" BorderBrush="#FFD32F2F" Background="#FFD32F2F"/>
                 </Grid>
                 <Grid Margin="8" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="{materialDesign:PackIcon ArrowLeftBold, Size=64}" Foreground="#FF00967C" />
+                    
                 </Grid>
 
                 <Grid Margin="40,10,30,25" Grid.Row="2" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="3">

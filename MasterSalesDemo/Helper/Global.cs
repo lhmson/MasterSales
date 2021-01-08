@@ -192,6 +192,34 @@ namespace MasterSalesDemo.Helper
             flag++;
             return autoGenerateCode("CTBLTL", flag, 16);
         }
+        public string autoGeneratePhongBan()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<PHONGBAN> _listPB = new ObservableCollection<PHONGBAN>(DataProvider.Ins.DB.PHONGBANs);
+            foreach (var item in _listPB)
+            {
+                int number = filterNumber(item.id);
+                if (number > flag)
+                    flag = number;
+            }
+            flag++;
+            return autoGenerateCode("PB", flag, 5);
+        }
+        public string autoGenerateChucVu()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<CHUCVU> _listCV = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
+            foreach (var item in _listCV)
+            {
+                int number = filterNumber(item.id);
+                if (number > flag)
+                    flag = number;
+            }
+            flag++;
+            return autoGenerateCode("CV", flag, 5);
+        }
         public ObservableCollection<NHANVIEN> getAllNhanVienbyMaPhongBan(string MaPB)
         {
             ObservableCollection<NHANVIEN> _listNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
