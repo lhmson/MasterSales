@@ -72,6 +72,7 @@ namespace MasterSalesDemo.ViewModel
         public ICommand OpenKyNangCommand { get; set; }
         public ICommand OpenTrinhDoCommand { get; set; }
         public ICommand ThemTrinhDoCommand { get; set; }
+        public ICommand SuaTrinhDoCommand { get; set; }
         public ICommand ThemKyNangCommand { get; set; }
         public ICommand SuaKyNangCommand { get; set; }
         public ICommand XoaKyNangCommand { get; set; }
@@ -652,7 +653,7 @@ namespace MasterSalesDemo.ViewModel
 
             SuaKyNangCommand = new RelayCommand<object>((p) =>
             {
-                if (TenKyNang == null )
+                if (SelectedItemKyNang == null )
                     return false;
                 return true;
 
@@ -662,6 +663,26 @@ namespace MasterSalesDemo.ViewModel
                 kynang.TenKyNang = TenKyNang;
                 DataProvider.Ins.DB.SaveChanges();
                 InitKyNang();
+                MessageBox.Show("Bạn lưu thành công");
+                var exit = p as Window;
+                exit.Close();
+            });
+            #endregion
+
+            #region sửa trình độ
+
+            SuaTrinhDoCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItemTrinhDo == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                var trinhdo = DataProvider.Ins.DB.TRINHDOes.Where(x => x.id == SelectedItemTrinhDo.id).SingleOrDefault();
+                trinhdo.TenTrinhDo = TenTrinhDo;
+                DataProvider.Ins.DB.SaveChanges();
+                InitTrinhDo();
                 MessageBox.Show("Bạn lưu thành công");
                 var exit = p as Window;
                 exit.Close();

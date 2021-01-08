@@ -34,20 +34,26 @@ namespace MasterSalesDemo.ViewModel
             {
                 if (UserName == null || Password == null)
                     MessageBox.Show("Mời nhập tài khoản!");
-
-                ObservableCollection<TAIKHOAN> Account = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
-                foreach (var item in Account)
+                try
                 {
-                    if (item.TenDangNhap == UserName && item.MatKhau == Password)
+                    ObservableCollection<TAIKHOAN> Account = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
+                    foreach (var item in Account)
                     {
-                        TaiKhoanSuDung = item;
-                        Global.Ins.setNhanVien(item.NHANVIEN);
-                        p.Close();
-                        return;
-                    }
+                        if (item.TenDangNhap == UserName && item.MatKhau == Password)
+                        {
+                            TaiKhoanSuDung = item;
+                            Global.Ins.setNhanVien(item.NHANVIEN);
+                            p.Close();
+                            return;
+                        }
 
+                    }
+                    MessageBox.Show("Tài khoản không hợp lệ!");
                 }
-                MessageBox.Show("Tài khoản không hợp lệ!");
+                catch (Exception e)
+                {
+                    MessageBox.Show("Chưa thể kết nối với dữ liệu");
+                }
             });
 
             CloseWindowCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => {

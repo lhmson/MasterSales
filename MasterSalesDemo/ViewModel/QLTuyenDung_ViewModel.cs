@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using MasterSalesDemo.Helper;
+using System.Text.RegularExpressions;
 
 namespace MasterSalesDemo.ViewModel
 {
@@ -675,7 +676,6 @@ namespace MasterSalesDemo.ViewModel
                     Luong = Luong,
                     isDeleted = false,
                 };
-
                 DataProvider.Ins.DB.LOAIHOPDONGs.Add(loaihopdong);
                 DataProvider.Ins.DB.SaveChanges();
                 LoaiHopDong.Add(loaihopdong);

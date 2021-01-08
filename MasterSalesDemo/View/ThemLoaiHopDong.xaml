@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MasterSalesDemo.View"
         mc:Ignorable="d"
         Title="ThemLoaiHopDong" Height="500" Width="1000"
-        
+         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+     
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -16,7 +17,11 @@
         Background="{DynamicResource MaterialDesignPaper}" 
         DataContext="{StaticResource QLTuyenDungVM}"
       FontFamily="{DynamicResource MaterialDesignFont}" WindowStyle="None" WindowStartupLocation="CenterScreen">
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding LostFocusPageCommand}" CommandParameter="{Binding ElementName=LuongThuong}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -93,8 +98,9 @@
         </Grid>
 
         <Grid Margin="8,8,0,0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" >
-            <TextBox  Text="{Binding Luong, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                     materialDesign:HintAssist.Hint="Lương cơ bản" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="16,0"/>
+            <TextBox HorizontalAlignment="Stretch"  materialDesign:HintAssist.Hint="Lương cơ bản" Margin="16,0"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Luong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
         </Grid>
 
         <Grid Margin="8,8,8,8" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="6" Grid.RowSpan="6">
