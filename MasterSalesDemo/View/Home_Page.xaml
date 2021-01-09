@@ -148,8 +148,9 @@
                                 <StackPanel Margin="32" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                                     <TextBox  Margin="0,0,0,16"
           materialDesign:HintAssist.Hint="Tài khoản"
-          materialDesign:HintAssist.IsFloating="True">
-                                        admin
+          materialDesign:HintAssist.IsFloating="True"
+                                              Text="{Binding taikhoan.TenDangNhap}">
+                                        
                                     </TextBox>
                                     <PasswordBox Margin="0,0,0,16" x:Name="FloatingPasswordBox1" materialDesign:HintAssist.Hint="Mật khẩu cũ"
                                          Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
