@@ -72,6 +72,13 @@ namespace MasterSalesDemo.ViewModel
         private ObservableCollection<NHANVIEN> _NhanVien;
         public ObservableCollection<NHANVIEN> NhanVien { get => _NhanVien; set { _NhanVien = value; OnPropertyChanged(); } }
 
+        private bool _SelectedIteamNV_NotNull = false;
+        public bool SelectedIteamNV_NotNull
+        {
+            get => _SelectedIteamNV_NotNull;
+            set { _SelectedIteamNV_NotNull = value; OnPropertyChanged(); }
+        }
+
         private string _HoTen;
         public string HoTen { get => _HoTen; set { _HoTen = value; OnPropertyChanged(); } }
 
@@ -111,6 +118,7 @@ namespace MasterSalesDemo.ViewModel
             {
                 _SelectedItemNhanVien = value;
                 OnPropertyChanged();
+
                 if (SelectedItemNhanVien != null)
                 {
                     MaNhanVien = SelectedItemNhanVien.id;
@@ -130,7 +138,9 @@ namespace MasterSalesDemo.ViewModel
         public ThongTinCaNhan SelectedNhanVien
         {
             get { return _SelectedNhanVien; }
-            set { _SelectedNhanVien = value; OnPropertyChanged();
+            set { _SelectedNhanVien = value; 
+                OnPropertyChanged();
+                SelectedIteamNV_NotNull = _SelectedNhanVien != null;
                 if (SelectedNhanVien != null)
                 {
                     HoTen = SelectedNhanVien.HoTen;
