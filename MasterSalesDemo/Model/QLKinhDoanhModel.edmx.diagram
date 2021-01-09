@@ -71,6 +71,7 @@
         <AssociationConnector Association="QLKinhDoanhModel.FK__NHANVIEN__MaTrin__2E1BDC42" />
         <AssociationConnector Association="QLKinhDoanhModel.FK__PHONGBAN__MaTrgP__300424B4" />
         <AssociationConnector Association="QLKinhDoanhModel.FK__TAIKHOAN__MaNV__06CD04F7" />
+        <AssociationConnector Association="QLKinhDoanhModel.FK__TuVanKH__NguoiTr__01142BA1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -29,6 +29,7 @@ namespace MasterSalesDemo.Model
             this.LICHSUCHUCVUs = new HashSet<LICHSUCHUCVU>();
             this.PHONGBANs = new HashSet<PHONGBAN>();
             this.TAIKHOANs = new HashSet<TAIKHOAN>();
+            this.TuVanKHs = new HashSet<TuVanKH>();
         }
     
         public string id { get; set; }
@@ -67,5 +68,7 @@ namespace MasterSalesDemo.Model
         public virtual ICollection<PHONGBAN> PHONGBANs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAIKHOAN> TAIKHOANs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TuVanKH> TuVanKHs { get; set; }
     }
 }

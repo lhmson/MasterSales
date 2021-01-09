@@ -19,7 +19,11 @@ namespace MasterSalesDemo.Model
         public string CauHoi { get; set; }
         public string TraLoi { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+        public Nullable<System.DateTime> NgayDat { get; set; }
+        public Nullable<System.DateTime> NgayTraLoi { get; set; }
+        public string NguoiTraLoi { get; set; }
     
         public virtual KHACHHANG KHACHHANG { get; set; }
+        public virtual NHANVIEN NHANVIEN { get; set; }
     }
 }
