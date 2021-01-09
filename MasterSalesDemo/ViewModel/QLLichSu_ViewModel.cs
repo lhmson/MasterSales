@@ -260,6 +260,15 @@ namespace MasterSalesDemo.ViewModel
             windowChuyenChucVu.ShowDialog();
         }
 
+        public void ReloadListView()
+        {
+            string selectname = SelectedNhanVien.MaNV;
+            SearchNhanVien();
+
+            foreach (var item in ListThongTinNhanVien)
+                if (item.MaNV == selectname)
+                    SelectedNhanVien = item;
+        }
 
         public void GiaHanHD()
         {
@@ -294,7 +303,9 @@ namespace MasterSalesDemo.ViewModel
                 if (ContentCommand == "Chuyển chức vụ")
                 {
                     ChuyenChucVu();
+                    ReloadListView();
                     BindingSelectionNhanVien();
+                    
                     if (Global.Ins.isValid)
                     {
                         DialogOpen = true;

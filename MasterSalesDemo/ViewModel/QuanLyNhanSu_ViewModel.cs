@@ -325,16 +325,6 @@ namespace MasterSalesDemo.ViewModel
             return "CV" + format((tmp + 1).ToString(),3);
         }
 
-        //public int CreateCodeNhomNguoiDung()
-        //{
-        //    ObservableCollection<CHUCVU> listNhom = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
-        //    int max = 0;
-        //    foreach (var item in listNhom)
-        //        if (max < item.id)
-        //            max = item.manhom;
-        //    return max + 1;
-        //}
-
         private void LoadData()
         {
             ListNhomNguoiDung = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
@@ -404,48 +394,6 @@ namespace MasterSalesDemo.ViewModel
             VisibilityOfEdit = vsEdit;
         }
 
-        private bool CheckValidData()
-        {
-            if (VisibilityOfAdd == Visibility.Visible)
-            {
-                if (string.IsNullOrEmpty(TenDangNhap))
-                {
-                    return false;
-                }
-                if (string.IsNullOrEmpty(MatKhau))
-                {
-                    return false;
-                }
-                if (string.IsNullOrEmpty(HoTen))
-                {
-                    return false;
-                }
-                if (string.IsNullOrEmpty(SelectedTenNhom))
-                {
-                    return false;
-                }
-                var tenDangNhap = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == TenDangNhap);
-                if (tenDangNhap == null || tenDangNhap.Count() != 0)
-                    return false;
-                return true;
-            }
-            else if (VisibilityOfEdit == Visibility.Visible)
-            {
-                if (string.IsNullOrEmpty(MatKhau))
-                {
-                    return false;
-                }
-                if (string.IsNullOrEmpty(HoTen))
-                {
-                    return false;
-                }
-                if (string.IsNullOrEmpty(SelectedTenNhom))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
         private void ResetTextbox()
         {
             TenDangNhap = "";

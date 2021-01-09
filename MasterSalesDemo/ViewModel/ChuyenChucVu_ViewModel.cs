@@ -65,7 +65,6 @@ namespace MasterSalesDemo.ViewModel
             set { _ChucVu = value; OnPropertyChanged(); }
         }
         #endregion
-
         #region Icommand
         public ICommand CloseWindowCommand { get; set; }
         public ICommand XacNhanCommand { get; set; }
@@ -108,6 +107,7 @@ namespace MasterSalesDemo.ViewModel
                 return false;
             }
 
+            
             return true;
         }
         public void XacNhanChuyen(NHANVIEN nhanvien)

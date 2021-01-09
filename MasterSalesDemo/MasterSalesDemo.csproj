@@ -662,6 +662,7 @@
     <Resource Include="Images\Female.jpg" />
     <Resource Include="Images\ThemChucVu.jpg" />
     <Resource Include="Images\Male.png" />
+    <Resource Include="Images\Male.jpg" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>
