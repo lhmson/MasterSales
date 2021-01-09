@@ -604,8 +604,16 @@ namespace MasterSalesDemo.ViewModel
                                     // căn giữa
                                     ws.Cells[2, 1, 2, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
+                                    if (daDuyet)
+                                        ws.Cells[3, 1].Value = "(Đã được duyệt)";
+                                    else
+                                        ws.Cells[3, 1].Value = "(Bản chưa duyệt)";
+                                    ws.Cells[3, 1, 3, countColHeader].Merge = true;
+                                    // căn giữa
+                                    ws.Cells[3, 1, 3, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
                                     int colIndex = 1;
-                                    int rowIndex = 3;
+                                    int rowIndex = 5;
 
                                     ws.Column(1).Width = 10;
                                     ws.Column(2).Width = 20;
@@ -644,7 +652,9 @@ namespace MasterSalesDemo.ViewModel
                                     //lấy ra danh sách Reader
                                     //BangLuongThuong = new ObservableCollection<DongLuongThuong>();
                                     if (BangLuongThuong.Count() == 0)
-                                        MessageBox.Show("thy het cute");
+                                    {
+                                        MessageBox.Show("Danh sách trống, vui lòng thử lại!");
+                                    }
                                     //với mỗi item trong danh sách sẽ ghi trên 1 dòng
                                     foreach (var item in BangLuongThuong)
                                     {
@@ -701,7 +711,6 @@ namespace MasterSalesDemo.ViewModel
             }, (p) =>
             {
                 //BangLuongThuong = new ObservableCollection<DongLuongThuong>();
-                int a = BangLuongThuong.Count() +1;
 
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
@@ -709,7 +718,6 @@ namespace MasterSalesDemo.ViewModel
                 openFileDialog.Title = "Open file excel to import books";
                 if (openFileDialog.ShowDialog() == true)
                 {
-
                     Excel.Application xlApp = new Excel.Application();
                     Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(openFileDialog.FileName);
                     Excel._Worksheet xlWorkSheet = xlWorkBook.Sheets[1];
@@ -717,47 +725,51 @@ namespace MasterSalesDemo.ViewModel
                     int rowCount = xlRange.Rows.Count;
                     int colCount = xlRange.Columns.Count;
 
-                    for (int i = 4; i <= rowCount; i++)
+                    //check
+                    for (int i = 6; i <= rowCount; i++)
+                    {
+                        string MaNV = xlRange.Cells[i, 2].Value.ToString();
+                        bool valid = false;
+                        foreach ( var temp in BangLuongThuong)
+                        {
+                            if (temp.MaNV == MaNV)
+                                valid = true;
+                        }
+                        if (!valid)
+                        {
+                            MessageBox.Show("Thông tin không tương ứng, vui lòng kiểm tra lại danh sách nhân viên của phòng ban được chọn!");
+                            return;
+                        }
+                    }
+
+                    //do it for real
+                    int thang = Helper.Global.Ins.filterNumber(SelectedThang);
+                    int nam = Helper.Global.Ins.filterNumber(SelectedNam);
+                    for (int i = 6; i <= rowCount; i++)
                     {
                         string STT = xlRange.Cells[i, 1].Value.ToString();
                         string MaNV = xlRange.Cells[i, 2].Value.ToString();
                         string TenNV = xlRange.Cells[i, 3].Value.ToString();
-                        string LuongCB = xlRange.Cells[i, 4].Value.ToString();
-                        string LuongPC = xlRange.Cells[i, 5].Value.ToString();
-                        string Thuong = xlRange.Cells[i, 6].Value.ToString();
-                        string LuongNG = xlRange.Cells[i, 7].Value.ToString();
-                        string LuongTL = xlRange.Cells[i, 8].Value.ToString();
-                        bool flag = true;
-                        foreach ( var temp in BangLuongThuong)
-                        {
-                            if (temp.MaNV == MaNV)
-                            {
-                                flag = false;
-                                break;
-                            }
-                        }
-                        if (flag == true)
-                        {
-                            var dongLuongThuong = new DongLuongThuong()
-                            {
-                                STT = a,
-                                MaNV = MaNV,
-                                TenNV = TenNV,
-                                LuongCB = int.Parse(LuongCB),
-                                LuongPC = int.Parse(LuongPC),
-                                Thuong = int.Parse(Thuong),
-                                LuongNG = int.Parse(LuongNG),
-                                LuongTL = int.Parse(LuongTL),
-                            };
-                            // add thêm cái chi tiết bảng thưởng,.. bảng gì gì đó ở đây nha. tại vì m load cái BangLuongThuong từ những cái bảng khác :v 
-                            //nên lúc add từ file excel vào thì t mới add trong List<bảnglươngthuong> thôi chứ chưa add dữ liệu vào các bảng cần thiết của database
-                            BangLuongThuong.Add(dongLuongThuong);
-                            a++;
-                        }
-                        
+                        string temp = xlRange.Cells[i, 4].Value.ToString();
+                        Decimal LuongCB = Decimal.Parse(temp);
+                        temp = xlRange.Cells[i, 5].Value.ToString();
+                        Decimal LuongPC = Decimal.Parse(temp);
+                        temp = xlRange.Cells[i, 6].Value.ToString();
+                        Decimal Thuong = Decimal.Parse(temp);
+                        temp = xlRange.Cells[i, 7].Value.ToString();
+                        Decimal LuongNG = Decimal.Parse(temp);
+                        temp = xlRange.Cells[i, 8].Value.ToString();
+                        Decimal LuongTL = Decimal.Parse(temp);
+                        DataProvider.Ins.DB.HOPDONGs.Where(x => x.MaNV == MaNV).First().LOAIHOPDONG.Luong = LuongCB;
+                        DataProvider.Ins.DB.NHANVIENs.Where(x => x.id == MaNV).First().CHUCVU.PhuCap = LuongPC;
+                        DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).First().CT_BANGTHUONG.Where(x => x.MaNV == MaNV).First().TienThuong = Thuong;
+                        DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && SelectedPhongBan == x.MaPhong).First().CT_BANGLAMTHEM.Where(x => x.MaNV == MaNV).First().TienLamThem = LuongNG;
+                        DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLUONGTL.Where(x => x.MaNV == MaNV).First().TongLuong = LuongTL;
+                        DataProvider.Ins.DB.SaveChanges();
                     }
 
                     //this.SetSelectedItemToFirstItemOfPage(false);
+                    loadTable();
                     MessageBox.Show("Import thành công!");
 
                 }
