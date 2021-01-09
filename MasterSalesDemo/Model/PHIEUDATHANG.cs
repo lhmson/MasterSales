@@ -27,6 +27,7 @@ namespace MasterSalesDemo.Model
         public Nullable<decimal> ThanhTien { get; set; }
         public Nullable<int> TrangThai { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+        public string DiaChiNhan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_PHIEUDATHANG> CT_PHIEUDATHANG { get; set; }
