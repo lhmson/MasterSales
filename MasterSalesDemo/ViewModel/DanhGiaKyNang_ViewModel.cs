@@ -163,6 +163,9 @@ namespace MasterSalesDemo.ViewModel
                     DataProvider.Ins.DB.SaveChanges();
 
                     MessageBox.Show("Thêm thành công");
+                    var exit = p as Window;
+                    exit.Close();
+
                 } 
             });
 

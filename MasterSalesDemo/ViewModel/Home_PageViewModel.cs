@@ -56,6 +56,26 @@ namespace MasterSalesDemo.ViewModel
             get { return _IconModal; }
             set { _IconModal = value; OnPropertyChanged(); }
         }
+
+        private Decimal _DoanhThu;
+        public Decimal DoanhThu { get => _DoanhThu; set { _DoanhThu = value; OnPropertyChanged(); } }
+        public class DiemBieuDoTongQuan
+        {
+            public String Date { get; set; }
+            public Decimal Thu { get; set; }
+        }
+        private ObservableCollection<DiemBieuDoTongQuan> _ChartData;
+        public ObservableCollection<DiemBieuDoTongQuan> ChartData
+        {
+            get => _ChartData;
+            set { _ChartData = value; OnPropertyChanged(); }
+        }
+        private int _SoHoaDon;
+        public int SoHoaDon
+        {
+            get { return _SoHoaDon; }
+            set { _SoHoaDon = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region Icommands
@@ -150,8 +170,39 @@ namespace MasterSalesDemo.ViewModel
         }
         #endregion
 
+        void loadChart()
+        {
+            ChartData = new ObservableCollection<DiemBieuDoTongQuan>();
+            Decimal doanhthucaky = 0;
+            int slhoadon = 0;
+            for (int i=6;i>=0;i--)
+            {
+                DateTime theDay = DateTime.Now.AddDays(-i);
+                DiemBieuDoTongQuan diembieudo = new DiemBieuDoTongQuan();
+                Decimal doanhthu = 0;
+                ObservableCollection<CT_HOADON> cthoadons = new ObservableCollection<CT_HOADON>();
+                foreach (var hoadon in DataProvider.Ins.DB.HOADONs.Where(x => x.NgayLap.Value.Day == theDay.Day && x.NgayLap.Value.Month == theDay.Month && x.NgayLap.Value.Year == theDay.Year))
+                {
+                    if (theDay.Date == DateTime.Now.Date)
+                        slhoadon++;
+                    foreach (var cthoadon in hoadon.CT_HOADON)
+                    {
+                        doanhthu += cthoadon.TongTien ?? 0;
+                        doanhthucaky += cthoadon.TongTien ?? 0;
+                    }
+                }
+                diembieudo.Date = theDay.Month.ToString() + "/" + theDay.Day.ToString();
+                if (theDay.Date == DateTime.Now.Date)
+                    diembieudo.Date = "Hôm nay";
+                diembieudo.Thu = Math.Round(doanhthu,0);
+                ChartData.Add(diembieudo);
+            }
+            SoHoaDon = slhoadon;
+            DoanhThu = doanhthucaky;
+        }
         public Home_PageViewModel()
         {
+            loadChart();
             initTaiKhoan();
 
             MatKhauCuCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>

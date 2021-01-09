@@ -21,6 +21,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
 
         </Grid.ColumnDefinitions>
 
@@ -41,7 +44,7 @@
             </materialDesign:Card>
         </Grid>
 
-        <Grid Margin="8" Grid.Column="13" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Margin="8" Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button  HorizontalAlignment="Center" Padding="0"  VerticalAlignment="Center"
                             Command="{Binding CloseWindowCommand}" IsEnabled="True" Content="{materialDesign:PackIcon Kind=Close, Size=32}" Style="{StaticResource MaterialDesignFlatAccentButton}"
                              CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Foreground="White" Margin="0,0,0,4"     >
@@ -78,8 +81,10 @@
 
         </Grid>
 
-        <Grid Margin="8,8,8,0" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="1">
-            <Button  Command="{Binding ThemKyNangNhanVienCommand}" Content="Thêm" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
+        <Grid Margin="8,8,8,0" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2">
+            <Button  Command="{Binding ThemKyNangNhanVienCommand}"
+                       CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                     Content="Thêm" FontSize="16" Height="40" Margin="0,0,0,0"></Button>
         </Grid>
 
     </Grid>

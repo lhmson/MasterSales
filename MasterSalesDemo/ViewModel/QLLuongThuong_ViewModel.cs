@@ -23,6 +23,8 @@ using System.Data.Entity.Migrations;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Runtime.Remoting;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace MasterSalesDemo.ViewModel
 {
@@ -524,8 +526,253 @@ namespace MasterSalesDemo.ViewModel
                 }
                 DialogOpen = false;
             });
-            xuatExcel = new RelayCommand<Window>((p) => { return true; }, (p) =>
+
+            xuatExcel = new AppCommand<object>(
+            param => true,
+                    param =>
+                    {
+                        int thang = Helper.Global.Ins.filterNumber(SelectedThang);
+                        string tenphonban= Helper.Global.Ins.NhanVien.CHUCVU.PHONGBAN.TenPhong;
+
+                        string FileName = "Bảng Lương Tháng " + thang.ToString() + " Phòng " + tenphonban;
+
+                        try
+                        {
+                            string filePath = "";    //try
+                            // tạo SaveFileDialog để lưu file excel
+                            SaveFileDialog dialog = new SaveFileDialog();
+
+                            // chỉ lọc ra các file có định dạng Excel
+                            dialog.Filter = "Excel | *.xlsx | Excel 2003 | *.xls";
+
+                            // Nếu mở file và chọn nơi lưu file thành công sẽ lưu đường dẫn lại dùng
+                            if (dialog.ShowDialog() == true)
+                            {
+                                filePath = dialog.FileName;
+
+                                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                                using (ExcelPackage p = new ExcelPackage())
+                                {
+                                    // đặt tên người tạo file
+                                    p.Workbook.Properties.Author = "Hậu";
+
+                                    // đặt tiêu đề cho file
+                                    p.Workbook.Properties.Title = "Bảng lương";
+
+                                    //Tạo một sheet để làm việc trên đó
+                                    p.Workbook.Worksheets.Add("Bảng lương");
+
+
+                                    // lấy sheet vừa add ra để thao tác
+                                    ExcelWorksheet ws = p.Workbook.Worksheets["Bảng lương"];
+
+                                    // đặt tên cho sheet
+                                    ws.Name = "Bảng lương";
+                                    // fontsize mặc định cho cả sheet
+                                    ws.Cells.Style.Font.Size = 11;
+                                    // font family mặc định cho cả sheet
+                                    ws.Cells.Style.Font.Name = "Calibri";
+
+                                    // Tạo danh sách các column header
+                                    string[] arrColumnHeader = {
+                                                        "STT",
+                                                        "Mã nhân viên",
+                                                        "Tên nhân viên",
+                                                        "Lương cơ bản",
+                                                        "Lương phụ cấp",
+                                                        "Thưởng",
+                                                        "Lương ngoài giờ",
+                                                        "Lương thực lãnh",
+                                };
+
+                                    // lấy ra số lượng cột cần dùng dựa vào số lượng header
+                                    var countColHeader = arrColumnHeader.Count();
+
+                                    ws.Cells[1, 1].Value = FileName;
+                                    ws.Cells[1, 1, 1, countColHeader].Merge = true;
+                                    // in đậm
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
+                                    // căn giữa
+                                    ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+
+                                    //Ngày in danh sách
+                                    ws.Cells[2, 1].Value = "Ngày in danh sách: " + DateTime.Today.ToShortDateString();
+                                    ws.Cells[2, 1, 2, countColHeader].Merge = true;
+                                    // in đậm
+                                    ws.Cells[2, 1, 2, countColHeader].Style.Font.Bold = true;
+                                    // căn giữa
+                                    ws.Cells[2, 1, 2, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                    if (daDuyet)
+                                        ws.Cells[3, 1].Value = "(Đã được duyệt)";
+                                    else
+                                        ws.Cells[3, 1].Value = "(Bản chưa duyệt)";
+                                    ws.Cells[3, 1, 3, countColHeader].Merge = true;
+                                    // căn giữa
+                                    ws.Cells[3, 1, 3, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                    int colIndex = 1;
+                                    int rowIndex = 5;
+
+                                    ws.Column(1).Width = 10;
+                                    ws.Column(2).Width = 20;
+                                    ws.Column(3).Width = 20;
+                                    ws.Column(4).Width = 20;
+                                    ws.Column(5).Width = 20;
+                                    ws.Column(6).Width = 20;
+                                    ws.Column(7).Width = 20;
+                                    ws.Column(8).Width = 20;
+                                    //ws.Column(9).Width = 20;
+                                    //tạo các header từ column header đã tạo từ bên trên
+                                    foreach (var item in arrColumnHeader)
+                                    {
+                                        var cell = ws.Cells[rowIndex, colIndex];
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+
+                                        //set màu thành gray
+                                        var fill = cell.Style.Fill;
+                                        fill.PatternType = ExcelFillStyle.Solid;
+                                        fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+
+                                        //căn chỉnh các border
+                                        var border = cell.Style.Border;
+                                        border.Bottom.Style =
+                                            border.Top.Style =
+                                            border.Left.Style =
+                                            border.Right.Style = ExcelBorderStyle.Thin;
+
+                                        //gán giá trị
+                                        cell.Value = item;
+
+                                        colIndex++;
+                                    }
+
+                                    //lấy ra danh sách Reader
+                                    //BangLuongThuong = new ObservableCollection<DongLuongThuong>();
+                                    if (BangLuongThuong.Count() == 0)
+                                    {
+                                        MessageBox.Show("Danh sách trống, vui lòng thử lại!");
+                                    }
+                                    //với mỗi item trong danh sách sẽ ghi trên 1 dòng
+                                    foreach (var item in BangLuongThuong)
+                                    {
+                                        // bắt đầu ghi từ cột 1. Excel bắt đầu từ 1 không phải từ 0
+                                        colIndex = 1;
+
+                                        // rowIndex tương ứng từng dòng dữ liệu
+                                        rowIndex++;
+
+                                        //gán giá trị cho từng cell      
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.STT;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.MaNV;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.TenNV;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.LuongCB;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.LuongPC;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.Thuong;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.LuongNG;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.LuongTL;
+
+                                    }
+
+                                    //Lưu file lại
+                                    Byte[] bin = p.GetAsByteArray();
+                                    File.WriteAllBytes(filePath, bin);
+                                }
+                                MessageBox.Show("Xuất excel thành công!");
+                            }
+
+                        }
+                        catch (Exception E)
+                        {
+                            MessageBox.Show("Có lỗi khi lưu file");
+                        }
+                    });
+
+            nhapExcel = new AppCommand<object>((p) =>
             {
+                return true;
+            }, (p) =>
+            {
+                //BangLuongThuong = new ObservableCollection<DongLuongThuong>();
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
+                openFileDialog.Multiselect = false;
+                openFileDialog.Title = "Open file excel to import books";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    Excel.Application xlApp = new Excel.Application();
+                    Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(openFileDialog.FileName);
+                    Excel._Worksheet xlWorkSheet = xlWorkBook.Sheets[1];
+                    Excel.Range xlRange = xlWorkSheet.UsedRange;
+                    int rowCount = xlRange.Rows.Count;
+                    int colCount = xlRange.Columns.Count;
+
+                    //check
+                    for (int i = 6; i <= rowCount; i++)
+                    {
+                        string MaNV = xlRange.Cells[i, 2].Value.ToString();
+                        bool valid = false;
+                        foreach ( var temp in BangLuongThuong)
+                        {
+                            if (temp.MaNV == MaNV)
+                                valid = true;
+                        }
+                        if (!valid)
+                        {
+                            MessageBox.Show("Thông tin không tương ứng, vui lòng kiểm tra lại danh sách nhân viên của phòng ban được chọn!");
+                            return;
+                        }
+                    }
+
+                    //do it for real
+                    int thang = Helper.Global.Ins.filterNumber(SelectedThang);
+                    int nam = Helper.Global.Ins.filterNumber(SelectedNam);
+                    for (int i = 6; i <= rowCount; i++)
+                    {
+                        string STT = xlRange.Cells[i, 1].Value.ToString();
+                        string MaNV = xlRange.Cells[i, 2].Value.ToString();
+                        string TenNV = xlRange.Cells[i, 3].Value.ToString();
+                        string temp = xlRange.Cells[i, 4].Value.ToString();
+                        Decimal LuongCB = Decimal.Parse(temp);
+                        temp = xlRange.Cells[i, 5].Value.ToString();
+                        Decimal LuongPC = Decimal.Parse(temp);
+                        temp = xlRange.Cells[i, 6].Value.ToString();
+                        Decimal Thuong = Decimal.Parse(temp);
+                        temp = xlRange.Cells[i, 7].Value.ToString();
+                        Decimal LuongNG = Decimal.Parse(temp);
+                        temp = xlRange.Cells[i, 8].Value.ToString();
+                        Decimal LuongTL = Decimal.Parse(temp);
+                        DataProvider.Ins.DB.HOPDONGs.Where(x => x.MaNV == MaNV).First().LOAIHOPDONG.Luong = LuongCB;
+                        DataProvider.Ins.DB.NHANVIENs.Where(x => x.id == MaNV).First().CHUCVU.PhuCap = LuongPC;
+                        DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).First().CT_BANGTHUONG.Where(x => x.MaNV == MaNV).First().TienThuong = Thuong;
+                        DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && SelectedPhongBan == x.MaPhong).First().CT_BANGLAMTHEM.Where(x => x.MaNV == MaNV).First().TienLamThem = LuongNG;
+                        DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLUONGTL.Where(x => x.MaNV == MaNV).First().TongLuong = LuongTL;
+                        DataProvider.Ins.DB.SaveChanges();
+                    }
+
+                    //this.SetSelectedItemToFirstItemOfPage(false);
+                    loadTable();
+                    MessageBox.Show("Import thành công!");
+
+                }
             });
         }
     }

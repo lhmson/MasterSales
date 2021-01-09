@@ -126,7 +126,7 @@
                                 <GridViewColumn Width="120" Header="Tên nhân viên" DisplayMemberBinding="{Binding HoTen}"/>
                                 <GridViewColumn Width="100" Header="Nơi Sinh" DisplayMemberBinding="{Binding NoiSinh}"/>
                                 <GridViewColumn Width="170" Header="Phòng ban" DisplayMemberBinding="{Binding PhongBan}"/>
-                                <GridViewColumn Width="170" Header="Trình độ" DisplayMemberBinding="{Binding TenTrinhDo}"/>
+                                <!--<GridViewColumn Width="170" Header="Trình độ" DisplayMemberBinding="{Binding TenTrinhDo}"/>-->
                             </GridView>
                         </ListView.View>
                         <i:Interaction.Triggers>
