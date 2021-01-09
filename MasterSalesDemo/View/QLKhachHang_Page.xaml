@@ -72,9 +72,8 @@
                     <materialDesign:Card 
                   Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
-                  Padding="8"
-                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">CHĂM SÓC KHÁCH HÀNG
-                        </TextBlock>
+                  Padding="8">
+                        <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">CHĂM SÓC KHÁCH HÀNG</TextBlock>
                     </materialDesign:Card>
                 </Grid>
 
