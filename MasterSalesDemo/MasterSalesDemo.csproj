@@ -662,6 +662,12 @@
     <Resource Include="Images\Female.jpg" />
     <Resource Include="Images\ThemChucVu.jpg" />
     <Resource Include="Images\Male.png" />
+    <Resource Include="Images\customer-service.png" />
+    <Resource Include="Images\businessman.png" />
+    <Resource Include="Images\history.png" />
+    <Resource Include="Images\money %282%29.png" />
+    <Resource Include="Images\skill-development.png" />
+    <Resource Include="Images\user.png" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>
