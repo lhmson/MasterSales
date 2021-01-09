@@ -104,7 +104,7 @@
                         <StackPanel Orientation="Vertical" Margin="15">
                             <materialDesign:PackIcon Kind="{Binding IconModal}" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Stretch"/>
                             <TextBlock FontSize="20" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Stretch"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Stretch"/>
                             </StackPanel>
                         </StackPanel>

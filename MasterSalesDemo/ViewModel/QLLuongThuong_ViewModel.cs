@@ -771,7 +771,6 @@ namespace MasterSalesDemo.ViewModel
                     //this.SetSelectedItemToFirstItemOfPage(false);
                     loadTable();
                     MessageBox.Show("Import thành công!");
-
                 }
             });
         }
