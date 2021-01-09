@@ -30,7 +30,7 @@ namespace MasterSalesDemo.ViewModel
         public string PhongBan { get; set; }
         public string GioiTinh { get; set; }
         public string NoiSinh { get; set; }
-        public string TenTrinhDo { get; set; }
+        public string TenTrinhDo { get; set; }  
         public TRINHDO TD { get; set; }
         public CHUCVU CHUCVU { get; set; }
 

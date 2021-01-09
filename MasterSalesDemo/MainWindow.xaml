@@ -62,7 +62,7 @@
                     </HamburgerMenu:HamburgerMenuItem>
 
 
-                    <HamburgerMenu:HamburgerMenuItem x:Name="QLTuyenDung_Page_Button" Icon="/Images/NhapHang.png" Text="Quản lí Tuyển dụng" IsEnabled="{Binding Enable_QLTuyenDung}" ToolTip="{Binding QLTuyenDung_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10">
+                    <HamburgerMenu:HamburgerMenuItem x:Name="QLTuyenDung_Page_Button" Icon="/Images/user.png" Text="Quản lí Tuyển dụng" IsEnabled="{Binding Enable_QLTuyenDung}" ToolTip="{Binding QLTuyenDung_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="GotFocus">
                                 <i:InvokeCommandAction Command="{Binding QLTuyenDung_Page_SelectedCommand}"
@@ -70,7 +70,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </HamburgerMenu:HamburgerMenuItem>
-                    <HamburgerMenu:HamburgerMenuItem x:Name="QLLuongThuong_Page_Button" Icon="/Images/DuyetNhap.png" Text="Quản lí Lương thưởng" IsEnabled="{Binding Enable_QLLuongThuong}" ToolTip="{Binding QLLuongThuong_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10">
+                    <HamburgerMenu:HamburgerMenuItem x:Name="QLLuongThuong_Page_Button" Icon="/Images/money (2).png" Text="Quản lí Lương thưởng" IsEnabled="{Binding Enable_QLLuongThuong}" ToolTip="{Binding QLLuongThuong_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="GotFocus">
                                 <i:InvokeCommandAction Command="{Binding QLLuongThuong_Page_SelectedCommand}"
@@ -78,7 +78,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </HamburgerMenu:HamburgerMenuItem>
-                    <HamburgerMenu:HamburgerMenuItem x:Name="QLLichSu_Page_Button" Icon="/Images/DuyetXuat.png" Text="Quản lí Lịch sử" IsEnabled="{Binding Enable_QLLichSu}" ToolTip="{Binding QLLichSu_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10">
+                    <HamburgerMenu:HamburgerMenuItem x:Name="QLLichSu_Page_Button" Icon="/Images/history.png" Text="Quản lí Lịch sử" IsEnabled="{Binding Enable_QLLichSu}" ToolTip="{Binding QLLichSu_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="GotFocus">
                                 <i:InvokeCommandAction Command="{Binding QLLichSu_Page_SelectedCommand}"
@@ -86,7 +86,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </HamburgerMenu:HamburgerMenuItem>
-                    <HamburgerMenu:HamburgerMenuItem x:Name="QLKiNang_Page_Button" Icon="/Images/DuyetXuat.png" Text="Quản lí Kĩ năng" IsEnabled="{Binding Enable_QLKiNang}" ToolTip="{Binding QLKiNang_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10">
+                    <HamburgerMenu:HamburgerMenuItem x:Name="QLKiNang_Page_Button" Icon="/Images/skill-development.png" Text="Quản lí Kĩ năng" IsEnabled="{Binding Enable_QLKiNang}" ToolTip="{Binding QLKiNang_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="GotFocus">
                                 <i:InvokeCommandAction Command="{Binding QLKiNang_Page_SelectedCommand}"
@@ -110,7 +110,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </HamburgerMenu:HamburgerMenuItem>
-                    <HamburgerMenu:HamburgerMenuItem x:Name="QLKhachHang_Page_Button" Icon="/Images/BanHang.png" Text="Quản lí Khách hàng" IsEnabled="{Binding Enable_QLKhachHang}" ToolTip="{Binding QLKhachHang_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10" >
+                    <HamburgerMenu:HamburgerMenuItem x:Name="QLKhachHang_Page_Button" Icon="/Images/customer-service.png" Text="Quản lí Khách hàng" IsEnabled="{Binding Enable_QLKhachHang}" ToolTip="{Binding QLKhachHang_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="GotFocus">
                                 <i:InvokeCommandAction Command="{Binding QLKhachHang_Page_SelectedCommand}"

@@ -213,11 +213,13 @@ namespace MasterSalesDemo.ViewModel
             {
                 ListNam.Add((DateTime.Today.Year - i).ToString());
             }
+            SelectedNam = DateTime.Today.Year.ToString();
             for (int i = 1; i <= 12; i++)
             {
+                if (int.Parse(SelectedNam) == DateTime.Today.Year && i > DateTime.Today.Month)
+                    break;
                 ListThang.Add("Tháng " + i.ToString());
             }
-            SelectedNam = DateTime.Today.Year.ToString();
             SelectedThang = "Tháng " + DateTime.Today.Month.ToString();
             ObservableCollection<MUCTHUONG> _listMT = new ObservableCollection<MUCTHUONG>(DataProvider.Ins.DB.MUCTHUONGs);
             ListMucDo = new ObservableCollection<string>();
@@ -771,7 +773,6 @@ namespace MasterSalesDemo.ViewModel
                     //this.SetSelectedItemToFirstItemOfPage(false);
                     loadTable();
                     MessageBox.Show("Import thành công!");
-
                 }
             });
         }
