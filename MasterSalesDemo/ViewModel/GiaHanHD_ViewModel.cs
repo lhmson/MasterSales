@@ -101,6 +101,12 @@ namespace MasterSalesDemo.ViewModel
                 MessageBox.Show("Bạn chưa chọn loại hợp đồng");
                 return;
             }
+            if (NgayBD < DateTime.Now)
+            {
+                MessageBox.Show("Không được chọn ngày trước đó");
+                return;
+            }
+
             Global.Ins.deleteHopDong(nhanvien.id);
             LOAIHOPDONG lhd = Global.Ins.getLHDbyTenLHD(SelectedLoaiHD);
             HOPDONG hd = new HOPDONG()

@@ -245,7 +245,7 @@ namespace MasterSalesDemo.ViewModel
         private void Init_Button()
         {
             //Chinh sua phan quyen bao cao luong thuong
-            Enable_Home = Enable_QLTuyenDung = Enable_QLLuongThuong = Enable_QLLichSu = Enable_QLKiNang = Enable_BanHang = Enable_TraCuu = Enable_QLKhachHang = Enable_BCDS = Enable_QLNS = Enable_TDQD = true;
+            Enable_Home = Enable_QLTuyenDung = Enable_QLLuongThuong = Enable_QLLichSu = Enable_QLKiNang = Enable_BanHang = Enable_TraCuu = Enable_QLKhachHang = Enable_BCDS = Enable_QLNS = Enable_TDQD = false;
             Enable_Home = true;
             // tooltip handle
             Home_Tooltip = QLTuyenDung_Tooltip = QLLuongThuong_Tooltip = QLLichSu_Tooltip = QLKiNang_Tooltip = BanHang_Tooltip = QLKhachHang_Tooltip 
