@@ -123,7 +123,8 @@
 
                 <Grid Margin="8" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1">
                     <Button Width="56" Content="{materialDesign:PackIcon PhoneClassic}" ToolTip="Lấy thông tin tự động"
-                                        Command="{Binding CheckSDTCommand}" Margin="-170,19,0,0"/>
+                                        Command="{Binding CheckSDTCommand}" Margin="-170,19,0,0"
+                            Visibility="{Binding XacThuc}"/>
                 </Grid>
                 
                 <Grid Margin="32,8" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4">
@@ -131,16 +132,12 @@
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center" IsReadOnly="True"
                                  Text="{Binding MaPhieuDH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
-                <Grid Margin="32,8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
-                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Ngày lập" IsEnabled="False"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center" IsReadOnly="True"
-                                 Text="{Binding NgayLapHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                <Grid Margin="32,8" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4">
+                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Địa chỉ nhận" IsEnabled="False"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center" 
+                                 Text="{Binding DiaChiNhan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
                 </Grid>
                 <Grid Margin="32,8" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2">
-                    <TextBox FontSize="20" materialDesign:HintAssist.Hint="Nhân viên"
-							 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
-							 Text="{Binding TenNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"
-							 IsReadOnly="True"/>
                 </Grid>
 
                 <Grid Margin="32,0,70,8" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
@@ -153,8 +150,8 @@
                 <Grid Margin="32,8" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2">
                     <TextBox FontSize="20" materialDesign:HintAssist.Hint="Khách hàng"
 							 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{StaticResource SecondaryAccentBrush}" VerticalAlignment="Center"
-							 Text="{Binding TenKhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"
-							 IsReadOnly="True"/>
+							 Text="{Binding TenKhachHang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnableKhachHang}"
+							 />
                 </Grid>
                 
                 <Grid Margin="32,8" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4">
@@ -166,6 +163,11 @@
                 <Grid Margin="32,8" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4">
                     <CheckBox IsChecked="{Binding CreateReport, Mode=TwoWay}"  Style="{StaticResource MaterialDesignCheckBox}" Content="Xuất phiếu" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                 </Grid>
+
+                <Grid Margin="-20,8,20,8" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2">
+                    <Button Command="{Binding KhachHangCommand}" Style="{StaticResource MaterialDesignRaisedButton}"  Content="{Binding ButtonKhachHang}" FontSize="20" Height="40" />
+                </Grid>
+                
                 <Grid Margin="8,8,32,32" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3">
                     <Button Command="{Binding XacNhanCommand}" Style="{StaticResource MaterialDesignRaisedButton}"  Content="Xác nhận" FontSize="20" Height="48" />
                 </Grid>

@@ -51,6 +51,13 @@ namespace MasterSalesDemo.ViewModel
             set { _TenKH = value; OnPropertyChanged(); }
         }
 
+        private string _DiaChiNhan;
+        public string DiaChiNhan
+        {
+            get { return _DiaChiNhan; }
+            set { _DiaChiNhan = value; OnPropertyChanged(); }
+        }
+
         private ObservableCollection<ListMatHangMua> _ListMatHang;
         public ObservableCollection<ListMatHangMua> ListMatHang
         {
@@ -66,13 +73,14 @@ namespace MasterSalesDemo.ViewModel
         }
         #region 
         #endregion
-        public BanHang_PrintPreview_ViewModel(string maHD, string TenNV, string tt, ObservableCollection<ListMatHangMua> list, string TenKH)
+        public BanHang_PrintPreview_ViewModel(string maHD, string TenNV, string tt, ObservableCollection<ListMatHangMua> list, string TenKH, string DiaChi)
         {
             MaHD = maHD;
             TenNhanVien = TenNV;
             TongTien = tt;
             ListMatHang = list;
             this.TenKH = TenKH;
+            DiaChiNhan = DiaChi;
             Load();
             CloseWindowCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => {
                 p.Close();
