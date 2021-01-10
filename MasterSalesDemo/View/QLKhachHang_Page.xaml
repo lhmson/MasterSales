@@ -34,7 +34,7 @@
             <materialDesign:DialogHost.DialogContent>
                 <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
                     <StackPanel Orientation="Vertical" Margin="15">
-                        <materialDesign:PackIcon Kind="CheckCircleOutline" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="{Binding IconModal}" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
                         <TextBlock FontSize="18" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
@@ -100,8 +100,8 @@
                         Background="White"
                         Margin="8, 8 ,8, 8"
                         SelectionMode="Single"
-                        SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay}"
-                        ItemsSource="{Binding BangLuongThuong, Mode=TwoWay}"
+                        SelectedItem="{Binding SelectedTuVan, Mode=TwoWay}"
+                        ItemsSource="{Binding ListTuVan, Mode=TwoWay}"
                         CanUserSortColumns="True"
                         CanUserReorderColumns="False"
                         IsReadOnly ="True"
@@ -112,7 +112,7 @@
                           materialDesign:DataGridAssist.ColumnHeaderPadding="8">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged" >
-                                <i:InvokeCommandAction Command="{Binding nhanVienSelectionChangedCommand}" />
+                                <i:InvokeCommandAction Command="{Binding CauHoiSelectionChangedCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <DataGrid.Columns>
@@ -125,61 +125,38 @@
                             </DataGridTextColumn>
                             <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
                             <DataGridTextColumn
-      Binding="{Binding MaNV}"
+      Binding="{Binding NgayDat}"
                                 FontSize="16"
       >
                                 <DataGridTextColumn.Header>
-                                    <TextBlock FontSize="16" Text="Mã Nhân Viên" />
+                                    <TextBlock FontSize="16" Text="Ngày đặt" />
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
                             <!-- set a max length to get an indicator in the editor -->
                             <DataGridTextColumn
-      Binding="{Binding TenNV}"
+      Binding="{Binding KhachHang}"
                                 FontSize="16"
       >
                                 <DataGridTextColumn.Header>
-                                    <TextBlock FontSize="16" Text="Tên Nhân Viên" />
+                                    <TextBlock FontSize="16" Text="Khách hàng" />
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
 
                             <DataGridTextColumn
                                   FontSize="16"
-      Binding="{Binding LuongCB,StringFormat='#,##0;(#,##0)'}"
+      Binding="{Binding TrangThai,StringFormat='#,##0;(#,##0)'}"
       >
                                 <DataGridTextColumn.Header>
-                                    <TextBlock FontSize="16" Text="Lương Cơ Bản" />
+                                    <TextBlock FontSize="16" Text="Trạng thái" />
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
                             <DataGridTextColumn
                                   FontSize="16"
-      Binding="{Binding LuongPC,StringFormat='#,##0;(#,##0)'}"
-      >
+      Binding="{Binding NguoiTraLoi,StringFormat='#,##0;(#,##0)'}"
+      
+                                >
                                 <DataGridTextColumn.Header>
-                                    <TextBlock FontSize="16" Text="Lương Phụ Cấp" />
-                                </DataGridTextColumn.Header>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn
-                                  FontSize="16"
-      Binding="{Binding Thuong,StringFormat='#,##0;(#,##0)'}"
-      >
-                                <DataGridTextColumn.Header>
-                                    <TextBlock FontSize="16" Text="Thưởng" />
-                                </DataGridTextColumn.Header>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn
-                                  FontSize="16"
-      Binding="{Binding LuongNG,StringFormat='#,##0;(#,##0)'}"
-      >
-                                <DataGridTextColumn.Header>
-                                    <TextBlock FontSize="16" Text="Lương Ngoài Giờ" />
-                                </DataGridTextColumn.Header>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn
-                                  FontSize="16"
-      Binding="{Binding LuongTL,StringFormat='#,##0;(#,##0)'}"
-      >
-                                <DataGridTextColumn.Header>
-                                    <TextBlock FontSize="16" Text="Lương Thực Lãnh" />
+                                    <TextBlock FontSize="16" Text="Được trả lời" />
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
 
@@ -197,22 +174,26 @@
                             <TextBlock FontWeight="SemiBold" TextAlignment="Center" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">CHI TIẾT HỎI ĐÁP</TextBlock>
                         </materialDesign:Card>
                         <DockPanel >
-                            <Button Margin="32" DockPanel.Dock="Bottom">
+                            <Button Margin="32" DockPanel.Dock="Bottom" Command="{Binding LuuThayDoiCommand}">
                                 Lưu thay đổi
                             </Button>
                             <DockPanel>
                                 <StackPanel Margin="0,16,0,0" DockPanel.Dock="Top" Orientation="Horizontal">
                                 <StackPanel Margin="32,16,0,0">
                                     <TextBlock FontSize="16" FontWeight="Bold">Tên khách hàng</TextBlock>
-                                    <TextBlock FontStyle="Italic">Phạm Liên Binding</TextBlock>
+                                        <TextBlock FontStyle="Italic" Text="{Binding TenKhachHang}"></TextBlock>
                                 </StackPanel>
                                     <StackPanel Margin="48,16,0,0">
                                         <TextBlock FontSize="16" FontWeight="Bold">Được hỏi vào</TextBlock>
-                                        <TextBlock FontStyle="Italic">Thời gian</TextBlock>
+                                        <TextBlock FontStyle="Italic" Text="{Binding NgayDatCauHoi}"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Margin="48,16,0,0">
                                         <TextBlock FontSize="16" FontWeight="Bold">Trả lời lần cuối</TextBlock>
-                                        <TextBlock FontStyle="Italic">Thời gian</TextBlock>
+                                        <TextBlock FontStyle="Italic" Text="{Binding NgayTraLoiLanCuoi}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Margin="48,16,0,0">
+                                        <TextBlock FontSize="16" FontWeight="Bold">Nhân viên</TextBlock>
+                                        <TextBlock FontStyle="Italic" Text="{Binding TenNhanVien}"></TextBlock>
                                     </StackPanel>
                                 </StackPanel>
                                 <Grid Margin="0,0,0,32" VerticalAlignment="Stretch">
@@ -228,8 +209,9 @@
                                         AcceptsReturn="True"
                                         VerticalScrollBarVisibility="Auto"
                                         SpellCheck.IsEnabled="True"
-                                        materialDesign:HintAssist.Hint="Multiline text">
-                                            Multiline.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. The quick brown fox jumps over the lazy dog. War and peace. Keep going. Go on. For how long? Not long. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        materialDesign:HintAssist.Hint="Multiline text"
+                                                 Text="{Binding CauHoi}">
+                                         
                                         </TextBox>
                                     </DockPanel>
                                     <DockPanel Grid.Row="1" Margin="32,32,32,0" >
@@ -240,8 +222,8 @@
                                         AcceptsReturn="True"
                                         VerticalScrollBarVisibility="Auto"
                                         SpellCheck.IsEnabled="True"
-                                        materialDesign:HintAssist.Hint="Multiline text">
-                                            Multiline.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. The quick brown fox jumps over the lazy dog. War and peace. Keep going. Go on. For how long? Not long. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        materialDesign:HintAssist.Hint="Multiline text"
+                                            Text="{Binding TraLoi}">
                                         </TextBox>
                                     </DockPanel>
                                 </Grid>
