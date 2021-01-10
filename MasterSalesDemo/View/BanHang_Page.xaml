@@ -117,12 +117,12 @@
                     </TextBox>
                 </Grid>
                 <Grid Margin="8" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="1">
-                    <Button Width="56" Content="{materialDesign:PackIcon ClipboardArrowDown}" ToolTip="Lấy thông tin tự động"
+                    <Button Width="56" Content="{materialDesign:PackIcon ClipboardArrowDown}" ToolTip="Tự động tạo mã hóa đơn"
                                         Command="{Binding GetMaHDCommand}" Margin="0,19,0,0"/>
                 </Grid>
 
                 <Grid Margin="8" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1">
-                    <Button Width="56" Content="{materialDesign:PackIcon PhoneClassic}" ToolTip="Lấy thông tin tự động"
+                    <Button Width="56" Content="{materialDesign:PackIcon PhoneClassic}" ToolTip="Xác thực số điện thoại khách hàng này"
                                         Command="{Binding CheckSDTCommand}" Margin="-170,19,0,0"
                             Visibility="{Binding XacThuc}"/>
                 </Grid>

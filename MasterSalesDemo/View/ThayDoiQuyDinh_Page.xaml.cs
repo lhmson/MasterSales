@@ -25,27 +25,5 @@ namespace MasterSalesDemo.View
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(listViewLTK.Width.ToString());
-        }
-
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
-        }
-
-        private void TextBox_PreviewTextInput_1(object sender, TextCompositionEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            e.Handled = Regex.IsMatch(e.Text, "[^0-9.]+");
-        }
     }
 }
