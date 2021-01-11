@@ -416,7 +416,8 @@ namespace MasterSalesDemo.Helper
         #region
         public ObservableCollection<PHIEUDATHANG> getAllPhieuDatHang()
         {
-            ObservableCollection<PHIEUDATHANG> _listPDH= new ObservableCollection<PHIEUDATHANG>(DataProvider.Ins.DB.PHIEUDATHANGs);
+            ObservableCollection<PHIEUDATHANG> _listPDH = new ObservableCollection<PHIEUDATHANG>(DataProvider.Ins.DB.PHIEUDATHANGs);
+            _listPDH.OrderByDescending(x => x.NgayDat);
             ObservableCollection<PHIEUDATHANG> _RES = new ObservableCollection<PHIEUDATHANG>();
             foreach (var pdh in _listPDH)
                 if (!(pdh.isDeleted == true) &&pdh.TrangThai==0)
