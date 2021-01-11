@@ -339,10 +339,10 @@ namespace MasterSalesDemo.ViewModel
             window.ShowDialog();
             if (Global.Ins.isXuLy)
             {
+                BindingPhieuDHOnline();
                 IconModal = "CheckCircleOutline";
                 DialogOpen = true;
                 ThongBao = "Xác nhận xử lý phiếu đặt hàng thàng công";
-                BindingPhieuDHOnline();
             }
         }
         public KHACHHANG findKhachHangbySDT(string sdt)
@@ -411,7 +411,7 @@ namespace MasterSalesDemo.ViewModel
             CheckSDTCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 CheckSDT();
             });
-            KhachHangCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+            KhachHangCommand = new RelayCommand<Window>((p) => { if (!String.IsNullOrEmpty(MaPhieuDH)) return false; return true; }, (p) => {
                 if (ButtonKhachHang == "Xác thực khách hàng")
                 {
                     SDT = "";
