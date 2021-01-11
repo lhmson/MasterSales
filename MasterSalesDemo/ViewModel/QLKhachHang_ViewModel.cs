@@ -140,6 +140,7 @@ namespace MasterSalesDemo.ViewModel
             ObservableCollection<TuVanKH> _listTuVan = new ObservableCollection<TuVanKH>(DataProvider.Ins.DB.TuVanKHs);
             ListTuVan = new ObservableCollection<CAUHOIKHACHHANG>();
             foreach (var tv in _listTuVan)
+                if (tv.isDeleted != true)
                 ListTuVan.Add(new CAUHOIKHACHHANG(ListTuVan.Count + 1, tv));
         }
 
