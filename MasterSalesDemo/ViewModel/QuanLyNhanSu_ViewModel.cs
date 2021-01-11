@@ -597,6 +597,8 @@ namespace MasterSalesDemo.ViewModel
                 {
                     ThemChucVu_Window win = new ThemChucVu_Window();
                     win.ShowDialog();
+                    if (!ThemChucVu_ViewModel.isFinished)
+                        return;
                     DialogOpen = true;
                     ThongBao = "Thêm chức vụ thành công";
                     LoadDataPhanQuyen();

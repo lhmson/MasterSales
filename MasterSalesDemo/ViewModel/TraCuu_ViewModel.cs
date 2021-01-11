@@ -259,6 +259,9 @@ namespace MasterSalesDemo.ViewModel
 
         public void ThemNhanVienVaoList(NHANVIEN nv)
         {
+            if (nv.isDeleted == true)
+                return;
+
             bool validPhongBan = false;
             bool validTen = false;
             CHUCVU chucvu = getChucVubyMaNV(nv.MaChucVu);

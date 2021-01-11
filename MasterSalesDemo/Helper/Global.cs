@@ -220,6 +220,20 @@ namespace MasterSalesDemo.Helper
             flag++;
             return autoGenerateCode("CV", flag, 5);
         }
+        public string autoGenerateMucThuong()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<MUCTHUONG> _listMT = new ObservableCollection<MUCTHUONG>(DataProvider.Ins.DB.MUCTHUONGs);
+            foreach (var item in _listMT)
+            {
+                int number = filterNumber(item.id);
+                if (number > flag)
+                    flag = number;
+            }
+            flag++;
+            return autoGenerateCode("MT", flag, 5);
+        }
         public ObservableCollection<NHANVIEN> getAllNhanVienbyMaPhongBan(string MaPB)
         {
             ObservableCollection<NHANVIEN> _listNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
@@ -405,7 +419,7 @@ namespace MasterSalesDemo.Helper
             ObservableCollection<PHIEUDATHANG> _listPDH= new ObservableCollection<PHIEUDATHANG>(DataProvider.Ins.DB.PHIEUDATHANGs);
             ObservableCollection<PHIEUDATHANG> _RES = new ObservableCollection<PHIEUDATHANG>();
             foreach (var pdh in _listPDH)
-                if (!(pdh.isDeleted == true))
+                if (!(pdh.isDeleted == true) &&pdh.TrangThai==0)
                     _RES.Add(pdh);
             return _RES;
         }

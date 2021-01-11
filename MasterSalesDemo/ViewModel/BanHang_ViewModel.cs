@@ -108,6 +108,34 @@ namespace MasterSalesDemo.ViewModel
             get { return _ThongBao; }
             set { _ThongBao = value; OnPropertyChanged(); }
         }
+
+        private bool _EnableKhachHang;
+        public bool EnableKhachHang
+        {
+            get { return _EnableKhachHang; }
+            set { _EnableKhachHang = value; OnPropertyChanged(); }
+        }
+
+        private string _DiaChiNhan;
+        public string DiaChiNhan
+        {
+            get { return _DiaChiNhan; }
+            set { _DiaChiNhan = value; OnPropertyChanged(); }
+        }
+
+        private string _ButtonKhachHang;
+        public string ButtonKhachHang
+        {
+            get { return _ButtonKhachHang; }
+            set { _ButtonKhachHang = value; OnPropertyChanged(); }
+        }
+
+        private Visibility  _XacThuc;
+        public Visibility XacThuc
+        {
+            get { return _XacThuc; }
+            set { _XacThuc = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region Icommand
@@ -119,11 +147,16 @@ namespace MasterSalesDemo.ViewModel
         public ICommand BoRaGioHangCommand { get; set; }
         public ICommand DialogOK { get; set; }
         public ICommand CheckSDTCommand { get; set; }
+        public ICommand KhachHangCommand { get; set; }
         #endregion
 
         #region
         public void LoadDatabase()
         {
+            XacThuc = Visibility.Hidden;
+            ButtonKhachHang = "Xác thực khách hàng";
+            DiaChiNhan = "";
+            EnableKhachHang = true;
             IconModal = "CheckCircleOutline";
             DialogOpen = false;
             MaHD = "";
@@ -262,7 +295,7 @@ namespace MasterSalesDemo.ViewModel
             }
             if (CreateReport)
             {
-                BanHang_PrintPreview_ViewModel vm = new BanHang_PrintPreview_ViewModel(hd.id, Global.Ins.NhanVien.HoTen, hd.ThanhTien?.ToString("0,000"), ListMatHang, TenKhachHang);
+                BanHang_PrintPreview_ViewModel vm = new BanHang_PrintPreview_ViewModel(hd.id, Global.Ins.NhanVien.HoTen, hd.ThanhTien?.ToString("0,000"), ListMatHang, TenKhachHang,DiaChiNhan);
                 BanHang_PrintPreview print = new BanHang_PrintPreview(vm);
                 print.Show();
             }
@@ -296,6 +329,7 @@ namespace MasterSalesDemo.ViewModel
                     ListMatHangMua mhmua = new ListMatHangMua(stt+"",mh.id,mh.TenMH,mh.DonVi,dongia,ctphdh.SLDat+"",tongtien);
                     ListMatHang.Add(mhmua);
                 }
+            DiaChiNhan = pdh.DiaChiNhan;
             TinhTien();
         }
         public void XuLyPhieuOnline()
@@ -336,6 +370,7 @@ namespace MasterSalesDemo.ViewModel
             TenKhachHang = kh.TenKH;
         }
         #endregion
+
         public BanHang_ViewModel()
         {
             Global.Ins.isXuLy = false;
@@ -375,6 +410,24 @@ namespace MasterSalesDemo.ViewModel
 
             CheckSDTCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 CheckSDT();
+            });
+            KhachHangCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                if (ButtonKhachHang == "Xác thực khách hàng")
+                {
+                    SDT = "";
+                    TenKhachHang = "";
+                    EnableKhachHang = false;
+                    XacThuc = Visibility.Visible;
+                    ButtonKhachHang = "Hủy xác thực";
+                }
+                else
+                {
+                    SDT = "";
+                    TenKhachHang = "";
+                    EnableKhachHang = true;
+                    XacThuc = Visibility.Hidden;
+                    ButtonKhachHang = "Xác thực khách hàng";
+                }
             });
         }
     }

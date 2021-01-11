@@ -8,7 +8,7 @@ namespace MasterSalesDemo.ViewModel
 {
     class ThemChucVu_ViewModel : BaseViewModel
     {
-        public bool isFinished { get; set; } 
+        static public bool isFinished { get; set; } 
         #region Binding Variables
         private ObservableCollection<string> _ListPhongBan;
         public ObservableCollection<string> ListPhongBan
@@ -233,6 +233,7 @@ namespace MasterSalesDemo.ViewModel
             ListPhongBan = Global.Ins.getAllTenPhongBan();
 
             CloseWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                isFinished = false;
                 p.Close();
             });
 

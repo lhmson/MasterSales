@@ -118,7 +118,7 @@
         </Grid>
 
         <Grid Margin="20,10,0,58.4" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="567" >
-            <DatePicker x:Name="Ngayketthuc" Width="427" materialDesign:HintAssist.Hint="Ngày kết thúc"
+            <DatePicker x:Name="Ngayketthuc" Width="527" materialDesign:HintAssist.Hint="Ngày kết thúc"
                             HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding SelectedEndDate,StringFormat='dd/MM/yyyy', Mode=TwoWay}"

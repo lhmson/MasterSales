@@ -112,7 +112,6 @@ namespace MasterSalesDemo.ViewModel
         #region
         public void SearchMatHang()
         {
-
             ObservableCollection<MATHANG> _listMatHang = Global.Ins.searchMHbyTenNhom_TenMH(SelectedNhomMH, SearchTenMatHang);
 
             ListMatHang = new ObservableCollection<MatHangGioHang>();
@@ -122,16 +121,19 @@ namespace MasterSalesDemo.ViewModel
                 MatHangGioHang gh = new MatHangGioHang(stt, mh.TenMH, mh.DonVi, mh.DonGia + "", mh.NHOMMATHANG.TenNhomMH);
                 ListMatHang.Add(gh);
             }
-            
         }
 
         public void BindingMatHang()
         {
+            SourceHinhAnh = "/Images/LAPTOP.jpg";
             if (SelectedMatHang == null) return;
 
             TenMatHang = SelectedMatHang.MatHang;
             SoLuong = "1";
-
+            ObservableCollection<MATHANG> _listMH = new ObservableCollection<MATHANG>(DataProvider.Ins.DB.MATHANGs);
+            foreach (var mh in _listMH)
+                if (mh.TenMH == SelectedMatHang.MatHang && mh.HinhAnh!=null)
+                    SourceHinhAnh = "/" + mh.HinhAnh;
         }
 
         public bool checkNumber(string number)
@@ -168,6 +170,12 @@ namespace MasterSalesDemo.ViewModel
             SourceHinhAnh = "/Images/LAPTOP.jpg";
             ListNhomMH = Global.Ins.getAllTenNhomMH();
             Global.Ins.isThemThanhCong = false;
+            SearchMatHang();
+            if (ListMatHang.Count >= 1)
+            {
+                SelectedMatHang = ListMatHang[0];
+                BindingMatHang();
+            }
 
             CloseWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 Global.Ins.isThemThanhCong = false;
