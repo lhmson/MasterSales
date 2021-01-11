@@ -136,6 +136,7 @@ namespace MasterSalesDemo.ViewModel
         {
             TenTrinhDo = "";
             TrinhDo = new ObservableCollection<TRINHDO>(DataProvider.Ins.DB.TRINHDOes);
+            SelectedItemTrinhDo = null;
         }
 
         #endregion

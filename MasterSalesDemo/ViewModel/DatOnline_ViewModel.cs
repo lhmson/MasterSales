@@ -121,6 +121,7 @@ namespace MasterSalesDemo.ViewModel
             ObservableCollection<PHIEUDATHANG> _listPDH = Global.Ins.getAllPhieuDatHang();
             ObservableCollection<PHIEUDATHANG> _listPDHRES = new ObservableCollection<PHIEUDATHANG>();
             foreach (var item in _listPDH)
+            if (item.isDeleted != true && item.TrangThai == 0)
             {
                 bool isTuNgay = false;
                 bool isDenNgay = false;
@@ -141,7 +142,7 @@ namespace MasterSalesDemo.ViewModel
 
             foreach (var pdh in _ListPDH)
                 if (pdh.id == MaPhieu)
-                    pdh.isDeleted = true;
+                    pdh.TrangThai = 2;
 
             DataProvider.Ins.DB.SaveChanges();
         }

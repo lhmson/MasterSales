@@ -419,7 +419,7 @@ namespace MasterSalesDemo.Helper
             ObservableCollection<PHIEUDATHANG> _listPDH= new ObservableCollection<PHIEUDATHANG>(DataProvider.Ins.DB.PHIEUDATHANGs);
             ObservableCollection<PHIEUDATHANG> _RES = new ObservableCollection<PHIEUDATHANG>();
             foreach (var pdh in _listPDH)
-                if (!(pdh.isDeleted == true))
+                if (!(pdh.isDeleted == true) &&pdh.TrangThai==0)
                     _RES.Add(pdh);
             return _RES;
         }
