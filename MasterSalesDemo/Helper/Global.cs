@@ -401,7 +401,7 @@ namespace MasterSalesDemo.Helper
             {
                 bool isValidNhom = false;
                 bool isValidTenMH = false;
-                if (String.IsNullOrWhiteSpace(TenNhomMH) || mh.NHOMMATHANG.TenNhomMH == TenNhomMH)
+                if (String.IsNullOrWhiteSpace(TenNhomMH) || (TenNhomMH == "Tất cả") || mh.NHOMMATHANG.TenNhomMH == TenNhomMH)
                     isValidNhom = true;
 
                 if (String.IsNullOrWhiteSpace(TenMH) || mh.TenMH.ToLower().Contains(TenMH.ToLower()))

@@ -699,6 +699,7 @@
     <Resource Include="img\product-8.png" />
     <Resource Include="img\MH30.jpg" />
     <Resource Include="img\MH20.jpg" />
+    <Resource Include="Images\MatHang.png" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>

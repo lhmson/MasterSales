@@ -162,6 +162,7 @@ namespace MasterSalesDemo.ViewModel
             ObservableCollection<PHONGBAN> _listPhongBan = new ObservableCollection<PHONGBAN>(DataProvider.Ins.DB.PHONGBANs);
 
             ListPhongBan = new ObservableCollection<string>();
+            ListPhongBan.Add("Tất cả");
             foreach (var pb in _listPhongBan)
                 ListPhongBan.Add(pb.TenPhong);
         }
@@ -177,10 +178,10 @@ namespace MasterSalesDemo.ViewModel
                 bool validPhongBan = false;
                 bool validTen = false;
                 CHUCVU chucvu = Global.Ins.getChucVubyMaNV(nv.id);
-                if (SelectedPhongBan == null || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
+                if (SelectedPhongBan == null || (SelectedPhongBan == "Tất cả") || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
                     validPhongBan = true;
 
-                if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
+                    if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.ToLower().Contains(TenNhanVien.ToLower()))
                     validTen = true;
 
                 if (validTen && validPhongBan)
