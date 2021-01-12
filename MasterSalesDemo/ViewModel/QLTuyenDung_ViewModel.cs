@@ -570,13 +570,26 @@ namespace MasterSalesDemo.ViewModel
                 MaChucVu = SelectedItemChucVu.id,
                 isDeleted = false,
             };
-
             DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
             DataProvider.Ins.DB.SaveChanges();
             NhanVien.Add(nhanvien);
             NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
             ThemNhanVienVaoList(nhanvien);
             InitNhanVien();
+
+            //Sanh-add lslv
+            LICHSUCHUCVU lichsu = new LICHSUCHUCVU()
+            {
+                id = Global.Ins.autoGenerateLichSu(),
+                MaNV = nhanvien.id,
+                MaChucVu = nhanvien.MaChucVu,
+                NgayBD = DateTime.Now,
+                NgayKT = null,
+                isDeleted = false,
+            };
+
+            DataProvider.Ins.DB.LICHSUCHUCVUs.Add(lichsu);
+            DataProvider.Ins.DB.SaveChanges();
         }
 
         public QLTuyenDung_ViewModel()
