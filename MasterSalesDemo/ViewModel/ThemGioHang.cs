@@ -167,8 +167,15 @@ namespace MasterSalesDemo.ViewModel
         public ThemGioHang()
         {
             Global.Ins.isThemThanhCong = false;
-            SourceHinhAnh = "/Images/LAPTOP.jpg";
+            SourceHinhAnh = "/Images/MatHang.png";
             ListNhomMH = Global.Ins.getAllTenNhomMH();
+
+            ObservableCollection<string> temp = new ObservableCollection<string>();
+            temp.Add("Tất cả");
+            foreach (var nmh in ListNhomMH)
+                temp.Add(nmh);
+            ListNhomMH = temp;
+
             Global.Ins.isThemThanhCong = false;
             SearchMatHang();
             if (ListMatHang.Count >= 1)

@@ -363,17 +363,18 @@ namespace MasterSalesDemo.ViewModel
             ObservableCollection<CHUCVU> nhomNguoiDung = new ObservableCollection<CHUCVU>(DataProvider.Ins.DB.CHUCVUs);
 
             foreach (var item in nhomNguoiDung)
+                if (item.isDeleted != true)
                 ListPhanQuyen.Add(new BangPhanQuyen(item.TenChucVu, false));
         }
 
         private string check_DeleteNhomNguoiDung(string maNhom)
         {
-            ObservableCollection<TAIKHOAN> ngDung = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
+            ObservableCollection<NHANVIEN> ngDung = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
 
             string res = "";
             foreach (var item in ngDung)
-                if (item.NHANVIEN.MaChucVu == maNhom)
-                    res += item.NHANVIEN.HoTen + "\n";
+                if (item.CHUCVU.id == maNhom)
+                    res += item.HoTen + "\n";
             return res;
         }
 
@@ -591,18 +592,36 @@ namespace MasterSalesDemo.ViewModel
                             return false;
                     return true;
                 }
+                if (VisibilityOfListNguoiDung == Visibility.Visible)
+                    return true;
+
                 return false;
             },
                 (p) =>
                 {
-                    ThemChucVu_Window win = new ThemChucVu_Window();
-                    win.ShowDialog();
-                    if (!ThemChucVu_ViewModel.isFinished)
-                        return;
-                    DialogOpen = true;
-                    ThongBao = "Thêm chức vụ thành công";
-                    LoadDataPhanQuyen();
-                    SelectedIndexCbb = 1;
+                    if (VisibilityOfListPhanQuyen == Visibility.Visible)
+                    {
+                        ThemChucVu_Window win = new ThemChucVu_Window();
+                        win.ShowDialog();
+                        if (!ThemChucVu_ViewModel.isFinished)
+                            return;
+                        DialogOpen = true;
+                        ThongBao = "Thêm chức vụ thành công";
+                        LoadDataPhanQuyen();
+                        SelectedIndexCbb = 1;
+                    }
+                    else
+                    {
+                        ThemTaiKhoan_Window win = new ThemTaiKhoan_Window();
+                        win.ShowDialog();
+                        LoadData();
+                        if (DangKyTaiKhoan_ViewModel.flagFinished)
+                        {
+                            DialogOpen = true;
+                            ThongBao = "Bạn đã đăng ký thành công";
+                        }
+                    }
+
                 }
             );
 
@@ -623,7 +642,7 @@ namespace MasterSalesDemo.ViewModel
 
                     if (VisibilityOfListNguoiDung == Visibility.Visible && SelectedItemNguoiDung != null) // Edit Nhóm người dùng
                     {
-                        if (SelectedItemNguoiDung._TaiKhoan.NHANVIEN.MaChucVu == "Ban quản lý  ") // edit later hihi
+                        if (SelectedItemNguoiDung._TaiKhoan.NHANVIEN.MaChucVu == "Ban quản lý") // edit later hihi
                         {
                             System.Windows.MessageBox.Show("Không thể sửa thông tin được cho nhóm Ban quản lý");
                             return;

@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using MasterSalesDemo.ViewModel;
 
-namespace MasterSalesDemo.View
+namespace MasterSalesDemo
 {
     /// <summary>
-    /// Interaction logic for ThemHopDong.xaml
+    /// Interaction logic for ThemTaiKhoan_Window.xaml
     /// </summary>
-    public partial class ThemHopDong : Window
+    public partial class ThemTaiKhoan_Window : Window
     {
-        public ThemHopDong()
+        public ThemTaiKhoan_Window()
         {
             InitializeComponent();
         }

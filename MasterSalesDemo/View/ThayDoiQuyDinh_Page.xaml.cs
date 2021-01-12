@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MasterSalesDemo.ViewModel;
 
 namespace MasterSalesDemo.View
 {
@@ -24,6 +25,7 @@ namespace MasterSalesDemo.View
         public ThayDoiQuyDinh_Page()
         {
             InitializeComponent();
+            this.DataContext = new ThayDoiQuyDinh_ViewModel();
         }
     }
 }

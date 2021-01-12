@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MasterSalesDemo.ViewModel;
 
 namespace MasterSalesDemo
 {
@@ -24,6 +25,7 @@ namespace MasterSalesDemo
         public QLKhachHang_Page()
         {
             InitializeComponent();
+            this.DataContext = new QLKhachHang_ViewModel();
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

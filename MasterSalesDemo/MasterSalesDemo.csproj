@@ -292,7 +292,11 @@
     <Compile Include="ThemGioHang_Window.xaml.cs">
       <DependentUpon>ThemGioHang_Window.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ThemTaiKhoan_Window.xaml.cs">
+      <DependentUpon>ThemTaiKhoan_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ChuyenChucVu_ViewModel.cs" />
+    <Compile Include="ViewModel\DangKyTaiKhoan_ViewModel.cs" />
     <Compile Include="ViewModel\DatOnline_ViewModel.cs" />
     <Compile Include="ViewModel\GiaHanHD_ViewModel.cs" />
     <Compile Include="ViewModel\DanhGiaKyNang_ViewModel.cs" />
@@ -430,6 +434,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ThemGioHang_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThemTaiKhoan_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -699,6 +707,8 @@
     <Resource Include="img\product-8.png" />
     <Resource Include="img\MH30.jpg" />
     <Resource Include="img\MH20.jpg" />
+    <Resource Include="Images\MatHang.png" />
+    <Resource Include="Images\TaiKhoan.jpg" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>

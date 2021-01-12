@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿// T4 code generation is enabled for model 'C:\Users\lehoa\Dropbox\My Code\schoolcode\Nam3\HK1\OOAD\MasterSales\MasterSalesDemo\Model\QLKinhDoanhModel.edmx'. 
+=======
+﻿// T4 code generation is enabled for model 'E:\HOCTAP\Nam3\OOAD\MasterSales\MasterSalesDemo\Model\QLKinhDoanhModel.edmx'. 
+>>>>>>> c8d8e3689061cf340a9989d01427fc91671bbfde
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

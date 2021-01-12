@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MasterSalesDemo.ViewModel;
 
 namespace MasterSalesDemo.View
 {
@@ -22,6 +23,7 @@ namespace MasterSalesDemo.View
         public KyNang()
         {
             InitializeComponent();
+            this.DataContext = new QLKiNang_ViewModel();
         }
     }
 }
