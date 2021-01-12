@@ -334,7 +334,7 @@ namespace MasterSalesDemo.ViewModel
                 BaoCaoNam = new ObservableCollection<DongBaoCaoNam>();
                 for (int i = 1;i<13;i++)
                 {
-                    if (i > DateTime.Now.Month)
+                    if (i > DateTime.Now.Month && DateTime.Now.Year==SelectedYear)
                         break;
                     ObservableCollection<CT_HOADON> cthoadons = new ObservableCollection<CT_HOADON>();
                     foreach (var hoadon in DataProvider.Ins.DB.HOADONs.Where(x => x.NgayLap.Value.Month == i && x.NgayLap.Value.Year == SelectedYear))
