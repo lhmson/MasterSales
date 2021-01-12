@@ -75,6 +75,22 @@ namespace MasterSalesDemo.Helper
             return autoGenerateCode("HD", flag, 7);
         }
 
+        public string autoGenerateTaiKhoan()
+        {
+            //Loại bỏ chữ cái ở trước
+            int flag = 0;
+            ObservableCollection<TAIKHOAN> _listTK = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
+            foreach (var ls in _listTK)
+            {
+                int number = filterNumber(ls.id);
+                if (number > flag)
+                    flag = number;
+            }
+
+            flag++;
+            return autoGenerateCode("TK", flag, 5);
+        }
+
         public string autoGenerateHoaDon()
         {
             //Loại bỏ chữ cái ở trước
@@ -311,13 +327,13 @@ namespace MasterSalesDemo.Helper
 
         public CHUCVU getChucVubyMaNV(string MaNV)
         {
-            ObservableCollection<TAIKHOAN> _listTaiKhoan = new ObservableCollection<TAIKHOAN>(DataProvider.Ins.DB.TAIKHOANs);
+            ObservableCollection<NHANVIEN> _listNhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
 
-            foreach (var tk in _listTaiKhoan)
+            foreach (var nv in _listNhanVien)
             {
-                if (tk.MaNV == MaNV) 
+                if (nv.id == MaNV) 
                 {
-                    return tk.NHANVIEN.CHUCVU;
+                    return nv.CHUCVU;
                 }                    
             }
             return null;

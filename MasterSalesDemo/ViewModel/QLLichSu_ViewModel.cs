@@ -209,6 +209,7 @@ namespace MasterSalesDemo.ViewModel
                 Avatar = "/Images/Female.jpg";
 
             HanHopDong = "";
+
             HOPDONG hopdong = Global.Ins.getHopDongbyMaNV(SelectedNhanVien.MaNV);
             if (hopdong != null)
             { 
