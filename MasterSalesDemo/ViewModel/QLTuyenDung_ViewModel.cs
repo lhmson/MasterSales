@@ -173,7 +173,7 @@ namespace MasterSalesDemo.ViewModel
         public void InitNhanVien()
         {
             HoTen = "";
-            GioiTinh = "Nam";
+            GioiTinh = null;
             SelectedItemTrinhDo = null;
             NoiSinh = "";
             SelectedItemChucVu = null;
@@ -535,16 +535,16 @@ namespace MasterSalesDemo.ViewModel
                 ThongBao = "Bạn chưa nhập tên nhân viên";
                 return false;
             }
-            if (String.IsNullOrEmpty(NoiSinh))
-            {
-                DialogOpen = true;
-                ThongBao = "Bạn chưa nhập nơi sinh";
-                return false;
-            }
             if (GioiTinh == null)
             {
                 DialogOpen = true;
                 ThongBao = "Bạn chưa chọn giới tính";
+                return false;
+            }
+            if (String.IsNullOrEmpty(NoiSinh))
+            {
+                DialogOpen = true;
+                ThongBao = "Bạn chưa nhập nơi sinh";
                 return false;
             }
             if (SelectedItemTrinhDo == null)
