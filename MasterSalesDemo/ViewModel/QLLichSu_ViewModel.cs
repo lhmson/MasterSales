@@ -176,7 +176,7 @@ namespace MasterSalesDemo.ViewModel
             {
                 bool validPhongBan = false;
                 bool validTen = false;
-                CHUCVU chucvu = Global.Ins.getChucVubyMaNV(nv.id);
+                CHUCVU chucvu = nv.CHUCVU;
                 if (SelectedPhongBan == null || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
                     validPhongBan = true;
 
@@ -208,6 +208,7 @@ namespace MasterSalesDemo.ViewModel
                 Avatar = "/Images/Female.jpg";
 
             HanHopDong = "";
+
             HOPDONG hopdong = Global.Ins.getHopDongbyMaNV(SelectedNhanVien.MaNV);
             if (hopdong != null)
             { 
