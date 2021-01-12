@@ -173,7 +173,7 @@ namespace MasterSalesDemo.ViewModel
         public void InitNhanVien()
         {
             HoTen = "";
-            GioiTinh = "";
+            GioiTinh = "Nam";
             SelectedItemTrinhDo = null;
             NoiSinh = "";
             SelectedItemChucVu = null;
@@ -539,6 +539,12 @@ namespace MasterSalesDemo.ViewModel
             {
                 DialogOpen = true;
                 ThongBao = "Bạn chưa nhập nơi sinh";
+                return false;
+            }
+            if (GioiTinh == null)
+            {
+                DialogOpen = true;
+                ThongBao = "Bạn chưa chọn giới tính";
                 return false;
             }
             if (SelectedItemTrinhDo == null)
