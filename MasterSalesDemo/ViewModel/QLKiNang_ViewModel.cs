@@ -344,7 +344,7 @@ namespace MasterSalesDemo.ViewModel
             if (SelectedPhongBan == null || SelectedPhongBan=="Tất cả" || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
                 validPhongBan = true;
 
-            if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
+            if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.ToLower().Contains(TenNhanVien.ToLower()))
                 validTen = true;
 
             if (validTen && validPhongBan)
@@ -670,26 +670,6 @@ namespace MasterSalesDemo.ViewModel
             });
             #endregion
 
-            #region sửa trình độ
-
-            SuaTrinhDoCommand = new RelayCommand<object>((p) =>
-            {
-                if (SelectedItemTrinhDo == null)
-                    return false;
-                return true;
-
-            }, (p) =>
-            {
-                var trinhdo = DataProvider.Ins.DB.TRINHDOes.Where(x => x.id == SelectedItemTrinhDo.id).SingleOrDefault();
-                trinhdo.TenTrinhDo = TenTrinhDo;
-                DataProvider.Ins.DB.SaveChanges();
-                InitTrinhDo();
-                MessageBox.Show("Bạn lưu thành công");
-                var exit = p as Window;
-                exit.Close();
-            });
-            #endregion
-
             #region init kỹ năng
 
             InitKNCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
@@ -723,7 +703,7 @@ namespace MasterSalesDemo.ViewModel
 
             ThayDoiTrinhDoCommand = new RelayCommand<object>((p) =>
             {
-                if (SelectedItemTrinhDo == null)
+                if (SelectedItemTrinhDo == null || SelectedNhanVien == null)
                     return false;
                 var nhanvien = DataProvider.Ins.DB.NHANVIENs.Where(x => x.id == SelectedNhanVien.MaNV).SingleOrDefault();
 

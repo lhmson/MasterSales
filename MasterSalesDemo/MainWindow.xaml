@@ -110,7 +110,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </HamburgerMenu:HamburgerMenuItem>
-                    <HamburgerMenu:HamburgerMenuItem x:Name="QLKhachHang_Page_Button" Icon="/Images/customer-service.png" Text="Quản lí Khách hàng" IsEnabled="{Binding Enable_QLKhachHang}" ToolTip="{Binding QLKhachHang_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10" >
+                    <HamburgerMenu:HamburgerMenuItem x:Name="QLKhachHang_Page_Button" Icon="/Images/customer-service.png" Text="Tư vấn Khách hàng" IsEnabled="{Binding Enable_QLKhachHang}" ToolTip="{Binding QLKhachHang_Tooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="10" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="GotFocus">
                                 <i:InvokeCommandAction Command="{Binding QLKhachHang_Page_SelectedCommand}"

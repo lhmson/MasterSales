@@ -189,6 +189,7 @@ namespace MasterSalesDemo.ViewModel
         public void InitThemHopDong()
         {
             SelectedItemLoaiHopDong = null;
+            SelectedNhanVien = null;
             SelectedStartDate = DateTime.Now;
             SelectedEndDate = SelectedStartDate;
             ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
@@ -459,7 +460,7 @@ namespace MasterSalesDemo.ViewModel
             if (SelectedPhongBan == null || SelectedPhongBan=="Tất cả" || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
                 validPhongBan = true;
 
-            if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
+            if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.ToLower().Contains(TenNhanVien.ToLower()))
                 validTen = true;
 
             if (validTen && validPhongBan)
@@ -531,18 +532,21 @@ namespace MasterSalesDemo.ViewModel
         {
             if (String.IsNullOrEmpty(HoTen))
             {
+                IconModal = "CloseCircle";
                 DialogOpen = true;
                 ThongBao = "Bạn chưa nhập tên nhân viên";
                 return false;
             }
             if (GioiTinh == null)
             {
+                IconModal = "CloseCircle";
                 DialogOpen = true;
                 ThongBao = "Bạn chưa chọn giới tính";
                 return false;
             }
             if (String.IsNullOrEmpty(NoiSinh))
             {
+                IconModal = "CloseCircle";
                 DialogOpen = true;
                 ThongBao = "Bạn chưa nhập nơi sinh";
                 return false;
@@ -555,11 +559,19 @@ namespace MasterSalesDemo.ViewModel
             }
             if (SelectedItemChucVu == null)
             {
+                IconModal = "CloseCircle";
                 DialogOpen = true;
                 ThongBao = "Bạn chưa chọn chức vụ";
                 return false;
             }
             return true;
+        }
+
+        private string _IconModal;
+        public string IconModal
+        {
+            get { return _IconModal; }
+            set { _IconModal = value; OnPropertyChanged(); }
         }
 
         public void save_NV()
@@ -850,7 +862,19 @@ namespace MasterSalesDemo.ViewModel
                 NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Where(x => x.id == SelectedItemNhanVien.id).FirstOrDefault();
                 HOPDONG hd = DataProvider.Ins.DB.HOPDONGs.Where(x => x.MaNV == nv.id).FirstOrDefault();
 
-                if (hd != null)
+                if (hd == null)
+                {
+                    DataProvider.Ins.DB.HOPDONGs.Add(hopdong);
+                    DataProvider.Ins.DB.SaveChanges();
+                    HopDong.Add(hopdong);
+                    ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+                    ListHopDong.Add(hopdong);
+                    InitThemHopDong();
+                    MessageBox.Show("Thêm thành công");
+                    var exit = p as Window;
+                    exit.Close();
+                }    
+                else
                 {
                     if (hd.NgayKT.Value.Date <= SelectedStartDate.Date)
                     {

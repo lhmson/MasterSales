@@ -253,6 +253,14 @@ namespace MasterSalesDemo.ViewModel
                     i++;
                     dongluongthuong.MaNV = item.id;
                     dongluongthuong.TenNV = item.HoTen;
+
+                    //FIX BUG
+                    IEnumerable<HOPDONG> _listHD = item.HOPDONGs.Where(x => x.isDeleted == false);
+                    if (_listHD == null) break;
+                    if (_listHD.Count() == 0) break;
+                    if (_listHD.First().LOAIHOPDONG == null) break;
+                    //FIX BUG
+
                     dongluongthuong.LuongCB = item.HOPDONGs.Where(x => x.isDeleted == false).First().LOAIHOPDONG.Luong ?? 0;
                     dongluongthuong.LuongPC = item.CHUCVU.PhuCap ?? 0;
 

@@ -60,11 +60,11 @@
 
         <Grid Margin="30,20.4,0,79" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Grid.RowSpan="2" Width="438">
             <StackPanel Visibility="{Binding VisibilityNgayketthuc}" Orientation="Horizontal" Margin="15,0,0,0">
-                <DatePicker Width="396" materialDesign:HintAssist.Hint="Ngày sinh"
+                <DatePicker Width="189" materialDesign:HintAssist.Hint="Ngày sinh"
                             HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding NgaySinh,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,20,30,20.2" >
+                            SelectedDateFormat="Short" Margin="0,20,30,20" >
                     <!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectedDateChanged">
                                     <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"

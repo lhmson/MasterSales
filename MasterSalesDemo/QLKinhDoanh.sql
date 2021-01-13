@@ -465,7 +465,7 @@ ADD MoTa NVARCHAR(250)
 ALTER TABLE PHIEUDATHANG
 ADD DiaChiNhan NVARCHAR(50)
 
-INSERT INTO TuVanKH VALUES ('TV1','KH1', N'Bạn có người yêu chưa', null, 0,'1/1/2020',null,'NV00005')
+INSERT INTO TuVanKH VALUES ('TV1','KH1', N'Bạn có người yêu chưa', N'Tui chưa biết nè hihi', 0,'1/1/2020','1/8/2020','NV00005')
 
 GO
 

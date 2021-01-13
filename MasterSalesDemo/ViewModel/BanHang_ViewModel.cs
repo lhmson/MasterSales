@@ -342,7 +342,7 @@ namespace MasterSalesDemo.ViewModel
                 BindingPhieuDHOnline();
                 IconModal = "CheckCircleOutline";
                 DialogOpen = true;
-                ThongBao = "Xác nhận xử lý phiếu đặt hàng thàng công";
+                ThongBao = "Đã chọn phiếu đặt hàng để xử lí";
             }
         }
         public KHACHHANG findKhachHangbySDT(string sdt)
