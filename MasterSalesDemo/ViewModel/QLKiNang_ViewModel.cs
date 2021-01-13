@@ -650,6 +650,26 @@ namespace MasterSalesDemo.ViewModel
 
             #endregion
 
+            #region sửa trình độ
+
+            SuaTrinhDoCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItemTrinhDo == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                var trinhdo = DataProvider.Ins.DB.TRINHDOes.Where(x => x.id == SelectedItemTrinhDo.id).SingleOrDefault();
+                trinhdo.TenTrinhDo = TenTrinhDo;
+                DataProvider.Ins.DB.SaveChanges();
+                InitTrinhDo();
+                MessageBox.Show("Bạn lưu thành công");
+                var exit = p as Window;
+                exit.Close();
+            });
+            #endregion
+
             #region sửa kỹ năng
 
             SuaKyNangCommand = new RelayCommand<object>((p) =>
