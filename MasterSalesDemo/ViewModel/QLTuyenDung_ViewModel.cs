@@ -193,6 +193,7 @@ namespace MasterSalesDemo.ViewModel
             SelectedStartDate = DateTime.Now;
             SelectedEndDate = SelectedStartDate;
             ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+            ListLoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
         }
 
         #endregion
@@ -637,6 +638,7 @@ namespace MasterSalesDemo.ViewModel
             }, (p) =>
             {
                 ThemLoaiHopDong window = new ThemLoaiHopDong();
+                window.Closed += ThemLoaihopdongWindow_Closed;
                 window.ShowDialog();
             });
 
@@ -808,6 +810,7 @@ namespace MasterSalesDemo.ViewModel
                 LoaiHopDong.Add(loaihopdong);
                 LoaiHopDong = new ObservableCollection<LOAIHOPDONG>(DataProvider.Ins.DB.LOAIHOPDONGs);
                 ListLoaiHopDong.Add(loaihopdong);
+                
                 InitThemLoaiHopDong();
                 MessageBox.Show("Thêm thành công");
                 var exit = p as Window;
@@ -820,7 +823,7 @@ namespace MasterSalesDemo.ViewModel
 
             SuaLoaiHopDongCommand = new RelayCommand<object>((p) =>
             {
-                if (TenLoaiHD == null || ThoiHan ==0 || Luong ==0 )
+                if (SelectedItemLoaiHopDong == null|| TenLoaiHD == null || ThoiHan ==0 || Luong ==0 )
                     return false;
                 return true;
 
@@ -917,6 +920,11 @@ namespace MasterSalesDemo.ViewModel
         private void ThemNhanVienWindow_Closed(object sender, EventArgs e)
         {
             SearchNhanVien();
+        }
+
+        private void ThemLoaihopdongWindow_Closed(object sender, EventArgs e)
+        {
+            InitThemHopDong();
         }
     }
 }
