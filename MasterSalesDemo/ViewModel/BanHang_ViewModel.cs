@@ -299,11 +299,11 @@ namespace MasterSalesDemo.ViewModel
                 BanHang_PrintPreview print = new BanHang_PrintPreview(vm);
                 print.Show();
             }
-
+            LoadDatabase();
             DialogOpen = true;
             IconModal = "CheckCircleOutline";
             ThongBao = "Tạo hóa đơn thành công";
-            LoadDatabase();
+          
         }
         public void BindingPhieuDHOnline()
         {
