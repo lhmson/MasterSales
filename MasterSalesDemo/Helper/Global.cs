@@ -454,7 +454,7 @@ namespace MasterSalesDemo.Helper
             ObservableCollection<string> ListPhongBan = new ObservableCollection<string>();
             ObservableCollection<PHONGBAN> _listPhongBan = new ObservableCollection<PHONGBAN>(DataProvider.Ins.DB.PHONGBANs);
             foreach (var pb in _listPhongBan)
-                ListPhongBan.Add(pb.id);
+                ListPhongBan.Add(pb.TenPhong);
             return ListPhongBan;
         }
 
