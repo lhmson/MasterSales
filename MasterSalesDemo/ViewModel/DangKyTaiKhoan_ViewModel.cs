@@ -72,6 +72,14 @@ namespace MasterSalesDemo.ViewModel
         public ICommand SelectionChangeNVCommand { get; set; }
         #endregion
 
+        void InitTaiKhoan()
+        {
+            TenDangNhap = null;
+            MatKhau = null;
+            SelectedPhongBan = null;
+            SelectedNhanVien = null;
+        }
+
         #region
         public bool checkDaCoTaiKhoan(NHANVIEN nv)
         {
@@ -146,15 +154,18 @@ namespace MasterSalesDemo.ViewModel
             tk.MatKhau = MatKhau;
             DataProvider.Ins.DB.TAIKHOANs.Add(tk);
             DataProvider.Ins.DB.SaveChanges();
+            InitTaiKhoan();
             flagFinished = true;
         }
         #endregion
         public DangKyTaiKhoan_ViewModel()
         {
             flagFinished = false;
+            InitTaiKhoan();
             LoadDataBase();
 
             CloseWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                InitTaiKhoan();
                 p.Close();
                 flagFinished = false;
             });
@@ -166,6 +177,7 @@ namespace MasterSalesDemo.ViewModel
 
             XacNhanCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 DangKyTaiKhoan();
+                InitTaiKhoan();
                 if (flagFinished)
                     p.Close();
             });

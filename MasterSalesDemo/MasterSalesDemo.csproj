@@ -678,6 +678,36 @@
     <Resource Include="Images\user.png" />
     <Resource Include="Images\MatHang.png" />
     <Resource Include="Images\TaiKhoan.jpg" />
+    <Resource Include="img\MH10.png" />
+    <Resource Include="img\MH11.png" />
+    <Resource Include="img\MH12.png" />
+    <Resource Include="img\MH13.jpg" />
+    <Resource Include="img\MH14.png" />
+    <Resource Include="img\MH15.png" />
+    <Resource Include="img\MH16.jpg" />
+    <Resource Include="img\MH17.png" />
+    <Resource Include="img\MH18.png" />
+    <Resource Include="img\MH19.png" />
+    <Resource Include="img\MH20.png" />
+    <Resource Include="img\MH21.png" />
+    <Resource Include="img\MH22.png" />
+    <Resource Include="img\MH23.png" />
+    <Resource Include="img\MH24.jpg" />
+    <Resource Include="img\MH25.png" />
+    <Resource Include="img\MH26.png" />
+    <Resource Include="img\MH27.png" />
+    <Resource Include="img\MH28.png" />
+    <Resource Include="img\MH29.png" />
+    <Resource Include="img\MH30.jpg" />
+    <Resource Include="img\MH9.png" />
+    <Resource Include="img\product-1.png" />
+    <Resource Include="img\product-2.png" />
+    <Resource Include="img\product-3.png" />
+    <Resource Include="img\product-4.png" />
+    <Resource Include="img\product-5.png" />
+    <Resource Include="img\product-6.png" />
+    <Resource Include="img\product-7.png" />
+    <Resource Include="img\product-8.png" />
     <Content Include="Model\QLKinhDoanhModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKinhDoanhModel.edmx</DependentUpon>
@@ -718,9 +748,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="img\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.1.2\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.2\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
