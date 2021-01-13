@@ -15,7 +15,7 @@ namespace MasterSalesDemo
     {
         public App()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzU4MzM4QDMxMzgyZTMzMmUzMEp5cmVDcVNqTEZZWVRTL2drU1d3TFFta29HSTdBMVhPZTcyOFdpZlQ4b2s9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzgyMjM0QDMxMzgyZTM0MmUzMEtrSnpUOWdNRVFOcEYyU1NPMEpnSmFZREt3MWxxR2lLekxES2xGN01nQXM9");
         }
     }
 }
