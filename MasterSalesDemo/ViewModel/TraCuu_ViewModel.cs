@@ -269,7 +269,7 @@ namespace MasterSalesDemo.ViewModel
             if (SelectedPhongBan == null || SelectedPhongBan=="Tất cả" || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
                 validPhongBan = true;
 
-            if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
+            if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.ToLower().Contains(TenNhanVien.ToLower()))
                 validTen = true;
 
             if (validTen && validPhongBan)

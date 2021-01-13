@@ -58,13 +58,13 @@
             <TextBox Text="{Binding HoTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên nhân viên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="10,0,10.6,0.4" />
         </Grid>
 
-        <Grid Margin="30,20.4,0,79" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Left" Grid.RowSpan="2" Width="438">
+        <Grid Margin="30,20.4,0,79" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Grid.RowSpan="2" Width="438">
             <StackPanel Visibility="{Binding VisibilityNgayketthuc}" Orientation="Horizontal" Margin="15,0,0,0">
-                <DatePicker Width="396" materialDesign:HintAssist.Hint="Ngày sinh"
+                <DatePicker Width="189" materialDesign:HintAssist.Hint="Ngày sinh"
                             HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding NgaySinh,StringFormat='dd/MM/yyyy', Mode=TwoWay}"
-                            SelectedDateFormat="Short" Margin="0,20,30,20.2" >
+                            SelectedDateFormat="Short" Margin="0,20,30,20" >
                     <!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectedDateChanged">
                                     <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"
@@ -75,11 +75,11 @@
             </StackPanel>
         </Grid>
 
-        <Grid Margin="30,20,50,0"  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="6" >
+        <Grid Margin="30,20,50,0"  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="6" >
             <ComboBox Name="cbbGioiTinh" materialDesign:HintAssist.Hint="Giới tính"
                           Visibility="{Binding VisibilityOfAdd}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           ItemsSource="{Binding ListGioiTinh}"
-                          SelectedItem="{Binding GioiTinh}" Height="48" Margin="0,13,-0.4,10.2">
+                          SelectedItem="{Binding GioiTinh}" Height="48" Margin="0,13,-0.4,10.2" Text="Nữ">
             </ComboBox>
         </Grid>
 
@@ -127,6 +127,20 @@
                             Style="{StaticResource MaterialDesignRaisedButton}"  Content="{materialDesign:PackIcon Kind=RotateLeft, Size=32}"  Margin="0,0,0,16" Height="50" FontSize="20"/>
 
         </Grid>
-
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="7">
+            <materialDesign:DialogHost IsOpen="{Binding DialogOpen}" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                <materialDesign:DialogHost.DialogContent>
+                    <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical" Margin="15">
+                            <materialDesign:PackIcon Kind="{Binding IconModal}" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50" HorizontalAlignment="Center"/>
+                            <TextBlock FontSize="20" Foreground="Gray" Width="auto" Margin="15 15 15 15" TextWrapping="Wrap" Text="{Binding ThongBao}" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="OK" Command="{Binding DialogOK}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:DialogHost.DialogContent>
+            </materialDesign:DialogHost>
+        </Grid>
     </Grid>
 </Window>

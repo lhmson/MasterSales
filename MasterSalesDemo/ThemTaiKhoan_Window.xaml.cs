@@ -11,19 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using MasterSalesDemo.ViewModel;
 
-namespace MasterSalesDemo.View
+namespace MasterSalesDemo
 {
     /// <summary>
-    /// Interaction logic for ThemLoaiHopDong.xaml
+    /// Interaction logic for ThemTaiKhoan_Window.xaml
     /// </summary>
-    public partial class ThemLoaiHopDong : Window
+    public partial class ThemTaiKhoan_Window : Window
     {
-        public ThemLoaiHopDong()
+        public ThemTaiKhoan_Window()
         {
             InitializeComponent();
-            this.DataContext = new QLTuyenDung_ViewModel();
         }
     }
 }

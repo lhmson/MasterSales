@@ -162,7 +162,7 @@ namespace MasterSalesDemo.ViewModel
                     DataProvider.Ins.DB.DANHGIAKYNANGs.Add(dgkn);
                     DataProvider.Ins.DB.SaveChanges();
 
-                    MessageBox.Show("Thêm thành công");
+                    MessageBox.Show("Thêm kỹ năng thành công");
                     var exit = p as Window;
                     exit.Close();
 

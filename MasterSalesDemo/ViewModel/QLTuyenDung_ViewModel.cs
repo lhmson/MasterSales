@@ -66,6 +66,8 @@ namespace MasterSalesDemo.ViewModel
 
         public ICommand InitNVCommand { get; set; }
         public ICommand InitHDCommand { get; set; }
+        public ICommand DialogOK { get; set; }
+        public ICommand XacNhanCommand { get; set; }
 
         #region nhân viên
 
@@ -171,7 +173,7 @@ namespace MasterSalesDemo.ViewModel
         public void InitNhanVien()
         {
             HoTen = "";
-            GioiTinh = "";
+            GioiTinh = null;
             SelectedItemTrinhDo = null;
             NoiSinh = "";
             SelectedItemChucVu = null;
@@ -182,12 +184,12 @@ namespace MasterSalesDemo.ViewModel
 
         #endregion
 
-
         #region init thêm hợp đồng
 
         public void InitThemHopDong()
         {
             SelectedItemLoaiHopDong = null;
+            SelectedNhanVien = null;
             SelectedStartDate = DateTime.Now;
             SelectedEndDate = SelectedStartDate;
             ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
@@ -458,7 +460,7 @@ namespace MasterSalesDemo.ViewModel
             if (SelectedPhongBan == null || SelectedPhongBan=="Tất cả" || (chucvu != null && chucvu.PHONGBAN.TenPhong == SelectedPhongBan))
                 validPhongBan = true;
 
-            if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.Contains(TenNhanVien))
+            if (String.IsNullOrWhiteSpace(TenNhanVien) || nv.HoTen.ToLower().Contains(TenNhanVien.ToLower()))
                 validTen = true;
 
             if (validTen && validPhongBan)
@@ -511,6 +513,102 @@ namespace MasterSalesDemo.ViewModel
         }
 
         #endregion
+
+        private bool _DialogOpen;
+        public bool DialogOpen
+        {
+            get { return _DialogOpen; }
+            set { _DialogOpen = value; OnPropertyChanged(); }
+        }
+
+        private string _ThongBao;
+        public string ThongBao
+        {
+            get { return _ThongBao; }
+            set { _ThongBao = value; OnPropertyChanged(); }
+        }
+
+        public bool check_NV()
+        {
+            if (String.IsNullOrEmpty(HoTen))
+            {
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Bạn chưa nhập tên nhân viên";
+                return false;
+            }
+            if (GioiTinh == null)
+            {
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Bạn chưa chọn giới tính";
+                return false;
+            }
+            if (String.IsNullOrEmpty(NoiSinh))
+            {
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Bạn chưa nhập nơi sinh";
+                return false;
+            }
+            if (SelectedItemTrinhDo == null)
+            {
+                DialogOpen = true;
+                ThongBao = "Bạn chưa chọn trình độ";
+                return false;
+            }
+            if (SelectedItemChucVu == null)
+            {
+                IconModal = "CloseCircle";
+                DialogOpen = true;
+                ThongBao = "Bạn chưa chọn chức vụ";
+                return false;
+            }
+            return true;
+        }
+
+        private string _IconModal;
+        public string IconModal
+        {
+            get { return _IconModal; }
+            set { _IconModal = value; OnPropertyChanged(); }
+        }
+
+        public void save_NV()
+        {
+            string manhanvien = GetCodeNhanVien();
+            var nhanvien = new NHANVIEN()
+            {
+                id = manhanvien,
+                HoTen = HoTen,
+                NgaySinh = NgaySinh,
+                GioiTinh = GioiTinh,
+                MaTrinhDo = SelectedItemTrinhDo.id,
+                NoiSinh = NoiSinh,
+                MaChucVu = SelectedItemChucVu.id,
+                isDeleted = false,
+            };
+            DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
+            DataProvider.Ins.DB.SaveChanges();
+            NhanVien.Add(nhanvien);
+            NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+            ThemNhanVienVaoList(nhanvien);
+            InitNhanVien();
+
+            //Sanh-add lslv
+            LICHSUCHUCVU lichsu = new LICHSUCHUCVU()
+            {
+                id = Global.Ins.autoGenerateLichSu(),
+                MaNV = nhanvien.id,
+                MaChucVu = nhanvien.MaChucVu,
+                NgayBD = DateTime.Now,
+                NgayKT = null,
+                isDeleted = false,
+            };
+
+            DataProvider.Ins.DB.LICHSUCHUCVUs.Add(lichsu);
+            DataProvider.Ins.DB.SaveChanges();
+        }
 
         public QLTuyenDung_ViewModel()
         {
@@ -574,42 +672,61 @@ namespace MasterSalesDemo.ViewModel
 
             #region thêm nhân viên
 
-            ThemNhanVienCommand = new AppCommand<object>((p) =>
+            ThemNhanVienCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                if (string.IsNullOrEmpty(HoTen))
-                    return false;
-
-                var tennhanvien = DataProvider.Ins.DB.NHANVIENs.Where(x => x.HoTen.ToLower() == HoTen.ToLower());
-                if (tennhanvien == null || tennhanvien.Count() != 0)
-                    return false;
-
-                return true;
-
-            }, (p) =>
-            {
-                string manhanvien = GetCodeNhanVien();
-                var nhanvien = new NHANVIEN()
-                {
-                    id = manhanvien,
-                    HoTen = HoTen,
-                    NgaySinh = NgaySinh,
-                    GioiTinh = GioiTinh,
-                    MaTrinhDo = SelectedItemTrinhDo.id,
-                    NoiSinh = NoiSinh,
-                    MaChucVu = SelectedItemChucVu.id,
-                    isDeleted = false,
-                };
-
-                DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
-                DataProvider.Ins.DB.SaveChanges();
-                NhanVien.Add(nhanvien);
-                NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
-                ThemNhanVienVaoList(nhanvien);
-                InitNhanVien();
+                if (check_NV() == false) return;
+                //ThongBao = "Thêm nhân viên thành công!";
+                //DialogOpen = true;
+                save_NV();
                 MessageBox.Show("Thêm thành công");
                 var exit = p as Window;
                 exit.Close();
             });
+
+            //XacNhanCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            //{
+            //    if (check_NV() == false) return;
+            //    ThongBao = "Lập phiếu nhập hàng thành công!";
+            //    save_NV();
+            //    DialogOpen = true;
+            //    var exit = p as Window;
+            //    exit.Close();
+                //    if (string.IsNullOrEmpty(HoTen))
+                //        return false;
+
+                //    var tennhanvien = DataProvider.Ins.DB.NHANVIENs.Where(x => x.HoTen.ToLower() == HoTen.ToLower());
+                //    if (tennhanvien == null || tennhanvien.Count() != 0)
+                //        return false;
+
+                //    return true;
+
+                //}, (p) =>
+                //{
+                //    string manhanvien = GetCodeNhanVien();
+                //    var nhanvien = new NHANVIEN()
+                //    {
+                //        id = manhanvien,
+                //        HoTen = HoTen,
+                //        NgaySinh = NgaySinh,
+                //        GioiTinh = GioiTinh,
+                //        MaTrinhDo = SelectedItemTrinhDo.id,
+                //        NoiSinh = NoiSinh,
+                //        MaChucVu = SelectedItemChucVu.id,
+                //        isDeleted = false,
+                //    };
+
+                //    DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
+                //    DataProvider.Ins.DB.SaveChanges();
+                //    NhanVien.Add(nhanvien);
+                //    NhanVien = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+                //    ThemNhanVienVaoList(nhanvien);
+                //    InitNhanVien();
+                //    //DialogOpen = true;
+                //    //ThongBao = "Thêm thành công";
+                //    MessageBox.Show("Thêm thành công");
+                //    var exit = p as Window;
+                //    exit.Close();
+            //});
 
             #endregion
 
@@ -745,7 +862,19 @@ namespace MasterSalesDemo.ViewModel
                 NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Where(x => x.id == SelectedItemNhanVien.id).FirstOrDefault();
                 HOPDONG hd = DataProvider.Ins.DB.HOPDONGs.Where(x => x.MaNV == nv.id).FirstOrDefault();
 
-                if (hd != null)
+                if (hd == null)
+                {
+                    DataProvider.Ins.DB.HOPDONGs.Add(hopdong);
+                    DataProvider.Ins.DB.SaveChanges();
+                    HopDong.Add(hopdong);
+                    ListHopDong = new ObservableCollection<HOPDONG>(DataProvider.Ins.DB.HOPDONGs);
+                    ListHopDong.Add(hopdong);
+                    InitThemHopDong();
+                    MessageBox.Show("Thêm thành công");
+                    var exit = p as Window;
+                    exit.Close();
+                }    
+                else
                 {
                     if (hd.NgayKT.Value.Date <= SelectedStartDate.Date)
                     {
@@ -779,6 +908,10 @@ namespace MasterSalesDemo.ViewModel
             });
 
             #endregion
+
+            DialogOK = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                DialogOpen = false;
+            });
         }
 
         private void ThemNhanVienWindow_Closed(object sender, EventArgs e)

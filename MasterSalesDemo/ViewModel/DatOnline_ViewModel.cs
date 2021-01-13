@@ -92,6 +92,15 @@ namespace MasterSalesDemo.ViewModel
         public void LoadPhieu(ObservableCollection<PHIEUDATHANG> listPhieu)
         {
             ListPhieu.Clear();
+            for (int i = 0; i < listPhieu.Count; i++)
+                for (int j = i + 1; j < listPhieu.Count; j++)
+                    if (listPhieu[i].NgayDat.Value.Date > listPhieu[j].NgayDat.Value.Date)
+                    {
+                        PHIEUDATHANG temp = listPhieu[i];
+                        listPhieu[i] = listPhieu[j];
+                        listPhieu[j] = temp;
+                    }
+
             foreach (var phieu in listPhieu)
             if (!(phieu.TrangThai==1))
             {

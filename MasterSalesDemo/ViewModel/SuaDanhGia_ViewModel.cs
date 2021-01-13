@@ -75,7 +75,9 @@ namespace MasterSalesDemo.ViewModel
                 danhgiakynang.LoaiDanhGia = LoaiDanhGia;
                 DataProvider.Ins.DB.SaveChanges();
 
-                MessageBox.Show("Bạn lưu thành công");
+                MessageBox.Show("Đánh giá kỹ năng thành công");
+                var exit = p as Window;
+                exit.Close();
             });
             #endregion
 
