@@ -209,12 +209,15 @@ namespace MasterSalesDemo.ViewModel
             _PBNhanVien = Helper.Global.Ins.NhanVien.CHUCVU.PHONGBAN;
             ListNam = new ObservableCollection<string>();
             ListThang = new ObservableCollection<string>();
+            ObservableCollection<string> listThangTemp = new ObservableCollection<string>();
+            listThangTemp.Add("Tháng 1");
+            ListThang = listThangTemp;
             for (int i = 4; i >= 0; i--)
             {
                 ListNam.Add((DateTime.Today.Year - i).ToString());
             }
             SelectedNam = DateTime.Today.Year.ToString();
-            for (int i = 1; i <= 12; i++)
+            for (int i = 2; i <= 12; i++)
             {
                 if (int.Parse(SelectedNam) == DateTime.Today.Year && i > DateTime.Today.Month)
                     break;
@@ -461,11 +464,22 @@ namespace MasterSalesDemo.ViewModel
             loadData();
             phongBanSelectionChangedCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
+                SelectedPhongBan = DataProvider.Ins.DB.PHONGBANs.Where(x => x.TenPhong == SelectedTenPhongBan).First().id;
                 loadTable();
-                SelectedTenPhongBan = DataProvider.Ins.DB.PHONGBANs.Where(x => x.id == SelectedPhongBan).First().TenPhong;
             });
             namSelectionChangedCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
+                SelectedThang = "Tháng " + DateTime.Today.Month.ToString();
+                ObservableCollection<string> listThangTemp = new ObservableCollection<string>();
+                listThangTemp.Add("Tháng 1");
+                ListThang = listThangTemp;
+                for (int i = 2; i <= 12; i++)
+                {
+                    if (int.Parse(SelectedNam) == DateTime.Today.Year && i > DateTime.Today.Month)
+                        break;
+                    ListThang.Add("Tháng " + i.ToString());
+                }
+                SelectedThang = "Tháng " + DateTime.Today.Month.ToString();
                 loadTable();
             });
             thangSelectionChangedCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -506,6 +520,12 @@ namespace MasterSalesDemo.ViewModel
                     DataProvider.Ins.DB.SaveChanges();
                     DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().SoBuoi = int.Parse(SoBuoi);
                     DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienLamThem = int.Parse(SoBuoi) * DataProvider.Ins.DB.THAMSOes.Where(x => x.id == "HeSoLamThem").First().GiaTri;
+                    DataProvider.Ins.DB.SaveChanges();
+                    decimal luongcb = DataProvider.Ins.DB.HOPDONGs.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().LOAIHOPDONG.Luong ?? 0;
+                    decimal tienthuong = DataProvider.Ins.DB.BANGTHUONGs.Where(x => x.MaPhong == SelectedPhongBan && x.Thang == thang && x.Nam == nam).First().CT_BANGTHUONG.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienThuong ?? 0;
+                    decimal luonglamthem = DataProvider.Ins.DB.BANGLAMTHEMs.Where(x => x.Thang == thang && x.Nam == nam && SelectedPhongBan == x.MaPhong).First().CT_BANGLAMTHEM.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TienLamThem ?? 0;
+                    decimal phucap = SelectedNhanVien.LuongPC;
+                    DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLUONGTL.Where(x => x.MaNV == SelectedNhanVien.MaNV).First().TongLuong = luongcb + luonglamthem + tienthuong + phucap;
                     DataProvider.Ins.DB.SaveChanges();
                     loadTable();
                     dialogIcon = "CheckCircleOutline";

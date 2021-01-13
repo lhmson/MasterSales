@@ -84,7 +84,7 @@
   IsEditable="False" 
                         IsEnabled="{Binding chonPhongBanEnabled}"
   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                        FontSize="16" Margin="0,10,16,0" ItemsSource="{Binding ListPhongBan, Mode=TwoWay}" SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay}">
+                        FontSize="16" Margin="0,10,16,0" ItemsSource="{Binding ListPhongBan, Mode=TwoWay}" SelectedItem="{Binding SelectedTenPhongBan, Mode=TwoWay}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding phongBanSelectionChangedCommand}"
@@ -92,13 +92,6 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ComboBox>
-                    <TextBox
-                        IsEnabled="False"
-  materialDesign:HintAssist.Hint="Tên phòng ban"
-                        IsReadOnly="True"
-                        Text="{Binding SelectedTenPhongBan}"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,5.5,16,0" Padding="0,0,4,0"/>
                     <ComboBox
   materialDesign:HintAssist.Hint="Chọn năm"
   IsEditable="False"
