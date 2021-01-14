@@ -76,6 +76,12 @@ namespace MasterSalesDemo.ViewModel
             get { return _SelectedThang; }
             set { _SelectedThang = value; OnPropertyChanged(); }
         }
+        private Decimal _TongLuongCaPhong;
+        public Decimal TongLuongCaPhong
+        {
+            get { return _TongLuongCaPhong; }
+            set { _TongLuongCaPhong = value; OnPropertyChanged(); }
+        }
         private ObservableCollection<string> _ListNam;
         public ObservableCollection<string> ListNam
         {
@@ -239,10 +245,12 @@ namespace MasterSalesDemo.ViewModel
             chonPhongBanEnabled = false;
             if (Helper.Global.Ins.NhanVien.CHUCVU.MaPhongBan == "PB005")
                 chonPhongBanEnabled = true;
+            TongLuongCaPhong = 0;
             loadTable();
         }
         public void loadTable()
         {
+            Decimal luongcaphong = 0;
             ObservableCollection<NHANVIEN> _listNV = Helper.Global.Ins.getAllNhanVienbyMaPhongBan(SelectedPhongBan);
             BangLuongThuong = new ObservableCollection<DongLuongThuong>();
             int i = 1;
@@ -369,12 +377,14 @@ namespace MasterSalesDemo.ViewModel
                         DataProvider.Ins.DB.SaveChanges();
                     }
                     dongluongthuong.LuongTL = DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().CT_BANGLUONGTL.Where(x => x.MaNV == item.id).First().TongLuong ?? 0;
+                    luongcaphong += dongluongthuong.LuongTL;
                     BangLuongThuong.Add(dongluongthuong);
                     if (i == 2)
                     {
                         SelectedNhanVien = dongluongthuong;
                         loadThongTin();
                     }
+                    TongLuongCaPhong = luongcaphong;
                 }
             luuThayDoiEnabled = false;
             if (DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).Count() > 0 && DataProvider.Ins.DB.BANGLUONGTLs.Where(x => x.Thang == thang && x.Nam == nam && x.MaPhong == SelectedPhongBan).First().MaKeToan != null)
