@@ -164,10 +164,15 @@
                                 <Grid>
                                     <Grid  Visibility="{Binding VisibilityBang}"  Grid.Row="2">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="10*"/>
-                                            <RowDefinition Height="*"/>
+                                            <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <ListView  Grid.Row="0" FontSize="18" ItemsSource="{Binding BaoCao}" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Single" VerticalAlignment="Top">
+                                        <DockPanel>
+                                            <StackPanel Margin="16" DockPanel.Dock="Top" Orientation="Horizontal">
+                                                <TextBlock  Text="Tổng doanh thu kỳ: "/>
+                                                <TextBlock Text="{Binding TongKhoangTG, StringFormat='#,##0;(#,##0)'}"/>
+                                                <TextBlock  Text=" VNĐ"/>
+                                            </StackPanel>
+                                            <ListView  FontSize="18" ItemsSource="{Binding BaoCao}" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Single" VerticalAlignment="Top">
                                             <ListView.View>
                                                 <GridView>
                                                     <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"/>
@@ -178,7 +183,7 @@
                                                 </GridView>
                                             </ListView.View>
                                         </ListView>
-                                        <TextBlock Grid.Row="1" FontStyle="Italic" Opacity="0.5" HorizontalAlignment="Right" Margin="0,0,15,0">* báo cáo không bao gồm ngày hôm nay</TextBlock>
+                                        </DockPanel>
                                     </Grid>
                                     <Grid  Visibility="{Binding VisibilityBangNam}"  Grid.Row="2">
                                         <Grid.RowDefinitions>
@@ -195,10 +200,13 @@
                                                 </GridView>
                                             </ListView.View>
                                         </ListView>
-                                        <TextBlock Grid.Row="1" FontStyle="Italic" Opacity="0.5" HorizontalAlignment="Right" Margin="0,0,15,0">* báo cáo không bao gồm ngày hôm nay</TextBlock>
                                     </Grid>
                                     <StackPanel Visibility="{Binding VisibilityChart}">
-                                        <TextBlock Text="{Binding DoanhThuCaNam}"  Margin="16,26,0,26"/>
+                                        <StackPanel Margin="16" DockPanel.Dock="Top" Orientation="Horizontal">
+                                            <TextBlock  Text="Doanh thu cả năm: "/>
+                                            <TextBlock Text="{Binding DoanhThuCaNam, StringFormat='#,##0;(#,##0)'}"/>
+                                            <TextBlock  Text=" VNĐ"/>
+                                        </StackPanel>
                                         <Grid>
                                             <chart:SfChart Header="Biểu đồ thống kê doanh thu chuỗi cửa hàng MasterSales" Height="420" Margin="0,0,16,0">
                                                 <chart:SfChart.PrimaryAxis>

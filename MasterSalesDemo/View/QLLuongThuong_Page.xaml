@@ -138,7 +138,13 @@
   ToolTip="Dành cho kế toán: Duyệt bảng lương"  Padding="16,0"  Command="{Binding duyetCommand}"/>
                 </StackPanel>
                 <materialDesign:Card Margin="8,8,8,16" Grid.Row="2" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="10" Background="White">
-                    <DataGrid
+                    <DockPanel>
+                        <StackPanel Margin="16" DockPanel.Dock="Top" Orientation="Horizontal">
+                            <TextBlock  Text="Tổng lương cả phòng: "/>
+                            <TextBlock Text="{Binding TongLuongCaPhong, StringFormat='#,##0;(#,##0)'}"/>
+                            <TextBlock  Text=" VNĐ"/>
+                        </StackPanel>
+                        <DataGrid
                         Background="White"
                         Margin="8, 8 ,8, 8"
                         SelectionMode="Single"
@@ -229,6 +235,7 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
+                    </DockPanel>
                 </materialDesign:Card>
                 <materialDesign:Card Margin="8,8,8,16" Grid.Row="1" Grid.Column="10" Grid.RowSpan="7" Grid.ColumnSpan="3" VerticalAlignment="Top">
                     <StackPanel Background="White" >

@@ -69,8 +69,8 @@ namespace MasterSalesDemo.ViewModel
         public Visibility VisibilityBangNam { get => _VisibilityBangNam; set { _VisibilityBangNam = value; OnPropertyChanged(); } }
         private string _YearHeader;
         public string YearHeader { get => _YearHeader; set { _YearHeader = value; OnPropertyChanged(); } }
-        private string _DoanhThuCaNam;
-        public string DoanhThuCaNam { get => _DoanhThuCaNam; set { _DoanhThuCaNam = value; OnPropertyChanged(); } }
+        private Decimal _DoanhThuCaNam;
+        public Decimal DoanhThuCaNam { get => _DoanhThuCaNam; set { _DoanhThuCaNam = value; OnPropertyChanged(); } }
         private int _Maximum;
         public int Maximum { get => _Maximum; set { _Maximum = value; OnPropertyChanged(); } }
         private ObservableCollection<DiemBieuDo> _ChartData;
@@ -88,6 +88,8 @@ namespace MasterSalesDemo.ViewModel
         public bool DialogOpen { get => _DialogOpen; set { _DialogOpen = value; OnPropertyChanged(); } }
         private string _Notify;
         public string Notify { get => _Notify; set { _Notify = value; OnPropertyChanged(); } }
+        private Decimal _TongKhoangTG;
+        public Decimal TongKhoangTG { get => _TongKhoangTG; set { _TongKhoangTG = value; OnPropertyChanged(); } }
         private void notifyKhongCoThongTin()
         {
             DialogOpen = true;
@@ -109,11 +111,6 @@ namespace MasterSalesDemo.ViewModel
                     VisibilityDatePickerPopup = Visibility.Visible;
                     PopupContent = "Ngày bắt đầu không được lớn hơn ngày kết thúc.";
                 }
-                else if (SelectedStartDate >= DateTime.Today || SelectedEndDate >= DateTime.Today)
-                {
-                    VisibilityDatePickerPopup = Visibility.Visible;
-                    PopupContent = "Phạm vi báo cáo phải từ quá khứ đến trước ngày hiện tại";
-                }
                 else if (SelectedStartDate.Year < 1900 || SelectedEndDate.Year < 1900)
                 {
                     VisibilityDatePickerPopup = Visibility.Visible;
@@ -131,11 +128,6 @@ namespace MasterSalesDemo.ViewModel
                 {
                     VisibilityDatePickerPopup = Visibility.Visible;
                     PopupContent = "Ngày bắt đầu không được lớn hơn ngày kết thúc.";
-                }
-                else if (SelectedStartDate >= DateTime.Today || SelectedEndDate >= DateTime.Today)
-                {
-                    VisibilityDatePickerPopup = Visibility.Visible;
-                    PopupContent = "Phạm vi báo cáo phải từ quá khứ đến trước ngày hiện tại";
                 }
                 else if (SelectedStartDate.Year < 1900 || SelectedEndDate.Year < 1900)
                 {
@@ -191,7 +183,7 @@ namespace MasterSalesDemo.ViewModel
                                 notifyKhongCoThongTin();
                             else
                             {
-                                BaoCaoDoanhSo_PrintPreview_ViewModel printPreviewBaoCaoDoanhSo = new BaoCaoDoanhSo_PrintPreview_ViewModel(SelectedYear, DoanhThuCaNam, ChartData);
+                                BaoCaoDoanhSo_PrintPreview_ViewModel printPreviewBaoCaoDoanhSo = new BaoCaoDoanhSo_PrintPreview_ViewModel(SelectedYear, DoanhThuCaNam.ToString(), ChartData);
                                 BaoCaoDoanhSo_PrintPreview PrintPreviewWindow = new BaoCaoDoanhSo_PrintPreview(printPreviewBaoCaoDoanhSo);
                                 PrintPreviewWindow.ShowDialog();
                             }
@@ -232,10 +224,11 @@ namespace MasterSalesDemo.ViewModel
             VisibilityChonNam = Visibility.Hidden;
             VisibilityTuNgayDenNgay = Visibility.Visible;
             VisibilityDatePickerPopup = Visibility.Hidden;
-            SelectedStartDate = DateTime.Today.AddDays(-1);
-            SelectedEndDate = DateTime.Today.AddDays(-1);
+            SelectedStartDate = DateTime.Today;
+            SelectedEndDate = DateTime.Today;
             ListCheDoXem.Clear();
             ListCheDoXem.Add("Bảng");
+            TongKhoangTG = 0;
         }
 
         void anualView()
@@ -289,11 +282,12 @@ namespace MasterSalesDemo.ViewModel
                 diembieudo.Thu = doanhthu;
                 ChartData.Add(diembieudo);
             }
-            DoanhThuCaNam = "Doanh thu cả năm: " + doanhthucanam.ToString();
+            DoanhThuCaNam = doanhthucanam;
         }
 
         void LoadData()
         {
+            Decimal tongkhoangtg = 0;
             var tempEndDate = SelectedEndDate.AddDays(1).AddSeconds(-1);
             if (SelectedLoaiBaoCao=="Khoảng thời gian")
             {
@@ -324,8 +318,10 @@ namespace MasterSalesDemo.ViewModel
                     dongbaocao.TenHang = DataProvider.Ins.DB.MATHANGs.Where(x => x.id == item.MaMH).First().TenMH;
                     dongbaocao.SoLuong = item.SoLuong ?? 0;
                     dongbaocao.TongTien = item.TongTien ?? 0;
+                    tongkhoangtg += item.TongTien ?? 0;
                     BaoCao.Add(dongbaocao);
                 }
+                TongKhoangTG = tongkhoangtg;
             }
             else if (SelectedLoaiBaoCao == "Hằng năm")
             {
