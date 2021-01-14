@@ -285,6 +285,9 @@
     <Compile Include="BanHang_PrintPreview.xaml.cs">
       <DependentUpon>BanHang_PrintPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="QuanLyHoaDon_Window.xaml.cs">
+      <DependentUpon>QuanLyHoaDon_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ThemChucVu_Window.xaml.cs">
       <DependentUpon>ThemChucVu_Window.xaml</DependentUpon>
     </Compile>
@@ -299,6 +302,7 @@
     <Compile Include="ViewModel\DatOnline_ViewModel.cs" />
     <Compile Include="ViewModel\GiaHanHD_ViewModel.cs" />
     <Compile Include="ViewModel\DanhGiaKyNang_ViewModel.cs" />
+    <Compile Include="ViewModel\QLHoaDon_ViewModel.cs" />
     <Compile Include="ViewModel\QLKhachHang_ViewModel.cs" />
     <Compile Include="ViewModel\QLLichSu_ViewModel.cs" />
     <Compile Include="ViewModel\QLKiNang_ViewModel.cs" />
@@ -427,6 +431,10 @@
     <Page Include="BanHang_PrintPreview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QuanLyHoaDon_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ThemChucVu_Window.xaml">
       <SubType>Designer</SubType>

@@ -148,6 +148,7 @@ namespace MasterSalesDemo.ViewModel
         public ICommand DialogOK { get; set; }
         public ICommand CheckSDTCommand { get; set; }
         public ICommand KhachHangCommand { get; set; }
+        public ICommand QLHDCommand { get; set; }
         #endregion
 
         #region
@@ -406,6 +407,11 @@ namespace MasterSalesDemo.ViewModel
 
             XemDatOnlineCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 XuLyPhieuOnline();
+            });
+
+            QLHDCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                QuanLyHoaDon_Window win = new QuanLyHoaDon_Window();
+                win.ShowDialog();
             });
 
             CheckSDTCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {

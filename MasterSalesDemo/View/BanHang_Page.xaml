@@ -201,6 +201,9 @@
                 <Grid Margin="40,10,30,-10" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="3">
                     <Button Command="{Binding XemDatOnlineCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Xử lý phiếu Online" Height="60" FontSize="20"/>
                 </Grid>
+                <Grid Margin="40,10,30,-10" Grid.Row="8" Grid.Column="10" Grid.ColumnSpan="3">
+                    <Button Command="{Binding QLHDCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Quản lý hóa đơn" Height="60" FontSize="20"/>
+                </Grid>
                 <Grid Margin="40,10,30,10" Grid.Row="5" Grid.Column="10" Grid.ColumnSpan="3">
                     <Button Command="{Binding ThemGioHangCommand}" Style="{StaticResource MaterialDesignRaisedButton}" Content="Thêm vào giỏ hàng" Height="60" FontSize="20"/>
                 </Grid>

@@ -25,4 +25,5 @@
     <viewmodel:SuaDanhGia_ViewModel x:Key="SuaDanhGiaVM"></viewmodel:SuaDanhGia_ViewModel>
     <viewmodel:ThemChucVu_ViewModel x:Key="ThemChucVuVM"></viewmodel:ThemChucVu_ViewModel>
     <viewmodel:DangKyTaiKhoan_ViewModel x:Key="DangKyTaiKhoanVM"></viewmodel:DangKyTaiKhoan_ViewModel>
+    <viewmodel:QuanLyHoaDon_ViewModel x:Key="QLHoaDonVM"></viewmodel:QuanLyHoaDon_ViewModel>
 </ResourceDictionary>
